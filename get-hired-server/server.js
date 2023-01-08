@@ -15,15 +15,19 @@ const port = 3001;
 mongoose.set('strictQuery', true);
 
 app.post('/register', async (req, res) => {
+  console.log("post");
   const { username, password } = req.body;
   const existingUser = await User.find({ username });  
   const userExists = existingUser.length > 0;
   if (userExists) {
     res.sendStatus(403);
+    console.log("exist");
   } else {
-    const user = new User({ username, password });
+    const user = new User({ username, password });  
     await user.save();
     res.sendStatus(200);  
+    console.log("200");
+
   }
 });
 
@@ -53,4 +57,3 @@ const main = async () => {
 };
 
 main();
-
