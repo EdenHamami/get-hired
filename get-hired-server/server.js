@@ -14,16 +14,52 @@ app.use(bodyParser.json());
 const port = 3001;
 mongoose.set('strictQuery', true);
 
+
+app.post('/jobSearch', async (req, res) => {
+  console.log("get job search");
+  const { jobdescription, joblocation } = req.body;
+  const SerpApi = require('google-search-results-nodejs');
+  const query = jobdescription.toString() + ' ' + joblocation.toString()
+  console.log(query);
+  const search = new SerpApi.GoogleSearch("407730da12c009e6c976a0b294a56048619e1e788b76bad9178e3a8fb34a892b");
+  
+  const params = {
+    engine: "google_jobs",
+    q: query,
+    hl: "en"
+  };
+  
+  const callback = function(data) {
+    console.log(data["jobs_results"]);
+    acancy.create(data["jobs_results"], (error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Data saved successfully');
+      }
+    });
+  };
+  
+  // Show result as JSON
+  search.json(params, callback);
+
+});
+
+
 app.post('/register', async (req, res) => {
+  console.log("post");
   const { username, password } = req.body;
   const existingUser = await User.find({ username });  
   const userExists = existingUser.length > 0;
   if (userExists) {
     res.sendStatus(403);
+    console.log("exist");
   } else {
-    const user = new User({ username, password });
+    const user = new User({ username, password });  
     await user.save();
     res.sendStatus(200);  
+    console.log("200");
+
   }
 });
 
@@ -53,4 +89,3 @@ const main = async () => {
 };
 
 main();
-
