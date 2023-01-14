@@ -10,15 +10,27 @@ import { BrowserRouter as Router, Route ,Link, Routes,useRoutes} from 'react-rou
 
 function OnlineCompiler() {
 
+    const options = [
+        {value: '', text: '--Choose a languge--'},
+        {value: 'python', text: 'python 🍏'},
+        {value: 'C', text: 'C 🍌'},
+        // {value: 'kiwi', text: 'Kiwi 🥝'},
+      ];
+
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
+    const [languge, setLanguge] = useState('');
+
 
       const my_print = () => {
         console.log(input);
-        axios.post('http://127.0.0.1:3001/compile', {input: input}).then(res => {
-          console.log(res.data);
-          setOutput(res.data);
-        });
+        console.log(languge);
+        if(languge == "python"){
+            axios.post('http://127.0.0.1:3001/compile', {input: input}).then(res => {
+            console.log(res.data);
+            setOutput(res.data);
+            });
+        }
         // fetch('/compile')
         // .then(response => response.text())
         // .then(output => {
@@ -34,9 +46,13 @@ function OnlineCompiler() {
     <h3>output</h3>
     <textarea rows="13" cols="100" value={output} ></textarea>
     <br/>
-    Languge : <select name="lang">
-        <option value="python">python</option>
-    </select>
+    Languge : <select value={languge} onChange={(event) => setLanguge(event.target.value)}>
+    {options.map(option => (
+      <option key={option.value} value={option.value}>
+        {option.text}
+      </option>
+    ))}
+  </select>
     <br/>
     <button id="submit" className="btn btn-info btn-block btn-signin" onClick={my_print}>submit</button><br></br>
    </div>
