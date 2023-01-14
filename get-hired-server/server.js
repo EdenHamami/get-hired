@@ -31,6 +31,65 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// app.post('/print', async (req, res) => {
+//   console.log("orpaz");
+//   const { spawn } = require('child_process');
+//   const py = spawn('py', ['hellow.py']);
+
+//   py.stdout.on('data', (data) => {
+//       console.log(`stdout: ${data}`);
+//   });
+
+//   py.stderr.on('data', (data) => {
+//       console.error(`stderr: ${data}`);
+//   });
+
+//   py.on('close', (code) => {
+//       console.log(`child process exited with code ${code}`);
+//   });
+
+// });
+
+// post requset to compile
+app.post('/compile', (req, res) => {
+  console.log("orpaz");
+
+  // get the code from the user
+  const { input } = req.body;
+  const { exec } = require('child_process');
+  const fs = require('fs');
+
+  
+  // add the code to the file 
+  fs.writeFileSync('hellow.py', input, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+  
+  // compile the code
+  exec('py hellow.py', (err, stdout, stderr) => {
+    if (err) {
+      console.log(err);
+      res.send(stderr);
+      return;
+    }
+    console.log(stdout);
+    
+    res.send(stdout);
+
+    // delet the file
+    fs.unlink('hellow.py', (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  });
+
+  
+  
+});
+
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.find({ username });  
