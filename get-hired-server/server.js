@@ -55,20 +55,60 @@ app.post('/compile', (req, res) => {
   console.log("orpaz");
 
   // get the code from the user
-  const { input } = req.body;
+  const { input , languge} = req.body;
   const { exec } = require('child_process');
   const fs = require('fs');
 
-  
+  if (languge == "python"){
   // add the code to the file 
-  fs.writeFileSync('hellow.py', input, (err) => {
+    fs.writeFileSync('./temp/hellow.py', input, (err) => {
+      if (err) {
+        console.error(err);
+      }
+      console.log(stdout);
+      res.send(stdout);
+    });
+    
+    // compile the code
+    exec('py ./temp/hellow.py', (err, stdout, stderr) => {
+      // delet the file
+      fs.unlink('./temp/hellow.py', (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+      if (err) {
+        console.log(err);
+        res.send(stderr);
+        return;
+      }
+      console.log(stdout);
+      
+      res.send(stdout);
+
+      
+    });
+
+}else if (languge == "C++"){
+  console.log("herrr!!");
+  fs.writeFileSync('./temp/hellow.cpp', input, (err) => {
     if (err) {
       console.error(err);
+      
     }
   });
-  
-  // compile the code
-  exec('py hellow.py', (err, stdout, stderr) => {
+  exec('g++ ./temp/hellow.cpp -o ./temp/output.exe && cd temp && output.exe', (err, stdout, stderr) => {
+    // delet the file
+     fs.unlink('./temp/hellow.cpp', (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+    fs.unlink('./temp/output.exe', (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
     if (err) {
       console.log(err);
       res.send(stderr);
@@ -77,16 +117,12 @@ app.post('/compile', (req, res) => {
     console.log(stdout);
     
     res.send(stdout);
-
-    // delet the file
-    fs.unlink('hellow.py', (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
+    
+     
   });
 
   
+}
   
 });
 

@@ -13,7 +13,7 @@ function OnlineCompiler() {
     const options = [
         {value: '', text: '--Choose a languge--'},
         {value: 'python', text: 'python 🍏'},
-        {value: 'C', text: 'C 🍌'},
+        {value: 'C++', text: 'C++ 🍌'},
         // {value: 'kiwi', text: 'Kiwi 🥝'},
       ];
 
@@ -25,12 +25,11 @@ function OnlineCompiler() {
       const my_print = () => {
         console.log(input);
         console.log(languge);
-        if(languge == "python"){
-            axios.post('http://127.0.0.1:3001/compile', {input: input}).then(res => {
-            console.log(res.data);
-            setOutput(res.data);
-            });
-        }
+        axios.post('http://127.0.0.1:3001/compile', {input: input, languge:languge}).then(res => {
+        console.log(res.data);
+        setOutput(res.data);
+        });
+        
         // fetch('/compile')
         // .then(response => response.text())
         // .then(output => {
