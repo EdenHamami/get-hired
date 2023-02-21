@@ -1,4 +1,6 @@
 const User = require('./models/user');
+const ProblemType = require('./models/problemType');
+const PracticeProblem = require('./models/practiceProblem');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,6 +12,7 @@ app.use(cors());
 // parse the request body to json
 app.use(express.json());
 app.use(bodyParser.json());
+var q
 
 const port = 3001;
 mongoose.set('strictQuery', true);
@@ -29,48 +32,50 @@ app.post('/register', async (req, res) => {
     console.log("200");
 
   }
+}); 
+
+////////////////////////////////////////////////////////////////
+
+let question;
+app.post('/question',async (req, res) => {
+
+
+  console.log("orpaz");
+  const id = "63f539d8623b91800090b315"
+  question = await PracticeProblem.findOne({ _id:id }); 
+  const content = question.content
+  res.send(content);
 });
 
-// app.post('/print', async (req, res) => {
-//   console.log("orpaz");
-//   const { spawn } = require('child_process');
-//   const py = spawn('py', ['hellow.py']);
-
-//   py.stdout.on('data', (data) => {
-//       console.log(`stdout: ${data}`);
-//   });
-
-//   py.stderr.on('data', (data) => {
-//       console.error(`stderr: ${data}`);
-//   });
-
-//   py.on('close', (code) => {
-//       console.log(`child process exited with code ${code}`);
-//   });
-
-// });
 
 // post requset to compile
 app.post('/compile', (req, res) => {
-  console.log("orpaz");
+  
 
   // get the code from the user
   const { input , languge} = req.body;
   const { exec } = require('child_process');
   const fs = require('fs');
 
+
   if (languge == "python"){
+    const test_input = question.test[0].input
+    const test_output = question.test[0].output
+    console.log(test_output);
   // add the code to the file 
     fs.writeFileSync('./temp/hellow.py', input, (err) => {
       if (err) {
         console.error(err);
       }
+      
       console.log(stdout);
       res.send(stdout);
     });
     
+    compile = 'py ./temp/hellow.py ' + test_input
+    console.log(compile)
     // compile the code
-    exec('py ./temp/hellow.py', (err, stdout, stderr) => {
+    exec(compile , (err, stdout, stderr) => {
       // delet the file
       fs.unlink('./temp/hellow.py', (err) => {
         if (err) {
@@ -82,11 +87,12 @@ app.post('/compile', (req, res) => {
         res.send(stderr);
         return;
       }
-      console.log(stdout);
-      
-      res.send(stdout);
-
-      
+      if (test_output[0] == stdout[0]){
+        result_to_user = stdout + '\nYour code is correct'
+      }else{
+        result_to_user = stdout + '\nYour code is incorrect, try again'
+      }
+      res.send(result_to_user);
     });
 
 }else if (languge == "C++"){
@@ -144,7 +150,17 @@ async function connectToDB() {
 const main = async () => {
   await connectToDB();
   console.log("Established connection to DB");
+    // const newUser = new PracticeProblem({
+    //     content: 'Write a code for the exercise x+2',
+    //     types: ['Algorithms'],
+    //     solution: [{language: "python", solution: "def add_two(num):\nresult = num + 2\nreturn result"}],
+    //     test: [{input: "3", output: "5"}],
+    //     difficultyLevel: 1
 
+    // });
+    // const user = await newUser.save();
+    // console.log('created a new user');
+    // console.log(user);
   // start the server 
   app.listen(port, () => {
     console.log(`Server started listening on port ${port}`);

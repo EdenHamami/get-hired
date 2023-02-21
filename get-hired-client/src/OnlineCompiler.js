@@ -20,9 +20,18 @@ function OnlineCompiler() {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
     const [languge, setLanguge] = useState('');
+    const [question, setQuestion] = useState('');
 
+
+    useEffect(() => {
+      axios.post('http://127.0.0.1:3001/question',).then(res => {
+        setQuestion(res.data);
+        console.log(question);
+        });
+    }, []); 
 
       const my_print = () => {
+       
         console.log(input);
         console.log(languge);
         axios.post('http://127.0.0.1:3001/compile', {input: input, languge:languge}).then(res => {
@@ -39,6 +48,7 @@ function OnlineCompiler() {
   return (
  
    <div>
+   <div >{question}</div> 
     <h3>input</h3>
     <textarea rows="13" cols="100" value={input} onChange={(event) => setInput(event.target.value)}></textarea>
     <br/>
