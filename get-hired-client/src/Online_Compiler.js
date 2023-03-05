@@ -2,13 +2,17 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import './App.css';
 import './RegistrationPage'
+import { useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import RegistrationPage from './RegistrationPage';
 import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 import { BrowserRouter as Router, Route ,Link, Routes,useRoutes} from 'react-router-dom';
 
 
-function OnlineCompiler() {
+function Online_Compiler() {
+  const location = useLocation();
+const data = location.state;
+console.log(data.id);
 
     const options = [
         {value: '', text: '--Choose a languge--'},
@@ -24,11 +28,13 @@ function OnlineCompiler() {
 
 
     useEffect(() => {
-      axios.post('http://127.0.0.1:3001/question',).then(res => {
+
+      const problemId =data.id; // Replace with the actual problemId
+  axios.post(`http://127.0.0.1:3001/question/${problemId}`).then(res => {
         setQuestion(res.data);
         console.log(question);
         });
-    }, []); 
+    }, [location]); 
 
       const my_print = () => {
        
@@ -63,9 +69,9 @@ function OnlineCompiler() {
     ))}
   </select>
     <br/>
-    <button id="submit" className="btn btn-info btn-block btn-signin" onClick={my_print}>submit</button><br></br>
+    <button id="submit"  onClick={my_print}>submit</button><br></br>
    </div>
   );
 }
 
-export default OnlineCompiler;
+export default Online_Compiler;

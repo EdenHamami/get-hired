@@ -1,10 +1,9 @@
 const User = require('./models/user');
-const ProblemType = require('./models/problemType');
-const PracticeProblem = require('./models/practiceProblem');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const compilerServer = require('./server-compiler');
 
 const app = express();
 // allow the client to speak to the server 
@@ -12,7 +11,7 @@ app.use(cors());
 // parse the request body to json
 app.use(express.json());
 app.use(bodyParser.json());
-var q
+compilerServer(app);
 
 const port = 3001;
 mongoose.set('strictQuery', true);
@@ -36,101 +35,101 @@ app.post('/register', async (req, res) => {
 
 ////////////////////////////////////////////////////////////////
 
-let question;
-app.post('/question',async (req, res) => {
+// let question;
+// app.post('/question',async (req, res) => {
 
 
-  console.log("orpaz");
-  const id = "63f539d8623b91800090b315"
-  question = await PracticeProblem.findOne({ _id:id }); 
-  const content = question.content
-  res.send(content);
-});
+//   console.log("orpaz");
+//   const id = "63f539d8623b91800090b315"
+//   question = await PracticeProblem.findOne({ _id:id }); 
+//   const content = question.content
+//   res.send(content);
+// });
 
 
-// post requset to compile
-app.post('/compile', (req, res) => {
+// // post requset to compile
+// app.post('/compile', (req, res) => {
   
 
-  // get the code from the user
-  const { input , languge} = req.body;
-  const { exec } = require('child_process');
-  const fs = require('fs');
+//   // get the code from the user
+//   const { input , languge} = req.body;
+//   const { exec } = require('child_process');
+//   const fs = require('fs');
 
 
-  if (languge == "python"){
-    const test_input = question.test[0].input
-    const test_output = question.test[0].output
-    console.log(test_output);
-  // add the code to the file 
-    fs.writeFileSync('./temp/hellow.py', input, (err) => {
-      if (err) {
-        console.error(err);
-      }
+//   if (languge == "python"){
+//     const test_input = question.test[0].input
+//     const test_output = question.test[0].output
+//     console.log(test_output);
+//   // add the code to the file 
+//     fs.writeFileSync('./temp/hellow.py', input, (err) => {
+//       if (err) {
+//         console.error(err);
+//       }
       
-      console.log(stdout);
-      res.send(stdout);
-    });
+//       console.log(stdout);
+//       res.send(stdout);
+//     });
     
-    compile = 'py ./temp/hellow.py ' + test_input
-    console.log(compile)
-    // compile the code
-    exec(compile , (err, stdout, stderr) => {
-      // delet the file
-      fs.unlink('./temp/hellow.py', (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-      if (err) {
-        console.log(err);
-        res.send(stderr);
-        return;
-      }
-      if (test_output[0] == stdout[0]){
-        result_to_user = stdout + '\nYour code is correct'
-      }else{
-        result_to_user = stdout + '\nYour code is incorrect, try again'
-      }
-      res.send(result_to_user);
-    });
+//     compile = 'py ./temp/hellow.py ' + test_input
+//     console.log(compile)
+//     // compile the code
+//     exec(compile , (err, stdout, stderr) => {
+//       // delet the file
+//       fs.unlink('./temp/hellow.py', (err) => {
+//         if (err) {
+//           console.error(err);
+//         }
+//       });
+//       if (err) {
+//         console.log(err);
+//         res.send(stderr);
+//         return;
+//       }
+//       if (test_output[0] == stdout[0]){
+//         result_to_user = stdout + '\nYour code is correct'
+//       }else{
+//         result_to_user = stdout + '\nYour code is incorrect, try again'
+//       }
+//       res.send(result_to_user);
+//     });
 
-}else if (languge == "C++"){
-  console.log("herrr!!");
-  fs.writeFileSync('./temp/hellow.cpp', input, (err) => {
-    if (err) {
-      console.error(err);
+// }else if (languge == "C++"){
+//   console.log("herrr!!");
+//   fs.writeFileSync('./temp/hellow.cpp', input, (err) => {
+//     if (err) {
+//       console.error(err);
       
-    }
-  });
-  exec('g++ ./temp/hellow.cpp -o ./temp/output.exe && cd temp && output.exe', (err, stdout, stderr) => {
-    // delet the file
-     fs.unlink('./temp/hellow.cpp', (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-    fs.unlink('./temp/output.exe', (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-    if (err) {
-      console.log(err);
-      res.send(stderr);
-      return;
-    }
-    console.log(stdout);
+//     }
+//   });
+//   exec('g++ ./temp/hellow.cpp -o ./temp/output.exe && cd temp && output.exe', (err, stdout, stderr) => {
+//     // delet the file
+//      fs.unlink('./temp/hellow.cpp', (err) => {
+//       if (err) {
+//         console.error(err);
+//       }
+//     });
+//     fs.unlink('./temp/output.exe', (err) => {
+//       if (err) {
+//         console.error(err);
+//       }
+//     });
+//     if (err) {
+//       console.log(err);
+//       res.send(stderr);
+//       return;
+//     }
+//     console.log(stdout);
     
-    res.send(stdout);
+//     res.send(stdout);
     
      
-  });
+//   });
 
   
-}
+// }
   
-});
+// });
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
