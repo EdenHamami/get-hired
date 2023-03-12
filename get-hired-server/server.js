@@ -5,6 +5,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const compilerServer = require('./server-compiler');
 
+const PracticeProblem = require('./models/practiceProblem');
+
 const app = express();
 // allow the client to speak to the server 
 app.use(cors());
@@ -40,7 +42,7 @@ app.post('/register', async (req, res) => {
 
 
 //   console.log("orpaz");
-//   const id = "63f539d8623b91800090b315"
+//   const id = "640cce35298f4827800bf64b"
 //   question = await PracticeProblem.findOne({ _id:id }); 
 //   const content = question.content
 //   res.send(content);
@@ -152,7 +154,8 @@ const main = async () => {
     // const newUser = new PracticeProblem({
     //     content: 'Write a code for the exercise x+2',
     //     types: ['Algorithms'],
-    //     solution: [{language: "python", solution: "def add_two(num):\nresult = num + 2\nreturn result"}],
+    //     solution: [{language: "python", solution: "def add_two(num):\nresult = num + 2\nreturn result"}, {language: "C++", solution: " "}, {language: "Java", solution: " "}],
+    //     main_for_lang: [{language: "python", main: "print(add_num(int(sys.argv[1])))"}, {language: "C++", main: " "}, {language: "Java", main: " "}],
     //     test: [{input: "3", output: "5"}],
     //     difficultyLevel: 1
 
@@ -160,7 +163,7 @@ const main = async () => {
     // const user = await newUser.save();
     // console.log('created a new user');
     // console.log(user);
-  // start the server 
+  //start the server 
   app.listen(port, () => {
     console.log(`Server started listening on port ${port}`);
   });    

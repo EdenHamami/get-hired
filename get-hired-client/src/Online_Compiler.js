@@ -18,7 +18,7 @@ console.log(data.id);
         {value: '', text: '--Choose a languge--'},
         {value: 'python', text: 'python 🍏'},
         {value: 'C++', text: 'C++ 🍌'},
-        // {value: 'kiwi', text: 'Kiwi 🥝'},
+        {value: 'Java', text: 'Java 🥝'},
       ];
 
     const [input, setInput] = useState('');
@@ -32,7 +32,7 @@ console.log(data.id);
       const problemId =data.id; // Replace with the actual problemId
   axios.post(`http://127.0.0.1:3001/question/${problemId}`).then(res => {
         setQuestion(res.data);
-        console.log(question);
+        console.log("her" + res.data);
         });
     }, [location]); 
 
@@ -56,12 +56,17 @@ console.log(data.id);
    <div>
    <div >{question}</div> 
     <h3>input</h3>
-    <textarea rows="13" cols="100" value={input} onChange={(event) => setInput(event.target.value)}></textarea>
+    <textarea rows="13" cols="100" value={input} onChange={(event) => setInput(event.target.value)}>
+
+    </textarea>
     <br/>
     <h3>output</h3>
     <textarea rows="13" cols="100" value={output} ></textarea>
     <br/>
-    Languge : <select value={languge} onChange={(event) => setLanguge(event.target.value)}>
+    Languge : <select value={languge} onChange={(event) => {
+      setLanguge(event.target.value);
+      setInput("Here is the initial code of " + event.target.value);
+    }}>
     {options.map(option => (
       <option key={option.value} value={option.value}>
         {option.text}

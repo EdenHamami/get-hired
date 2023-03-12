@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 const ProblemType = require('./problemType');
 
 const practiceProblemSchema = new Schema({
+    title: {
+      type: String,
+      required: true
+    },
     content: {
         type: String,
         required: true
@@ -27,6 +31,16 @@ const practiceProblemSchema = new Schema({
           required: true
         },
         solution: {
+          type: String,
+          required: true
+        }
+      }],
+      main_for_lang: [{
+        language: {
+          type: String,
+          required: true
+        },
+        main: {
           type: String,
           required: true
         }

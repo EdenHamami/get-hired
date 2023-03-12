@@ -13,7 +13,7 @@ import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 function Questions() {
 
   const question1 = {
-    id: '63f539d8623b91800090b315',
+    id: '640cce35298f4827800bf64b',
   }
   const question2 = {
     id: 'Some thing',
