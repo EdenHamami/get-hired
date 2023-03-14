@@ -13,13 +13,13 @@ import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 function Questions() {
 
   const question1 = {
-    id: '640cce35298f4827800bf64b',
+    id: '641091c864f8293893d06e7e',
   }
   const question2 = {
-    id: 'Some thing',
+    id: '640e08610999a23ce2deda8b',
   }
   const question3 = {
-    id: 'Some thing',
+    id: '640edc8a680d709e8e544f0e',
   }
 
   return (

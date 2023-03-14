@@ -13,35 +13,46 @@ app.post('/question/:problemId',async (req, res) => {
   res.send(content);
 });
 
+app.post('/language',async (req, res) => {
+  const {language} = req.body;
+  console.log("langggg" + language)
+  console.log(question[language])
+  const initial_code = question[language].initial_code;
+  res.send(initial_code);
+});
 
 // post requset to compile
 app.post('/compile', (req, res) => {
   
 
   // get the code from the user
-  const { input , languge} = req.body;
-  const { exec } = require('child_process');
+  const { input , language} = req.body;
+  const { exec, execSync } = require('child_process');
   const fs = require('fs');
 
-  let MainForLang
 
-  const mainForLangs = question.main_for_lang
-    for (const langObj of mainForLangs) {
-      if (langObj.language === languge) {
-        MainForLang = langObj.main;
-        break;
-      }
-    }
+  const main_code = question[language].main;
+  const header_code = question[language].header;
+  const initial_code = question[language].initial_code;
 
-  console.log("herrrr main for "+ languge+"\n"+MainForLang);
+
+  // const mainForLangs = question.main_for_lang
+  //   for (const langObj of mainForLangs) {
+  //     if (langObj.language === languge) {
+  //       MainForLang = langObj.main;
+  //       break;
+  //     }
+  //   }
+
+  console.log("herrrr main for "+ language+"\n"+main_code);
 
   
   const test_input = question.test[0].input
   const test_output = question.test[0].output
 
-  if (languge == "python"){
-    text_file = "import sys\n" + input + MainForLang
-    console.log(test_output);
+  if (language == "python"){
+    text_file = header_code + input + main_code
+    console.log("this is the text file: " + text_file);
   // add the code to the file 
     fs.writeFileSync('./temp/hellow.py', text_file, (err) => {
       if (err) {
@@ -67,7 +78,9 @@ app.post('/compile', (req, res) => {
         res.send(stderr);
         return;
       }
-      if (test_output[0] == stdout[0]){
+      console.log("test:"+test_output+":2");
+    console.log("std:"+stdout+":2");
+      if (test_output == stdout){
         result_to_user = stdout + '\nYour code is correct'
       }else{
         result_to_user = stdout + '\nYour code is incorrect, try again'
@@ -75,9 +88,9 @@ app.post('/compile', (req, res) => {
       res.send(result_to_user);
     });
 
-}else if (languge == "C++"){
+}else if (language == "C++"){
 
-  text_file = "#include <iostream>\n#include <cstdlib>\n" + input + "\n" + MainForLang
+  text_file = "#include <iostream>\n#include <cstdlib>\n#include <vector>\n#include <unordered_map>\n#include <string>\n#include <cstring>\nusing namespace std;\n" + input + "\n" + MainForLang
 
   console.log("this is the text file c++: " + text_file);
   fs.writeFileSync('./temp/hellow.cpp', text_file, (err) => {
@@ -87,45 +100,29 @@ app.post('/compile', (req, res) => {
     }
   });
   exec('g++ ./temp/hellow.cpp -o ./temp/output.exe && cd temp && output.exe '+ test_input, (err, stdout, stderr) => {
-    // delet the file
-
-    try {
-      fs.unlinkSync('./temp/hellow.cpp');
-      fs.unlinkSync('./temp/output.exe');
-      console.log('Files deleted successfully');
-    } catch (err) {
-      console.error(err);
-    }
-    //  fs.unlink('./temp/hellow.cpp && output.exe', (err) => {
-    //   if (err) {
-    //     console.error(err);
-    //   }
-    // });
-
-    // console.log("this is the test input: " + test_input)
-    // fs.unlink('./temp/output.exe' , (err) => {
-    //   if (err) {
-    //     console.error(err);
-    //   }
-    // });
     if (err) {
-      console.log(err);
-      res.send(stderr);
-      return;
-    }if (test_output[0] == stdout[0]){
-      result_to_user = stdout + '\nYour code is correct'
-    }else{
-      result_to_user = stdout + '\nYour code is incorrect, try again'
+        console.log(err);
+        res.send(stderr);
+        return;
     }
-    res.send(result_to_user);
+    console.log("test:"+test_output+":2");
+    console.log("std:"+stdout+":2");
+    if (test_output == stdout){
+        result_to_user = stdout + '\nYour code is correct'
+    } else {
+        result_to_user = stdout + '\nYour code is incorrect, try again'
+    }
+
     console.log(stdout);
-    
-    //res.send(stdout);
-    
-     
-  });
-}else if (languge == "Java"){
-  text_file = "public class Hellow {\n\t" + input + "\n" + MainForLang
+    res.send(result_to_user);
+
+    // Delete the files after program has finished executing
+    fs.unlinkSync('./temp/hellow.cpp');
+    fs.unlinkSync('./temp/output.exe');
+    console.log('Files deleted successfully');
+});
+}else if (language == "Java"){
+  text_file = "import java.util.*;\nimport java.util.Arrays;\npublic class Hellow {\n\t" + input + "\n" + MainForLang
   console.log("this is the text file java: " + text_file);
 
   fs.writeFileSync('./temp/Hellow.java', text_file, (err) => {
@@ -149,7 +146,11 @@ app.post('/compile', (req, res) => {
       console.log(err);
       res.send(stderr);
       return;
-    }if (test_output[0] == stdout[0]){
+
+    }
+    
+    console.log("test: "+test_output+" :2");
+    console.log("std: "+stdout+" :2");if (test_output == stdout){
       result_to_user = stdout + '\nYour code is correct'
     }else{
       result_to_user = stdout + '\nYour code is incorrect, try again'

@@ -15,7 +15,7 @@ const data = location.state;
 console.log(data.id);
 
     const options = [
-        {value: '', text: '--Choose a languge--'},
+        {value: '', text: '--Choose a language--'},
         {value: 'python', text: 'python 🍏'},
         {value: 'C++', text: 'C++ 🍌'},
         {value: 'Java', text: 'Java 🥝'},
@@ -23,7 +23,7 @@ console.log(data.id);
 
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
-    const [languge, setLanguge] = useState('');
+    const [language, setLanguage] = useState('');
     const [question, setQuestion] = useState('');
 
 
@@ -39,10 +39,25 @@ console.log(data.id);
       const my_print = () => {
        
         console.log(input);
-        console.log(languge);
-        axios.post('http://127.0.0.1:3001/compile', {input: input, languge:languge}).then(res => {
+        console.log(language);
+        axios.post('http://127.0.0.1:3001/compile', {input: input, language:language}).then(res => {
         console.log(res.data);
         setOutput(res.data);
+        });
+        
+        // fetch('/compile')
+        // .then(response => response.text())
+        // .then(output => {
+        //     console.log(output);
+        // });
+      };
+      const my_initial_code = (lang) => {
+       
+        console.log(input);
+        console.log(language);
+        axios.post('http://127.0.0.1:3001/language', {language:lang}).then(res => {
+        console.log(res.data);
+        setInput(res.data);
         });
         
         // fetch('/compile')
@@ -63,9 +78,9 @@ console.log(data.id);
     <h3>output</h3>
     <textarea rows="13" cols="100" value={output} ></textarea>
     <br/>
-    Languge : <select value={languge} onChange={(event) => {
-      setLanguge(event.target.value);
-      setInput("Here is the initial code of " + event.target.value);
+    Languge : <select value={language} onChange={(event) => {
+      setLanguage(event.target.value);
+      my_initial_code(event.target.value);
     }}>
     {options.map(option => (
       <option key={option.value} value={option.value}>

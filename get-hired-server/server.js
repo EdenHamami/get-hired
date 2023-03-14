@@ -152,11 +152,13 @@ const main = async () => {
   await connectToDB();
   console.log("Established connection to DB");
     // const newUser = new PracticeProblem({
-    //     content: 'Write a code for the exercise x+2',
+    //     title: ' ',
+    //     content: ' ',
     //     types: ['Algorithms'],
-    //     solution: [{language: "python", solution: "def add_two(num):\nresult = num + 2\nreturn result"}, {language: "C++", solution: " "}, {language: "Java", solution: " "}],
-    //     main_for_lang: [{language: "python", main: "print(add_num(int(sys.argv[1])))"}, {language: "C++", main: " "}, {language: "Java", main: " "}],
-    //     test: [{input: "3", output: "5"}],
+    //     python: {header:" ", solution: " ", main: " ", initial_code: " "},
+    //     cpp: {header:" ", solution: " ", main: " ", initial_code: " "},
+    //     java: {header:" ", solution: " ", main: " ", initial_code: " "},
+    //     test: [{input: " ", output: " "}],
     //     difficultyLevel: 1
 
     // });
