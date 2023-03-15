@@ -25,14 +25,21 @@ console.log(data.id);
     const [output, setOutput] = useState('');
     const [language, setLanguage] = useState('');
     const [question, setQuestion] = useState('');
+    const [examples, setExamples] = useState([]);
 
 
     useEffect(() => {
 
       const problemId =data.id; // Replace with the actual problemId
   axios.post(`http://127.0.0.1:3001/question/${problemId}`).then(res => {
-        setQuestion(res.data);
-        console.log("her" + res.data);
+        setQuestion(res.data.content);
+        console.log("her " + res.data.examples[0].input);
+        res.data.examples.map((item, index) => {
+          const newItem = { input: item.input, output: item.output };
+          setExamples(prevList => [...prevList, newItem]);
+        }
+        
+        );
         });
     }, [location]); 
 
@@ -70,6 +77,15 @@ console.log(data.id);
  
    <div>
    <div >{question}</div> 
+   <ul>
+   {examples.map((item, index) => (
+     <li key={index}>
+      <h5>example {index+1}:</h5>
+      <div >input: {item.input}</div>
+      <div >output: {item.output}</div>
+     </li>
+   ))}
+ </ul>
     <h3>input</h3>
     <textarea rows="13" cols="100" value={input} onChange={(event) => setInput(event.target.value)}>
 

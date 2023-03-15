@@ -11,9 +11,22 @@ const practiceProblemSchema = new Schema({
     type: String,
     required: true
   },
+  examples: [{
+    input: {
+      type: String,
+      required: true
+    },
+    output: {
+      type: String,
+      required: true
+    }
+  }],
   types: [{
     type: String,
     required: true
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: 'ProblemType',
+    // required: true
   }],
   hints: [{
     name: {

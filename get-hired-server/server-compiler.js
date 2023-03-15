@@ -8,8 +8,12 @@ let question;
 app.post('/question/:problemId',async (req, res) => {
   const problemId = req.params.problemId;
   question = await PracticeProblem.findOne({ _id:problemId }); 
-  const content = question.content
-  res.send(content);
+  const data = {
+    title: question.title,
+    content: question.content,
+    examples: question.examples,
+  };
+  res.send(data);
 });
 
 //send the initial code by the lang
