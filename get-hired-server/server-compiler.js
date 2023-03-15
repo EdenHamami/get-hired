@@ -38,24 +38,33 @@ app.post('/compile', (req, res) => {
   const test_output = question.test[0].output
 
   text_file = header_code + input + main_code
+  
+  console.log("item: " + question)
+  console.log("head: "+header_code)
+  console.log("text: "+text_file)
 
   if (language == "python"){
   // add the code to the file 
-    fs.writeFileSync('./temp/hellow.py', text_file, (err) => {
+    fs.writeFileSync('./temp/solution.py', text_file, (err) => {
       if (err) {
         console.error(err);
       }
     });
     
-    compile = 'py ./temp/hellow.py ' + test_input
+    compile = 'py ./temp/solution.py ' + test_input
     // compile the code
     exec(compile , (err, stdout, stderr) => {
       if (err) {
         res.send(stderr);
+        try{
+          fs.unlinkSync('./temp/solution.py');
+        }catch{
+          return;
+        }
         return;
       }
       // delet the file
-      fs.unlinkSync('./temp/hellow.py');
+      fs.unlinkSync('./temp/solution.py');
 
       if (test_output == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
@@ -66,19 +75,30 @@ app.post('/compile', (req, res) => {
     });
 
 }else if (language == "cpp"){
-  fs.writeFileSync('./temp/hellow.cpp', text_file, (err) => {
+  fs.writeFileSync('./temp/solution.cpp', text_file, (err) => {
     if (err) {
       console.error(err);
     }
   });
-  compile = 'g++ ./temp/hellow.cpp -o ./temp/output.exe && cd temp && output.exe ' + test_input
+  compile = 'g++ ./temp/solution.cpp -o ./temp/output.exe && cd temp && output.exe ' + test_input
   exec(compile, (err, stdout, stderr) => {
     if (err) {
+      console.log(stderr)
       res.send(stderr);
+      try{
+        fs.unlinkSync('./temp/solution.cpp');
+      }catch{
+        return;
+      }
+      try{
+        fs.unlinkSync('./temp/output.exe');
+      }catch{
+        return;
+      }
       return;
     }
     // Delete the files after program has finished executing
-    fs.unlinkSync('./temp/hellow.cpp');
+    fs.unlinkSync('./temp/solution.cpp');
     fs.unlinkSync('./temp/output.exe');
     if (test_output == stdout){
       result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
@@ -90,20 +110,31 @@ app.post('/compile', (req, res) => {
 
 });
 }else if (language == "java"){
-  fs.writeFileSync('./temp/Hellow.java', text_file, (err) => {
+  fs.writeFileSync('./temp/Solution.java', text_file, (err) => {
     if (err) {
       console.error(err); 
     }
   });
-  compile = 'cd temp && javac Hellow.java && java Hellow '+ test_input
+  compile = 'cd temp && javac Solution.java && java Solution '+ test_input
   exec(compile, (err, stdout, stderr) => {
     if (err) {
       res.send(stderr);
+      try{
+        fs.unlinkSync('./temp/Solution.java');
+      }catch{
+        return;
+      }
+      try{
+        fs.unlinkSync('./temp/Solution.class');
+      }catch{
+        return;
+      }
+      
       return;
     }
     // delet the file
-    fs.unlinkSync('./temp/Hellow.java');
-    fs.unlinkSync('./temp/Hellow.class');
+    fs.unlinkSync('./temp/Solution.java');
+    fs.unlinkSync('./temp/Solution.class');
     if (test_output == stdout){
       result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
     }else{

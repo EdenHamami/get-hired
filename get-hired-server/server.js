@@ -64,7 +64,7 @@ app.post('/register', async (req, res) => {
 //     const test_output = question.test[0].output
 //     console.log(test_output);
 //   // add the code to the file 
-//     fs.writeFileSync('./temp/hellow.py', input, (err) => {
+//     fs.writeFileSync('./temp/solution.py', input, (err) => {
 //       if (err) {
 //         console.error(err);
 //       }
@@ -73,12 +73,12 @@ app.post('/register', async (req, res) => {
 //       res.send(stdout);
 //     });
     
-//     compile = 'py ./temp/hellow.py ' + test_input
+//     compile = 'py ./temp/solution.py ' + test_input
 //     console.log(compile)
 //     // compile the code
 //     exec(compile , (err, stdout, stderr) => {
 //       // delet the file
-//       fs.unlink('./temp/hellow.py', (err) => {
+//       fs.unlink('./temp/solution.py', (err) => {
 //         if (err) {
 //           console.error(err);
 //         }
@@ -98,15 +98,15 @@ app.post('/register', async (req, res) => {
 
 // }else if (languge == "C++"){
 //   console.log("herrr!!");
-//   fs.writeFileSync('./temp/hellow.cpp', input, (err) => {
+//   fs.writeFileSync('./temp/solution.cpp', input, (err) => {
 //     if (err) {
 //       console.error(err);
       
 //     }
 //   });
-//   exec('g++ ./temp/hellow.cpp -o ./temp/output.exe && cd temp && output.exe', (err, stdout, stderr) => {
+//   exec('g++ ./temp/solution.cpp -o ./temp/output.exe && cd temp && output.exe', (err, stdout, stderr) => {
 //     // delet the file
-//      fs.unlink('./temp/hellow.cpp', (err) => {
+//      fs.unlink('./temp/solution.cpp', (err) => {
 //       if (err) {
 //         console.error(err);
 //       }
@@ -154,7 +154,9 @@ const main = async () => {
     // const newUser = new PracticeProblem({
     //     title: ' ',
     //     content: ' ',
+    //     examples: [{input: " herrr", output: " "}],
     //     types: ['Algorithms'],
+    //     hints: [{name: " ", content: " "}],
     //     python: {header:" ", solution: " ", main: " ", initial_code: " "},
     //     cpp: {header:" ", solution: " ", main: " ", initial_code: " "},
     //     java: {header:" ", solution: " ", main: " ", initial_code: " "},
