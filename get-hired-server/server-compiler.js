@@ -30,11 +30,11 @@ app.post('/compile', (req, res) => {
   const { exec, execSync } = require('child_process');
   const fs = require('fs');
 
-
   const main_code = question[language].main;
   const header_code = question[language].header;
-  const initial_code = question[language].initial_code;
+  //const initial_code = question[language].initial_code;
 
+ console.log("herrrr main for "+ language+"\n"+main_code);
 
   // const mainForLangs = question.main_for_lang
   //   for (const langObj of mainForLangs) {
@@ -43,14 +43,14 @@ app.post('/compile', (req, res) => {
   //       break;
   //     }
   //   }
-
-  console.log("herrrr main for "+ language+"\n"+main_code);
-
-  
+ 
   const test_input = question.test[0].input
   const test_output = question.test[0].output
 
   if (language == "python"){
+
+    
+
     text_file = header_code + input + main_code
     console.log("this is the text file: " + text_file);
   // add the code to the file 
@@ -88,10 +88,11 @@ app.post('/compile', (req, res) => {
       res.send(result_to_user);
     });
 
-}else if (language == "C++"){
-
-  text_file = "#include <iostream>\n#include <cstdlib>\n#include <vector>\n#include <unordered_map>\n#include <string>\n#include <cstring>\nusing namespace std;\n" + input + "\n" + MainForLang
-
+}else if (language == "cpp"){
+console.log("her1")
+  //text_file = "#include <iostream>\n#include <cstdlib>\n#include <vector>\n#include <unordered_map>\n#include <string>\n#include <cstring>\nusing namespace std;\n" + input + "\n" + MainForLang
+  text_file = header_code + input + main_code
+  console.log("her2")
   console.log("this is the text file c++: " + text_file);
   fs.writeFileSync('./temp/hellow.cpp', text_file, (err) => {
     if (err) {
@@ -121,8 +122,9 @@ app.post('/compile', (req, res) => {
     fs.unlinkSync('./temp/output.exe');
     console.log('Files deleted successfully');
 });
-}else if (language == "Java"){
-  text_file = "import java.util.*;\nimport java.util.Arrays;\npublic class Hellow {\n\t" + input + "\n" + MainForLang
+}else if (language == "java"){
+  //text_file = "import java.util.*;\nimport java.util.Arrays;\npublic class Hellow {\n\t" + input + "\n" + MainForLang
+  text_file = header_code + input + main_code
   console.log("this is the text file java: " + text_file);
 
   fs.writeFileSync('./temp/Hellow.java', text_file, (err) => {

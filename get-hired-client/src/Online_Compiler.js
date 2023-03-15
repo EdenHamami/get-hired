@@ -17,8 +17,8 @@ console.log(data.id);
     const options = [
         {value: '', text: '--Choose a language--'},
         {value: 'python', text: 'python 🍏'},
-        {value: 'C++', text: 'C++ 🍌'},
-        {value: 'Java', text: 'Java 🥝'},
+        {value: 'cpp', text: 'C++ 🍌'},
+        {value: 'java', text: 'Java 🥝'},
       ];
 
     const [input, setInput] = useState('');
