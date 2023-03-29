@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import './App.css';
 import * as React from "react";
@@ -14,13 +14,32 @@ function Questions() {
 
 
   const [questions, setQuestions] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredQuestions, setFilteredQuestions] = useState([]);
 
   useEffect(() => {
     axios.post("http://127.0.0.1:3001/questions").then((response) => {
       setQuestions(response.data);
+      setFilteredQuestions(response.data);
       console.log(response.data);
     });
   }, []);
+
+ useEffect(() => {
+    const filtered = questions.filter(question => question.title !== undefined && question.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    //const filtered = questions.filter(question => question.title !== undefined && question.title.toLowerCase().startsWith(searchQuery.toLowerCase()))
+    setFilteredQuestions(filtered);
+  }, [searchQuery]);
+
+
+  const handleSearchQueryChange = (event) => {
+    console.log("her "+ event.target.value)
+    setSearchQuery(event.target.value);
+   //setFilteredQuestions(filterQuestions(questions));
+  };
+
+ 
+
 
   // const question1 = {
   //   id: '641192df318c49a618ac0d37',
@@ -35,11 +54,36 @@ function Questions() {
   return (
  
     <div>
-    <ul>
-    {questions.map((question) => (
-      <div><Link to="/online_compiler" state={question}>{question.title}</Link></div>
+    <nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
+    onChange={handleSearchQueryChange}/>
+  </form>
+</nav>
+    <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Difficulty</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {filteredQuestions.map((question) => (
+      <tr>
+      <th scope="row"><Link to="/online_compiler" state={question}>{question.title}</Link></th>
+      <td>{question.types}</td>
+      <td>{question.difficultyLevel}</td>
+      <td>##</td>
+    </tr>
     ))}
-  </ul>
+    </tbody>
+  </table>
+  
+
+
+
     </div>
   );
 }
