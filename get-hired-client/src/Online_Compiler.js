@@ -12,7 +12,6 @@ import { BrowserRouter as Router, Route ,Link, Routes,useRoutes} from 'react-rou
 function Online_Compiler() {
   const location = useLocation();
 const data = location.state;
-console.log(data.id);
 
     const options = [
         {value: '', text: '--Choose a language--'},
@@ -29,9 +28,11 @@ console.log(data.id);
     const [examples, setExamples] = useState([]);
 
 
+
+
     useEffect(() => {
 
-      const problemId =data.id; // Replace with the actual problemId
+      const problemId =data._id; // Replace with the actual problemId
   axios.post(`http://127.0.0.1:3001/question/${problemId}`).then(res => {
         setQuestion(res.data.content);
         setTitle(res.data.title);

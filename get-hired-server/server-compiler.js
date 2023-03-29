@@ -3,9 +3,28 @@ const PracticeProblem = require('./models/practiceProblem');
 
 module.exports = function configureServer(app){
 
+  app.post('/questions',async (req, res) => {
+    PracticeProblem.find({}, function(err, practiceProblems) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(practiceProblems);
+        res.send(practiceProblems);
+      }
+    });
+    
+  });   
+
 //get the question
 let question;
 app.post('/question/:problemId',async (req, res) => {
+  // PracticeProblem.find({}, function(err, practiceProblems) {
+  //   if (err) {
+  //     console.error(err);
+  //   } else {
+  //     console.log(practiceProblems);
+  //   }
+  // });
   const problemId = req.params.problemId;
   question = await PracticeProblem.findOne({ _id:problemId }); 
   const data = {
