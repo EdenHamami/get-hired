@@ -22,11 +22,11 @@ const practiceProblemSchema = new Schema({
     }
   }],
   types: [{
-    type: String,
-    required: true
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: 'ProblemType',
+    // type: String,
     // required: true
+    type: Schema.Types.ObjectId,
+    ref: 'ProblemType',
+    required: true
   }],
   hints: [{
     name: {
@@ -139,6 +139,11 @@ const practiceProblemSchema = new Schema({
     max: 5
   },
 }, { timestamps: true });
+
+practiceProblemSchema.methods.getTypeNames = async function() {
+  const types = await this.populate('types').execPopulate();
+  return types.types.map(type => type.name);
+};
 
 const PracticeProblem = mongoose.model('PracticeProblem', practiceProblemSchema);
 module.exports = PracticeProblem;

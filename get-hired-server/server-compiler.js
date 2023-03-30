@@ -3,17 +3,21 @@ const PracticeProblem = require('./models/practiceProblem');
 
 module.exports = function configureServer(app){
 
-  app.post('/questions',async (req, res) => {
-    PracticeProblem.find({}, function(err, practiceProblems) {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(practiceProblems);
-        res.send(practiceProblems);
-      }
-    });
-    
-  });   
+  app.post('/questions', async (req, res) => {
+    try {
+      const practiceProblems = await PracticeProblem.find({})
+        .populate({
+          path: 'types',
+          select: '_id name'
+        })
+        .exec();
+  
+      res.send(practiceProblems);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal server error');
+    }
+  });
 
 //get the question
 let question;
@@ -26,7 +30,8 @@ app.post('/question/:problemId',async (req, res) => {
   //   }
   // });
   const problemId = req.params.problemId;
-  question = await PracticeProblem.findOne({ _id:problemId }); 
+  question = await PracticeProblem.findOne({ _id:problemId });         
+
   const data = {
     title: question.title,
     content: question.content,

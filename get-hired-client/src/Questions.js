@@ -37,8 +37,9 @@ function Questions() {
     axios.post("http://127.0.0.1:3001/questions").then((response) => {
       setQuestions(response.data);
       setFilteredQuestions(response.data);
-      console.log(response.data);
+      console.log(response.data[4].types[0].name);
     });
+
   }, []);
 
  useEffect(() => {
@@ -100,7 +101,9 @@ function Questions() {
     {filteredQuestions.map((question) => (
       <tr>
       <th scope="row"><Link to="/online_compiler" state={question}>{question.title}</Link></th>
-      <td>{question.types}</td>
+      <td>{question.types.map((type) =>(
+        <tr>{type.name}</tr>
+      ))}</td>
       <td>{question.difficultyLevel}</td>
       <td>##</td>
     </tr>
