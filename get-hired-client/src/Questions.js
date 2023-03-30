@@ -4,7 +4,6 @@ import axios from "axios";
 import './App.css';
 import * as React from "react";
 import { Link, Route, Routes } from "react-router-dom";
-
 import ReactDOM from 'react-dom';
 import RegistrationPage from './RegistrationPage';
 import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
@@ -12,6 +11,23 @@ import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 
 function Questions() {
 
+  const [options, setOptions] = useState([
+    { id: 1, name: 'Option 1', checked: false },
+    { id: 2, name: 'Option 2', checked: false },
+    { id: 3, name: 'Option 3', checked: false },
+  ]);
+  const [showOptions, setShowOptions] = useState(false);
+
+  const handleOptionClick2 = (optionId) => {
+    const updatedOptions = options.map((option) =>
+      option.id === optionId ? { ...option, checked: !option.checked } : option
+    );
+    setOptions(updatedOptions);
+  };
+
+  const handleButtonClick = () => {
+    setShowOptions(!showOptions);
+  };
 
   const [questions, setQuestions] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,6 +70,17 @@ function Questions() {
   return (
  
     <div>
+    <button onClick={handleButtonClick}>{showOptions ? 'Hide' : 'Show'} Options</button>
+      {showOptions && (
+        <ul>
+          {options.map((option) => (
+            <li key={option.id}>
+              <input type="checkbox" checked={option.checked} onChange={() => handleOptionClick2(option.id)} />
+              {option.name}
+            </li>
+          ))}
+        </ul>
+      )}
     <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
