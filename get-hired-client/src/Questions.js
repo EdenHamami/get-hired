@@ -16,18 +16,43 @@ function Questions() {
     { id: 2, name: 'Option 2', checked: false },
     { id: 3, name: 'Option 3', checked: false },
   ]);
+
+  const [Difficulties, setDifficulties] = useState([
+    { id: 1, name: '1-2', checked: false },
+    { id: 2, name: '3', checked: false },
+    { id: 3, name: '4-5', checked: false },
+  ]);
   const [showOptions, setShowOptions] = useState(false);
+  const [showDifficulty, setShowDifficulty] = useState(false);
 
   const handleOptionClick2 = (optionId) => {
     const updatedOptions = options.map((option) =>
       option.id === optionId ? { ...option, checked: !option.checked } : option
     );
     setOptions(updatedOptions);
+  //   options.map((option) =>
+  //   console.log("the options: " + option.id +" "+option.checked)
+  // );
   };
 
-  const handleButtonClick = () => {
+  const handleDifficultiesClick = (difficultiesId) => {
+    const updatedDifficulties = Difficulties.map((option) =>
+      option.id === difficultiesId ? { ...option, checked: !option.checked } : option
+    );
+    setDifficulties(updatedDifficulties);
+    Difficulties.map((option) =>
+    console.log("the options: " + option.id +" "+option.checked)
+  );
+  };
+
+  const handleButtonClickOptions = () => {
     setShowOptions(!showOptions);
   };
+
+  const handleButtonClickDifficulty = () => {
+    setShowDifficulty(!showDifficulty);
+  };
+
 
   const [questions, setQuestions] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,9 +96,21 @@ function Questions() {
   return (
  
     <div>
-    <button onClick={handleButtonClick}>{showOptions ? 'Hide' : 'Show'} Options</button>
+    <button onClick={handleButtonClickOptions}>{showOptions ? 'Hide' : 'Show'} Options</button>
+    
       {showOptions && (
         <ul>
+        <button onClick={handleButtonClickDifficulty}>{showDifficulty ? 'Difficulty' : 'Difficulty'}</button>
+        {showDifficulty && (
+          <ul>
+            {Difficulties.map((option) => (
+              <li key={Difficulties.id}>
+                <input type="checkbox" checked={Difficulties.checked} onChange={() => handleDifficultiesClick(option.id)} />
+                {option.name}
+              </li>
+            ))}
+          </ul>
+        )}
           {options.map((option) => (
             <li key={option.id}>
               <input type="checkbox" checked={option.checked} onChange={() => handleOptionClick2(option.id)} />
