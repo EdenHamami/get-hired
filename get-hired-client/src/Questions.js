@@ -17,13 +17,14 @@ function Questions() {
     { id: 3, name: 'Option 3', checked: false },
   ]);
 
-  const [Difficulties, setDifficulties] = useState([
-    { id: 1, name: '1-2', checked: false },
-    { id: 2, name: '3', checked: false },
-    { id: 3, name: '4-5', checked: false },
-  ]);
+  const Difficulties = [
+    { id: 1, name: '1-2'},
+    { id: 2, name: '3'},
+    { id: 3, name: '4-5'},
+  ];
   const [showOptions, setShowOptions] = useState(false);
   const [showDifficulty, setShowDifficulty] = useState(false);
+  const [difficultiesMarked, setDifficultiesMarked] = useState([]);
 
   const handleOptionClick2 = (optionId) => {
     const updatedOptions = options.map((option) =>
@@ -35,14 +36,22 @@ function Questions() {
   // );
   };
 
+  function checkWordsExist(list1, list2) {
+    for (let i = 0; i < list1.length; i++) {
+      if (list2.includes(list1[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
   const handleDifficultiesClick = (difficultiesId) => {
-    const updatedDifficulties = Difficulties.map((option) =>
-      option.id === difficultiesId ? { ...option, checked: !option.checked } : option
-    );
-    setDifficulties(updatedDifficulties);
-    Difficulties.map((option) =>
-    console.log("the options: " + option.id +" "+option.checked)
-  );
+    // const updatedDifficulties = Difficulties.map((option) =>
+    //   option.id === difficultiesId ? { ...option, checked: !option.checked } : option
+    // );
+    const updatedDifficulties = difficultiesMarked.concat([difficultiesId])
+    setDifficultiesMarked(updatedDifficulties);
   };
 
   const handleButtonClickOptions = () => {
@@ -64,13 +73,16 @@ function Questions() {
       setFilteredQuestions(response.data);
       console.log(response.data[4].types[0].name);
     });
+    console.log(filteredQuestions)
 
   }, []);
 
  useEffect(() => {
-    const filtered = questions.filter(question => question.title !== undefined && question.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    const filtered = questions.filter(question => question.title !== undefined && question.title.toLowerCase().includes(searchQuery.toLowerCase())
+    && question)
     //const filtered = questions.filter(question => question.title !== undefined && question.title.toLowerCase().startsWith(searchQuery.toLowerCase()))
     setFilteredQuestions(filtered);
+    console.log(filteredQuestions)
   }, [searchQuery]);
 
 
@@ -105,7 +117,7 @@ function Questions() {
           <ul>
             {Difficulties.map((option) => (
               <li key={Difficulties.id}>
-                <input type="checkbox" checked={Difficulties.checked} onChange={() => handleDifficultiesClick(option.id)} />
+                <input type="checkbox" onChange={() => handleDifficultiesClick(option.id)} />
                 {option.name}
               </li>
             ))}
