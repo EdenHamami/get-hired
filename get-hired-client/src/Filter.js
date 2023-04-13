@@ -10,6 +10,21 @@ import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 
 
 function Filter() {
+// delet..
+  const [options, setOptions] = useState([
+    { id: 1, name: 'Option 1', checked: false },
+    { id: 2, name: 'Option 2', checked: false },
+    { id: 3, name: 'Option 3', checked: false },
+  ]);
+
+  //delet.. 
+  const handleOptionClick2 = (optionId) => {
+    const updatedOptions = options.map((option) =>
+      option.id === optionId ? { ...option, checked: !option.checked } : option
+    );
+    setOptions(updatedOptions);
+  };
+
   const [showOptions, setShowOptions] = useState(false); 
 
   //open the filter options
@@ -18,13 +33,13 @@ function Filter() {
   };
 
   const [showDifficulty, setShowDifficulty] = useState(false);
-  const [difficultiesMarked, setDifficultiesMarked] = useState([]);
+  //const [difficultiesMarked, setDifficultiesMarked] = useState([]);
 
-  const Difficulties = [
-    { id: 1, name: '1-2'},
-    { id: 2, name: '3'},
-    { id: 3, name: '4-5'},
-  ];
+  const [Difficulties, setDifficultiesMarked]= useState([
+    { id: 1, name: '1-2', checked:false},
+    { id: 2, name: '3', checked:false},
+    { id: 3, name: '4-5', checked:false},
+  ]);
 
   //open the difficulties options
   const handleButtonClickDifficulty = () => {
@@ -32,15 +47,24 @@ function Filter() {
   };
 
   // marked difficulties
-  const handleDifficultiesClick = (difficultiesId) => {
-    const updatedDifficulties = difficultiesMarked.concat([difficultiesId])
-    setDifficultiesMarked(updatedDifficulties);
+  const handleDifficultiesClick = (difficultyId) => {
+    const updatedDifficulties = Difficulties.map((difficulty) =>
+    difficulty.id === difficultyId ? { ...difficulty, checked: !difficulty.checked } : difficulty
+  );
+  setDifficultiesMarked(updatedDifficulties);
+
+
+    //const updatedDifficulties = difficultiesMarked.concat([difficultiesId])
+    //setDifficultiesMarked(updatedDifficulties);
   };
 
-
+  const [showTopics, setShowTopics] = useState(false);
+  const [topicsMarked, setTopicsMarked] = useState([]);
 
   const handleButtonClickFilter = () => {
-    console.log("difficulties: " + difficultiesMarked)
+    Difficulties.map((option) =>
+    console.log("option: " + option.id + " chacked: " + option.checked)
+    );
   };
 
   //list1 exist one word from list2
@@ -64,13 +88,19 @@ function Filter() {
         {showDifficulty && (
           <ul>
             {Difficulties.map((option) => (
-              <li key={Difficulties.id}>
+              <li key={option.id}>
                 <input type="checkbox" onChange={() => handleDifficultiesClick(option.id)} />
                 {option.name}
               </li>
             ))}
           </ul>
         )}
+          {options.map((option) => (
+            <li key={option.id}>
+              <input type="checkbox" checked={option.checked} onChange={() => handleOptionClick2(option.id)} />
+              {option.name}
+            </li>
+          ))}
           <button onClick={handleButtonClickFilter}>filter</button>
         </ul>
       )}
