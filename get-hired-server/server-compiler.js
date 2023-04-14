@@ -1,5 +1,6 @@
 
 const PracticeProblem = require('./models/practiceProblem');
+const ProblemType = require('./models/problemType');
 
 module.exports = function configureServer(app){
 
@@ -18,6 +19,13 @@ module.exports = function configureServer(app){
       res.status(500).send('Internal server error');
     }
   });
+
+//get topics
+app.post('/topics',async (req, res) => {
+  const problemType = await ProblemType.find();
+  res.send(problemType);
+});
+
 
 //get the question
 let question;

@@ -41,53 +41,6 @@ function Questions() {
       console.log(filteredQuestions)
     }, [searchQuery]);
 
-
-// delet..
-  const [options, setOptions] = useState([
-    { id: 1, name: 'Option 1', checked: false },
-    { id: 2, name: 'Option 2', checked: false },
-    { id: 3, name: 'Option 3', checked: false },
-  ]);
-
-  //delet.. 
-  const handleOptionClick2 = (optionId) => {
-    const updatedOptions = options.map((option) =>
-      option.id === optionId ? { ...option, checked: !option.checked } : option
-    );
-    setOptions(updatedOptions);
-  };
-
-  
-  //open the filter options
-  const handleButtonClickOptions = () => {
-    setShowOptions(!showOptions);
-  };
-
-  const [showOptions, setShowOptions] = useState(false);  
-  const [showDifficulty, setShowDifficulty] = useState(false);
-  const [difficultiesMarked, setDifficultiesMarked] = useState([]);
-
-  const Difficulties = [
-    { id: 1, name: '1-2'},
-    { id: 2, name: '3'},
-    { id: 3, name: '4-5'},
-  ];
-
-  //open the difficulties options
-  const handleButtonClickDifficulty = () => {
-    setShowDifficulty(!showDifficulty);
-  };
-
-  // marked difficulties
-  const handleDifficultiesClick = (difficultiesId) => {
-    const updatedDifficulties = difficultiesMarked.concat([difficultiesId])
-    setDifficultiesMarked(updatedDifficulties);
-  };
-
-  const handleButtonClickFilter = () => {
-    console.log("difficulties: " + difficultiesMarked)
-  };
-
   //list1 exist one word from list2
   function checkWordsExist(list1, list2) {
     for (let i = 0; i < list1.length; i++) {

@@ -10,27 +10,6 @@ import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 
 
 function Filter() {
-// delet..
-  const [options, setOptions] = useState([
-    { id: 1, name: 'Option 1', checked: false },
-    { id: 2, name: 'Option 2', checked: false },
-    { id: 3, name: 'Option 3', checked: false },
-  ]);
-
-  //delet.. 
-  const handleOptionClick2 = (optionId) => {
-    const updatedOptions = options.map((option) =>
-      option.id === optionId ? { ...option, checked: !option.checked } : option
-    );
-    setOptions(updatedOptions);
-  };
-
-  const [showOptions, setShowOptions] = useState(false); 
-
-  //open the filter options
-  const handleButtonClickOptions = () => {
-    setShowOptions(!showOptions);
-  };
 
   const [showDifficulty, setShowDifficulty] = useState(false);
   //const [difficultiesMarked, setDifficultiesMarked] = useState([]);
@@ -48,23 +27,49 @@ function Filter() {
 
   // marked difficulties
   const handleDifficultiesClick = (difficultyId) => {
+    console.log("her1")
     const updatedDifficulties = Difficulties.map((difficulty) =>
     difficulty.id === difficultyId ? { ...difficulty, checked: !difficulty.checked } : difficulty
   );
   setDifficultiesMarked(updatedDifficulties);
-
-
-    //const updatedDifficulties = difficultiesMarked.concat([difficultiesId])
-    //setDifficultiesMarked(updatedDifficulties);
+  console.log("her2")
   };
 
   const [showTopics, setShowTopics] = useState(false);
-  const [topicsMarked, setTopicsMarked] = useState([]);
+  const [topics, setTopics] = useState([]);
+
+  //open the difficulties options
+  const handleButtonClickTopic = () => {
+    setShowTopics(!showTopics);
+  };
+
+  //get the topics from the server
+  useEffect(() => {
+    axios.post("http://127.0.0.1:3001/topics").then((response) => {
+      let my_list = [] 
+      let i = 1
+      response.data.map((topic) =>{
+      my_list = [...my_list, { id: i, name: topic.name,checked: false}]
+      i=i+1
+      }
+      );
+      setTopics(my_list)
+    });
+    },[]);;
+
+  // Handle checkbox click event
+  const handleTopicsClick = (topicId) => {
+    const updatedTopics = topics.map((topic) =>
+      topic.id === topicId ? { ...topic, checked: !topic.checked } : topic
+    );
+    setTopics(updatedTopics);
+    console.log(updatedTopics)
+    console.log(topics)
+  };
+
 
   const handleButtonClickFilter = () => {
-    Difficulties.map((option) =>
-    console.log("option: " + option.id + " chacked: " + option.checked)
-    );
+    console.log(topics)
   };
 
   //list1 exist one word from list2
@@ -80,27 +85,31 @@ function Filter() {
   return (
  
     <div>
-    <button onClick={handleButtonClickOptions}>{showOptions ? 'Hide' : 'Show'} Options</button>
     
-      {showOptions && (
+      { (
         <ul>
         <button onClick={handleButtonClickDifficulty}>{showDifficulty ? 'Difficulty' : 'Difficulty'}</button>
         {showDifficulty && (
           <ul>
             {Difficulties.map((option) => (
               <li key={option.id}>
-                <input type="checkbox" onChange={() => handleDifficultiesClick(option.id)} />
+                <input type="checkbox" checked={option.checked} onChange={() => handleDifficultiesClick(option.id)} />
                 {option.name}
               </li>
             ))}
           </ul>
         )}
-          {options.map((option) => (
-            <li key={option.id}>
-              <input type="checkbox" checked={option.checked} onChange={() => handleOptionClick2(option.id)} />
-              {option.name}
-            </li>
-          ))}
+        <button onClick={handleButtonClickTopic}>{showTopics ? 'Topic' : 'Topic'}</button>
+        {showTopics && (
+          <ul>
+            {topics.map((option) => (
+              <li key={option.id}>
+                <input type="checkbox" checked={option.checked} onChange={() => handleTopicsClick(option.id)} />
+                {option.name}
+              </li>
+            ))}
+          </ul>
+        )}
           <button onClick={handleButtonClickFilter}>filter</button>
         </ul>
       )}
