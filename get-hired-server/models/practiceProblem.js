@@ -134,9 +134,8 @@ const practiceProblemSchema = new Schema({
     }
   }],
   difficultyLevel: {
-    type: Number,
-    min: 1,
-    max: 5
+    type: String,
+    required: true
   },
 }, { timestamps: true });
 

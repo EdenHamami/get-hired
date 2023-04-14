@@ -5,9 +5,6 @@ import './App.css';
 import * as React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import Filter from './Filter';
-import ReactDOM from 'react-dom';
-import RegistrationPage from './RegistrationPage';
-import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 
 
 function Questions() {
@@ -17,6 +14,9 @@ function Questions() {
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredQuestions, setFilteredQuestions] = useState([]);
 
+    function updateQuestions(newValue) {
+      setFilteredQuestions(newValue);
+    }
     
   //get the table from the server
   useEffect(() => {
@@ -54,7 +54,7 @@ function Questions() {
   return (
  
     <div>
-    <Filter />
+    <Filter theQuestions={questions} updateQuestions={updateQuestions}/>
     <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
@@ -83,10 +83,6 @@ function Questions() {
     ))}
     </tbody>
   </table>
-  
-
-
-
     </div>
   );
 }
