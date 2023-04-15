@@ -3,11 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import './App.css';
 import * as React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation} from "react-router-dom";
 import Filter from './Filter';
 
 
 function Questions() {
+
+  const location = useLocation();
+  const primaryDifficulties = location.state?.primaryDifficulties || [];
+  const primaryTopics = location.state?.primaryTopics || [];
 
     //the questions table
     const [questions, setQuestions] = useState([]);
@@ -54,7 +58,7 @@ function Questions() {
   return (
  
     <div>
-    <Filter theQuestions={questions} updateQuestions={updateQuestions}/>
+    <Filter theQuestions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics}/>
     <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}

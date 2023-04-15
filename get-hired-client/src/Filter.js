@@ -9,11 +9,7 @@ function Filter(questions) {
   const [showDifficulty, setShowDifficulty] = useState(false);
   //const [difficultiesMarked, setDifficultiesMarked] = useState([]);
 
-  const [Difficulties, setDifficultiesMarked]= useState([
-    { id: 1, name: 'easy', checked:false},
-    { id: 2, name: 'medium', checked:false},
-    { id: 3, name: 'hard', checked:false},
-  ]);
+  const [Difficulties, setDifficultiesMarked]= useState([]);
 
   //open the difficulties options
   const handleButtonClickDifficulty = () => {
@@ -38,20 +34,6 @@ function Filter(questions) {
     setShowTopics(!showTopics);
   };
 
-  //get the topics from the server
-  useEffect(() => {
-    axios.post("http://127.0.0.1:3001/topics").then((response) => {
-      let my_list = [] 
-      let i = 1
-      response.data.map((topic) =>{
-      my_list = [...my_list, { id: i, name: topic.name,checked: false}]
-      i=i+1
-      }
-      );
-      setTopics(my_list)
-    });
-    },[]);;
-
   // Handle checkbox click event
   const handleTopicsClick = (topicId) => {
     const updatedTopics = topics.map((topic) =>
@@ -59,9 +41,18 @@ function Filter(questions) {
     );
     setTopics(updatedTopics);
   };
+  
+  //get the topics from the server
+  useEffect(() => {
+    setTopics(questions.primaryTopics)
+    setDifficultiesMarked(questions.primaryDifficulties)
+    },[]);;
+
+
 
    //table after change in options
    useEffect(() => {
+    console.log(questions)
     const marked_topics = getCheckedItems(topics)
     const marked_difficulties = getCheckedItems(Difficulties)
 
