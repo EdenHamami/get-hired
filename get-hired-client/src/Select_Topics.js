@@ -31,23 +31,6 @@ function Select_Topics() {
     setPrimaryTopics(updatedTopics);
   };
 
-  //list1 exist one word from list2
-  function checkWordsExist(list1, list2) {
-    for (let i = 0; i < list1.length; i++) {
-      if (list2.includes(list1[i])) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  //all the items in list that checked
-  function getCheckedItems(items) {
-    return items
-      .filter(item => item.checked)
-      .map(item => item.name);
-  }
-
   return (
     <div>
     <h6>Select your preferred topics below, and 

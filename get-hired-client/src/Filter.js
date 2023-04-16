@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from "axios";
 import './App.css';
 import * as React from "react";
 
 function Filter(props) {
+
   const { questions, updateQuestions, primaryDifficulties, primaryTopics } = props;
 
   const [showDifficulty, setShowDifficulty] = useState(false);
-  const [Difficulties, setDifficultiesMarked]= useState([]);
+  const [difficulties, setDifficulties]= useState([]);
 
   //open the difficulties options
   const handleButtonClickDifficulty = () => {
@@ -17,10 +17,10 @@ function Filter(props) {
 
   // marked difficulties
   const handleDifficultiesClick = (difficultyId) => {
-    const updatedDifficulties = Difficulties.map((difficulty) =>
+    const updatedDifficulties = difficulties.map((difficulty) =>
     difficulty.id === difficultyId ? { ...difficulty, checked: !difficulty.checked } : difficulty
   );
-  setDifficultiesMarked(updatedDifficulties);
+  setDifficulties(updatedDifficulties);
   };
 
   const [showTopics, setShowTopics] = useState(false);
@@ -39,16 +39,16 @@ function Filter(props) {
     setTopics(updatedTopics);
   };
 
-  //get the topics from the server
+  //set the primary topics and difficulties
   useEffect(() => {
     setTopics(primaryTopics)
-    setDifficultiesMarked(primaryDifficulties)
+    setDifficulties(primaryDifficulties)
     },[]);;
 
-   //table after change in options
+   //table after changing
    useEffect(() => {
     const marked_topics = getCheckedItems(topics)
-    const marked_difficulties = getCheckedItems(Difficulties)
+    const marked_difficulties = getCheckedItems(difficulties)
 
     let filtered = questions.filter(question => checkWordsExist(question.types.map(item => item.name),marked_topics) &&
      marked_difficulties.includes(question.difficultyLevel))
@@ -63,7 +63,7 @@ function Filter(props) {
       checkWordsExist(question.types.map(item => item.name),marked_topics))
     }
     updateQuestions(filtered);
-  }, [topics, Difficulties,questions, primaryTopics, primaryDifficulties]);
+  }, [topics, difficulties ,questions, primaryTopics, primaryDifficulties]);
 
   //list1 exist one word from list2
   function checkWordsExist(list1, list2) {
@@ -89,7 +89,7 @@ function Filter(props) {
         <button onClick={handleButtonClickDifficulty}>{showDifficulty ? 'Difficulty' : 'Difficulty'}</button>
         {showDifficulty && (
           <ul>
-            {Difficulties.map((option) => (
+            {difficulties.map((option) => (
               <li key={option.id}>
                 <input type="checkbox" checked={option.checked} onChange={() => handleDifficultiesClick(option.id)} />
                 {option.name}

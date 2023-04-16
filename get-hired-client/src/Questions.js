@@ -3,24 +3,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import './App.css';
 import * as React from "react";
-import { Link, Route, Routes, useLocation} from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import Filter from './Filter';
 
 
 function Questions() {
 
+  //get the primary topics and difficulties
   const location = useLocation();
   const primaryDifficulties = location.state?.primaryDifficulties || [];
   const primaryTopics = location.state?.primaryTopics || [];
 
-    //the questions table
-    const [questions, setQuestions] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filteredQuestions, setFilteredQuestions] = useState([]);
+  //all the questions from the server
+  const [questions, setQuestions] = useState([]);
 
-    function updateQuestions(newValue) {
-      setFilteredQuestions(newValue);
-    }
+  //the search box 
+  const [searchQuery, setSearchQuery] = useState("");
+
+  //the questions after changing in search box
+  const [filteredQuestions, setFilteredQuestions] = useState([]);
+
+  function updateQuestions(newValue) {
+    setFilteredQuestions(newValue);
+  }
     
   //get the table from the server
   useEffect(() => {
@@ -44,16 +49,6 @@ function Questions() {
       setFilteredQuestions(filtered);
       console.log(filteredQuestions)
     }, [searchQuery]);
-
-  //list1 exist one word from list2
-  function checkWordsExist(list1, list2) {
-    for (let i = 0; i < list1.length; i++) {
-      if (list2.includes(list1[i])) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   return (
  
