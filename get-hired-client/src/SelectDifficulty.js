@@ -6,7 +6,7 @@ import axios from "axios";
 import './App.css';
 import * as React from "react";
 
-function Select_Difficulty() {
+function SelectDifficulty() {
 
   const location = useLocation();
   const primaryTopics = location.state;
@@ -56,4 +56,4 @@ function Select_Difficulty() {
   );
 }
 
-export default Select_Difficulty;
+export default SelectDifficulty;

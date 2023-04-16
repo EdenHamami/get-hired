@@ -9,7 +9,7 @@ import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 import { BrowserRouter as Router, Route ,Link, Routes,useRoutes} from 'react-router-dom';
 
 
-function Online_Compiler() {
+function OnlineCompiler() {
   const location = useLocation();
 const data = location.state;
 
@@ -113,4 +113,4 @@ const data = location.state;
   );
 }
 
-export default Online_Compiler;
+export default OnlineCompiler;

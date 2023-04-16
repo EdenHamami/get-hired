@@ -5,7 +5,7 @@ import axios from "axios";
 import './App.css';
 import * as React from "react";
 
-function Select_Topics() {
+function SelectTopics() {
 
   const [primaryTopics, setPrimaryTopics] = useState([]);
 
@@ -49,4 +49,4 @@ function Select_Topics() {
   );
 }
 
-export default Select_Topics;
+export default SelectTopics;
