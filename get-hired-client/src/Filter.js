@@ -4,11 +4,10 @@ import axios from "axios";
 import './App.css';
 import * as React from "react";
 
-function Filter(questions) {
+function Filter(props) {
+  const { questions, updateQuestions, primaryDifficulties, primaryTopics } = props;
 
   const [showDifficulty, setShowDifficulty] = useState(false);
-  //const [difficultiesMarked, setDifficultiesMarked] = useState([]);
-
   const [Difficulties, setDifficultiesMarked]= useState([]);
 
   //open the difficulties options
@@ -18,12 +17,10 @@ function Filter(questions) {
 
   // marked difficulties
   const handleDifficultiesClick = (difficultyId) => {
-    console.log("her1")
     const updatedDifficulties = Difficulties.map((difficulty) =>
     difficulty.id === difficultyId ? { ...difficulty, checked: !difficulty.checked } : difficulty
   );
   setDifficultiesMarked(updatedDifficulties);
-  console.log("her2")
   };
 
   const [showTopics, setShowTopics] = useState(false);
@@ -41,36 +38,32 @@ function Filter(questions) {
     );
     setTopics(updatedTopics);
   };
-  
+
   //get the topics from the server
   useEffect(() => {
-    setTopics(questions.primaryTopics)
-    setDifficultiesMarked(questions.primaryDifficulties)
+    setTopics(primaryTopics)
+    setDifficultiesMarked(primaryDifficulties)
     },[]);;
-
-
 
    //table after change in options
    useEffect(() => {
-    console.log(questions)
     const marked_topics = getCheckedItems(topics)
     const marked_difficulties = getCheckedItems(Difficulties)
 
-    let filtered = questions.theQuestions.filter(question => checkWordsExist(question.types.map(item => item.name),marked_topics) &&
+    let filtered = questions.filter(question => checkWordsExist(question.types.map(item => item.name),marked_topics) &&
      marked_difficulties.includes(question.difficultyLevel))
 
     if (marked_topics.length == 0 && marked_difficulties.length == 0){
-      filtered = questions.theQuestions
+      filtered = questions
     }else if (marked_topics.length == 0){
-      filtered = questions.theQuestions.filter(question => 
+      filtered = questions.filter(question => 
       marked_difficulties.includes(question.difficultyLevel))
-    }else if (marked_difficulties.length == 0){
-      filtered = questions.theQuestions.filter(question => 
-        checkWordsExist(question.types.map(item => item.name),marked_topics))
+    }else if (marked_difficulties.length == 0){    
+      filtered = questions.filter(question => 
+      checkWordsExist(question.types.map(item => item.name),marked_topics))
     }
-    questions.updateQuestions(filtered);
-    console.log(filtered)
-  }, [topics, Difficulties]);
+    updateQuestions(filtered);
+  }, [topics, Difficulties,questions, primaryTopics, primaryDifficulties]);
 
   //list1 exist one word from list2
   function checkWordsExist(list1, list2) {
@@ -91,7 +84,7 @@ function Filter(questions) {
 
   return (
     <div>
-      { (
+      {(
         <ul>
         <button onClick={handleButtonClickDifficulty}>{showDifficulty ? 'Difficulty' : 'Difficulty'}</button>
         {showDifficulty && (
@@ -117,7 +110,6 @@ function Filter(questions) {
         )}
         </ul>
       )}
-
     </div>
   );
 }

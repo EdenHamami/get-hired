@@ -58,7 +58,7 @@ function Questions() {
   return (
  
     <div>
-    <Filter theQuestions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics}/>
+    <Filter questions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics}/>
     <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
