@@ -2,9 +2,10 @@
 const PracticeProblem = require('./models/practiceProblem');
 const ProblemType = require('./models/problemType');
 
+
 module.exports = function configureServer(app){
 
-  app.post('/questions', async (req, res) => {
+  app.post('/technical-questions', async (req, res) => {
     try {
       const practiceProblems = await PracticeProblem.find({})
         .populate({

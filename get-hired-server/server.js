@@ -4,8 +4,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const compilerServer = require('./server-compiler');
+const personalqServer = require('./server-personalq');
 
 const PracticeProblem = require('./models/practiceProblem');
+const PersonalProblem = require('./models/personalProblem');
 
 const app = express();
 // allow the client to speak to the server 
@@ -14,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 compilerServer(app);
+personalqServer(app);
 
 const port = 3001;
 mongoose.set('strictQuery', true);
@@ -167,6 +170,23 @@ const main = async () => {
     // const user = await newUser.save();
     // console.log('created a new user');
     // console.log(user);
+
+  // const personalProblem = new PersonalProblem({
+  //   question: " ",
+  //   recommended_answer: " ",
+  //   example_answer: " ",
+  //   goal: "That's a difficult question to answer. It may vary from person to person."
+  // });
+
+  // // save the new document to the database
+  // await personalProblem.save();
+  // console.log("Personal problem saved to DB");
+
+  // // save the new document to the database
+  // await personalProblem.save();
+  // console.log("Personal problem saved to DB");
+
+  
   //start the server 
   app.listen(port, () => {
     console.log(`Server started listening on port ${port}`);

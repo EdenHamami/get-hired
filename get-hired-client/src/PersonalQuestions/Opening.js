@@ -5,14 +5,14 @@ import axios from "axios";
 import '../App.css';
 import * as React from "react";
 
-function OpeningPersonalQuestions() {
+function Opening() {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // navigate('/select_topics', {
+    navigate('/personal_table', {
 
-    // });
+    });
   };
 
   return (
@@ -33,4 +33,4 @@ function OpeningPersonalQuestions() {
   );
 }
 
-export default OpeningPersonalQuestions;
+export default Opening;

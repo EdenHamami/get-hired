@@ -29,7 +29,7 @@ function SelectDifficulty() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/questions', {
+    navigate('/technical_questions', {
       state: {
         primaryDifficulties: primaryDifficulties,
         primaryTopics: primaryTopics
