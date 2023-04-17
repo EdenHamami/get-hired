@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import { Link, Route, Routes ,useLocation , useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
-import './App.css';
+import '../App.css';
 import * as React from "react";
 
 function SelectDifficulty() {

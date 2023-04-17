@@ -1,11 +1,9 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import './App.css';
-import './RegistrationPage'
+import '../App.css';
+
 import { useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import RegistrationPage from './RegistrationPage';
-import SuccessfulRegistrationPage from './SuccessfulRegistrationPage';
 import { BrowserRouter as Router, Route ,Link, Routes,useRoutes} from 'react-router-dom';
 
 

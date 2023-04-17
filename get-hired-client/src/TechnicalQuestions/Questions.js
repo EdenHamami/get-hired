@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
-import './App.css';
+import '../App.css';
 import * as React from "react";
 import { Link, useLocation} from "react-router-dom";
 import Filter from './Filter';

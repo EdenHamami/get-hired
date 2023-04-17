@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import '../App.css';
 import * as React from "react";
 
 function Filter(props) {
