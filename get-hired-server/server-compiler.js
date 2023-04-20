@@ -133,16 +133,32 @@ app.post('/compile', (req, res) => {
     // Delete the files after program has finished executing
     fs.unlinkSync('./temp/solution.cpp');
     fs.unlinkSync('./temp/output.exe');
-    if (test_output == stdout){
-      result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+    if (test_output == "True"){
+      if ("true" == stdout){
+        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+      }else{
+        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "true" + '\nyour output: ' + stdout
+      }
+    }else if (test_output == "False"){
+      if ("false" == stdout){
+        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+      }else{
+        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "false" + '\nyour output: ' + stdout
+      }
     }else{
-      result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
-    }
-    res.send(result_to_user);
+      if (test_output == stdout){
+        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+      }else{
+        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
+      }
+
+  }
+  res.send(result_to_user);
 
 
 });
 }else if (language == "java"){
+
   fs.writeFileSync('./temp/Solution.java', text_file, (err) => {
     if (err) {
       console.error(err); 
@@ -168,13 +184,29 @@ app.post('/compile', (req, res) => {
     // delet the file
     fs.unlinkSync('./temp/Solution.java');
     fs.unlinkSync('./temp/Solution.class');
-    if (test_output == stdout){
-      result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+    if (test_output == "True"){
+      if ("true" == stdout){
+        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+      }else{
+        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "true" + '\nyour output: ' + stdout
+      }
+    }else if (test_output == "False"){
+      if ("false" == stdout){
+        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+      }else{
+        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "false" + '\nyour output: ' + stdout
+      }
     }else{
-      result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
-    }
-    res.send(result_to_user);
-  });
+      if (test_output == stdout){
+        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
+      }else{
+        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
+      }
+
+  }
+  res.send(result_to_user);
+});
+
 }
 });
 };
