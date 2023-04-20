@@ -2,6 +2,9 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import '../App.css';
 
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/theme-github';
 import { useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route ,Link, Routes,useRoutes} from 'react-router-dom';
@@ -72,6 +75,12 @@ const data = location.state;
         //     console.log(output);
         // });
       };
+
+      const [code, setCode] = useState('// Enter your code here');
+
+      function handleChange(value) {
+        setInput(value);
+      }
   return (
  
    <div>
@@ -97,12 +106,24 @@ const data = location.state;
 ))}
 </select>
     <h3>input</h3>
-    <textarea rows="13" cols="100" value={input} onChange={(event) => setInput(event.target.value)}>
-
-    </textarea>
+    <AceEditor
+      mode="javascript"
+      theme="github"
+      onChange={handleChange}
+      value={input}
+      name="code-editor"
+      editorProps={{ $blockScrolling: true }}
+      style={{
+        border: '1px solid black',
+        borderRadius: '5px',
+        height: '250px',
+        width: '55%',
+        fontSize: '16px',
+      }}
+    />
     <br/>
     <h3>output</h3>
-    <textarea rows="13" cols="100" value={output} ></textarea>
+    <textarea rows="5" cols="100" value={output} ></textarea>
     <br/>
 
     <br/>

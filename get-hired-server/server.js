@@ -158,13 +158,13 @@ const main = async () => {
     //     title: ' ',
     //     content: ' ',
     //     examples: [{input: " herrr", output: " "}],
-    //     types: ['Algorithms'],
+    //     types: ["63adea0ef1e5056c8119ae60"],
     //     hints: [{name: " ", content: " "}],
     //     python: {header:" ", solution: " ", main: " ", initial_code: " "},
     //     cpp: {header:" ", solution: " ", main: " ", initial_code: " "},
     //     java: {header:" ", solution: " ", main: " ", initial_code: " "},
     //     test: [{input: " ", output: " "}],
-    //     difficultyLevel: 1
+    //     difficultyLevel: "medium"
 
     // });
     // const user = await newUser.save();
@@ -186,7 +186,7 @@ const main = async () => {
   // await personalProblem.save();
   // console.log("Personal problem saved to DB");
 
-  
+
   //start the server 
   app.listen(port, () => {
     console.log(`Server started listening on port ${port}`);
