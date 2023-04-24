@@ -157,22 +157,22 @@ app.post('/compile', (req, res) => {
 });
 }else if (language == "java"){
 
-  fs.writeFileSync('./temp/Solution.java', text_file, (err) => {
+  fs.writeFileSync('./temp/Main.java', text_file, (err) => {
     if (err) {
       console.error(err); 
     }
   });
-  compile = 'cd temp && javac Solution.java && java Solution '+ test_input
+  compile = 'cd temp && javac Main.java && java Main '+ test_input
   exec(compile, (err, stdout, stderr) => {
     if (err) {
       res.send(stderr);
       try{
-        fs.unlinkSync('./temp/Solution.java');
+        fs.unlinkSync('./temp/Main.java');
       }catch{
         return;
       }
       try{
-        fs.unlinkSync('./temp/Solution.class');
+        fs.unlinkSync('./temp/Main.class');
       }catch{
         return;
       }
@@ -180,8 +180,8 @@ app.post('/compile', (req, res) => {
       return;
     }
     // delet the file
-    fs.unlinkSync('./temp/Solution.java');
-    fs.unlinkSync('./temp/Solution.class');
+    fs.unlinkSync('./temp/Main.java');
+    fs.unlinkSync('./temp/Main.class');
     if (test_output == "True"){
       if ("true" == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
