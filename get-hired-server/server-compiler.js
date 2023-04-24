@@ -45,6 +45,7 @@ app.post('/question/:problemId',async (req, res) => {
     title: question.title,
     content: question.content,
     examples: question.examples,
+    number_of_tests: question.test.length
   };
   res.send(data);
 });
@@ -59,23 +60,20 @@ app.post('/language',async (req, res) => {
 // post requset to compile
 app.post('/compile', (req, res) => {
   
+  
   // get the code from the user
-  const { input , language} = req.body;
+  const { input , language,test_number, } = req.body;
   const { exec, execSync } = require('child_process');
   const fs = require('fs');
 
   const main_code = question[language].main;
   const header_code = question[language].header;
 
-  const test_input = question.test[0].input
-  const test_output = question.test[0].output
+  const test_input = question.test[test_number].input
+  const test_output = question.test[test_number].output
 
   text_file = header_code + input + main_code
   
-  console.log("item: " + question)
-  console.log("head: "+header_code)
-  console.log("text: "+text_file)
-
   if (language == "python"){
   // add the code to the file 
     fs.writeFileSync('./temp/solution.py', text_file, (err) => {
@@ -83,7 +81,7 @@ app.post('/compile', (req, res) => {
         console.error(err);
       }
     });
-    
+
     compile = 'py ./temp/solution.py ' + test_input
     // compile the code
     exec(compile , (err, stdout, stderr) => {
