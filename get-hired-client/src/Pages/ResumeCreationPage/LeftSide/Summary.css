@@ -1,0 +1,42 @@
+.summary_input {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .summary__header {
+    margin-bottom: 20px;
+  }
+  
+  .summary__content {
+    position: relative;
+  }
+  
+  .summary__textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    box-shadow: none;
+  }
+  
+  .summary__textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff;
+  }
+  
+  @media screen and (min-width: 992px) {
+    .summary_input {
+      padding: 30px;
+    }
+  
+    .summary__textarea {
+      font-size: 18px;
+    }
+  }
+  

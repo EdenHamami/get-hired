@@ -1,0 +1,17 @@
+.personal-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.contact-info {
+  font-size: 14px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.contact-info p {
+  margin: 0;
+}
+

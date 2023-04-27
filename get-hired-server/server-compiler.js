@@ -180,8 +180,8 @@ app.post('/compile', (req, res) => {
       return;
     }
     // delet the file
-    fs.unlinkSync('./temp/Main.java');
-    fs.unlinkSync('./temp/Main.class');
+    // fs.unlinkSync('./temp/Main.java');
+    // fs.unlinkSync('./temp/Main.class');
     if (test_output == "True"){
       if ("true" == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout

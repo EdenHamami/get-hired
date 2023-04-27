@@ -1,0 +1,187 @@
+@import url('https://fonts.cdnfonts.com/css/berlin-sans-fb-demi');
+
+.template3 {
+  font-family: "calibri";
+  font-size: 12px;
+  color: #000000;
+  max-width: 21cm;
+  max-height: 29.7cm;
+  display: flex;
+  overflow-wrap: break-word;
+}
+
+.template3 .left,
+.template3 .right {
+  box-sizing: border-box;
+}
+
+.template3 .left {
+  width: 30%;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  height: 27.9cm;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.template3 .right {
+  width: 70%;
+  height: 27.9cm;
+  padding: 0 1rem;
+}
+.template3  .left-content {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.template3 .header-3 h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "calibri";
+  text-align: center;
+}
+
+.template3 .header-3 h4 {
+  font-size: 1.5rem;
+}
+.template3 .personal-details-3 {
+  align-items: center;
+  align-content: center;
+  margin: 5px;
+}
+
+.template3 .personal-details-3 h3,
+.template3 .skills-3 h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 1rem;
+  text-align: center;
+}
+
+.template3 .personal-details-3 h5 {
+  margin-bottom: 0.5rem;
+  align-items: center;
+  align-content: center;
+  font-size: 15px;
+}
+
+.template3 .summary-3 h2 {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 23px;
+}
+
+.template3 .summary-3 .summary {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.template3 .work-experience-3 h2,
+.template3 .education-3 h2,
+.template3 .skills-3 h2 {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 23px;
+}
+
+.template3 .date {
+  font-weight: bold;
+  color: #5b5b5c;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.template3 .education-3 .grade {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.template3 .description {
+  font-size: 0.9rem;
+}
+
+.template3.work-experience-3 .experience,
+.template3 .education-3 .education-item {
+  margin: 0px;
+  border: 0cm;
+  padding: 0;
+  text-align: center;
+}
+
+.template3 .work-experience-3 .experience h3,
+.template3 .education-3 .education-item h3 {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0px;
+}
+
+.template3 .profile-image {
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  margin: 20px;
+  border-color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 50%;
+}
+
+.template3 .skills-3 {
+  padding-bottom: 1rem;
+  font-size: 15px;
+}
+
+.template3 .skills-3 ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.template3 .header-3 {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.template3 .right-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.template3 section.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  height: 27.9cm;
+}
+
+.template3 section.right {
+  height: 27.9cm;
+}
+
+.template3 .skills-3 {
+  padding-bottom: 1rem;
+  font-size: 15px;
+}
+
+.template3 .skills-3 ul {
+  list-style-type: none;
+  padding: 0;
+}
+.template3 .header-3 {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 23px;
+}
+
+.template3 .summarySection{
+  margin: 20px;
+}

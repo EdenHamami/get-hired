@@ -19,13 +19,6 @@ function Jobs_Page() {
 
   async function handleSearch(event) {
     event.preventDefault();
-    // axios.post('http://127.0.0.1:3001/jobSearch', { jobdescription: jobdescription, joblocation: joblocation }).then(res => {
-
-    // const data = await res.json();
-    // console.log(data);
-    // setJobsList(data);
-    
-  //});
   const r = await fetch('http://127.0.0.1:3001/jobSearch', {
         method: 'POST',
         headers: {
@@ -34,7 +27,6 @@ function Jobs_Page() {
         body: JSON.stringify({ jobdescription: jobdescription, joblocation: joblocation })
       });
   const d = await r.json();
-  console.log(d);
   setJobsList(d);
   }
   return (

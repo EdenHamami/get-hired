@@ -1,0 +1,29 @@
+.start-page {
+    background-image: url("../Pages/StartPage.png");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .start-page__content {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    color: #fff;
+  }
+  
+
+
+  .start-page__button {
+    background-color: #fff;
+    color: #000;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  

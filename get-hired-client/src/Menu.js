@@ -10,13 +10,33 @@ function Menu() {
 
   const navigate = useNavigate();
 
-  const handleClick1 = () => {
-    navigate('/select_topics', {
+  const navigate_resume = () => {
+    navigate('/OpeningPage', {
 
     });
   };
 
-  const handleClick2 = () => {
+  const navigate_technical_questions = () => {
+    navigate('/select_topics', {
+
+    });
+  };
+  const navigate_personal_questions = () => {
+    navigate('/opening_personal_questions', {
+
+    });
+  };
+  const navigate_tips = () => {
+    navigate('/opening_personal_questions', {
+
+    });
+  };
+  const navigate_search_jobs = () => {
+    navigate('/JobsSearch', {
+
+    });
+  };
+  const navigate_job_interview = () => {
     navigate('/opening_personal_questions', {
 
     });
@@ -24,8 +44,13 @@ function Menu() {
 
   return (
     <div>
-      <button onClick={handleClick1}>technical questions</button>
-      <button onClick={handleClick2}>personal questions</button>
+      <button onClick={navigate_resume}>Create your resume</button>
+      <button onClick={navigate_technical_questions}>Technical Questions</button>
+      <button onClick={navigate_personal_questions}>Personal Questions</button>
+      <button onClick={navigate_tips}>Tips And Tricks</button>
+      <button onClick={navigate_search_jobs}>Search Jobs</button>
+      <button onClick={navigate_job_interview}>Virtual Job Interview</button>
+      
     </div>
   );
 }

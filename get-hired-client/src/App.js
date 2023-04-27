@@ -1,8 +1,11 @@
-import logo from './logo.svg';
+
 import {useEffect} from "react";
 import axios from "axios";
 import './App.css';
-import Jobs_Page from './jobs/Jobs_Page';
+import JobsSearch from './jobs/JobsSearch';
+import RegistrationPage from "./RegistrationPage";
+import JobsSearchResult from "./jobs/JobsSearchResult"; 
+import { Route, Routes } from "react-router-dom";
 function App() {
   useEffect(() => {
     axios.post('http://127.0.0.1:3001/login', { username: 'john', password: '123456' }).then(res => {
@@ -17,8 +20,12 @@ function App() {
   };
 
   return (
-    <div classname='App'>
-       <RegistrationPage/>
+    <div className='App'>
+    <Routes>
+    <Route path="/" element={<JobsSearch />} />
+        <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
+      </Routes>
+      
      </div>
     // <div className="App">
     //   <header className="App-header">
