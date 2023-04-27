@@ -66,14 +66,41 @@ const userSchema = new Schema({
       }],
 
     interestedVacancies: [{
-        vacancy: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Vacancy',
-          required: true
-        },
-        submissionStatus: {
+      title: {
+        type: String,
+        required: true
+      },
+      company_name: {
+        type: String,
+        required: false
+      },
+      location: {
+        type: Number,
+        required: false
+      },
+      via: {
+        type: String,
+        required: false
+      },
+      description: {
+        type: String,
+        required: true
+      },
+      job_highlights: {
+        type: String,
+        required: false
+      },
+      related_links: {
+        type: String,
+        required: false
+      },
+      extensions: {
+        type: String,
+        required: false
+      },
+        publishedDate: {
           type: String,
-          required: true
+          default: Date.now.toString()
         }
       }]
 

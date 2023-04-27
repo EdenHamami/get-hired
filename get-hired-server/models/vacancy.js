@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const vacancySchema = new mongoose.Schema({
-  jobDescription: {
+  title: {
+    type: String,
+    required: true
+  },
+  company_name: {
     type: String,
     required: true
   },
@@ -9,14 +13,31 @@ const vacancySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  appointmentPercentage: {
-    type: Number,
-    required: true
-  },
-  requirements: {
+    via: {
     type: String,
-    required: true
+    required: false
   },
+  description: {
+    type: String,
+    required: false
+  },
+  job_highlights: [{
+    title: String,
+    items:[String]
+}],
+related_links: [{
+  link: String,
+  text: String
+}],
+extensions: [String],
+detected_extensions: {
+        posted_at: String,
+        schedule_type: String
+      },
+job_id: {
+  type: String,
+  required: true
+},
   publishedDate: {
     type: Date,
     default: Date.now

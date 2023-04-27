@@ -1,3 +1,4 @@
+const Vacancy = require('./models/vacancy');
 const User = require('./models/user');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -16,7 +17,7 @@ mongoose.set('strictQuery', true);
 
 
 app.post('/jobSearch', async (req, res) => {
-  console.log("get job search");
+
   const { jobdescription, joblocation } = req.body;
   const SerpApi = require('google-search-results-nodejs');
   const query = jobdescription.toString() + ' ' + joblocation.toString()
@@ -30,21 +31,73 @@ app.post('/jobSearch', async (req, res) => {
   };
   
   const callback = function(data) {
-    console.log(data["jobs_results"]);
-    acancy.create(data["jobs_results"], (error) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Data saved successfully');
-      }
-    });
+    const jsonContent = JSON.stringify(data["jobs_results"]);
+    res.end(jsonContent);
+    
+   
   };
-  
-  // Show result as JSON
-  search.json(params, callback);
-
+   // Show result as JSON
+    search.json(params, callback);
+  // res.end(search.json(params, callback));
+//   const uniqueNames = await Vacancy.distinct('job_id');
+//   await Vacancy.deleteMany({
+//     name: { $nin: uniqueNames }
+// });
+  // const jobs = Vacancy.find({title: jobdescription.toString(),location: joblocation.toString()});
+  // const jsonContent = JSON.stringify(jobs);
+  // console.log(jsonContent);
+  // res.end(jsonContent);
 });
 
+
+
+app.post('/saveJob', async (req, res) => {
+  
+  const { username, password, job } = req.body;
+  var user =  await User.findOne({username: username.toString()});
+  user.interestedVacancies.push(job);
+  //console.log(job)
+  await user.save();
+  res.send('Job saved successfully!');
+});
+
+app.post('/getSavedJobs', async (req, res) => {
+  console.log("post");
+  const { username } = req.body;
+
+  // User.findOne({ username: username.toString() })
+  // .populate({
+  //   path: 'interestedVacancies.vacancy',
+  //   model: 'Vacancy'
+  // })
+  // .exec((err, user) => {
+  //   if (err) {
+  //     console.error(err);
+  //     return;
+  //   }
+
+  //   if (!user) {
+  //     console.log('User not found');
+  //     return;
+  //   }
+
+  //   // get the actual vacancies from the user's interestedVacancies array
+  //   const vacancies = user.interestedVacancies.map(iv => iv.vacancy);
+
+  //   // convert each vacancy object to a JSON object
+  //   const vacancyJsonArray = vacancies.map(vacancy => vacancy.toJSON());
+
+  //   console.log(vacancyJsonArray); // do something with the JSON object array
+  // });
+
+  var user =  await User.findOne({username: username.toString()});
+  var jobs = user.interestedVacancies
+  var vacancies = user.interestedVacancies.map(vacancy => vacancy.vacancy)
+  var jsonContent = JSON.stringify(vacancies);
+  const vacancyJsonArray = vacancies.map(vacancy => vacancy.toJSON());
+  console.log(vacancyJsonArray)
+  res.send(jsonContent)
+});
 
 app.post('/register', async (req, res) => {
   console.log("post");
