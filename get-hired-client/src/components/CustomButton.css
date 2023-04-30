@@ -1,0 +1,60 @@
+.custom-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-family: "Arial Rounded MT Bold", sans-serif;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #F5F5F5;
+  border: 1px solid #E0E0E0;
+}
+
+.selected {
+  background-color: #512DA8;
+  border-color: #512DA8;
+  color: white;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #E0E0E0;
+  margin-left: 10px;
+}
+
+.circle.selected {
+  background-color: #512DA8;
+  border-color: #512DA8;
+}
+
+.circle .checkmark {
+  font-size: 0.8rem;
+  color: white;
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.label:hover {
+  color: white;
+  background-color: #512DA8;
+  border-color: #512DA8;
+}
+
+.hovered-label {
+  color: white;
+  background-color: #512DA8;
+  border-color: #512DA8;
+}
+
+.hovered-label:hover {
+  background-color: #512DA8;
+  border-color: #512DA8;
+}

@@ -19,7 +19,10 @@ import RegistrationPage from './RegistrationPage';
 import OpeningPage from './Pages/OpeningPage';
 import DesignSelectionPage from './Pages/DesignSelectionPage';
 import ResumeCreationPage from './Pages/ResumeCreationPage/ResumeCreationPage';
-
+import TipsList from './Tips/TipsList';
+import Navbar from './components/Navbar';
+import MyComponent from './components/MyComponent ';
+import StartingPage from './components/StartingPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -30,7 +33,7 @@ root.render(
       <Route path="/ResumeCreationPage" element={<ResumeCreationPage/>} />
         <Route path="/technical_questions" element={<Questions />} />
         <Route path="/select_difficulty" element={<SelectDifficulty />} />
-        <Route path="/" element={<RegistrationPage />} />
+        <Route path="/RegistrationPage" element={<RegistrationPage />} />
         <Route path="/Menu" element={<Menu />} />
         <Route path="/select_topics" element={<SelectTopics />} />
         <Route path="/opening_personal_questions" element={<Opening />} />
@@ -39,6 +42,10 @@ root.render(
         <Route path="/personal_question" element={<PersonalQuestion />} />
         <Route path="/JobsSearch" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
+        <Route path="/Tips" element={<TipsList />} />
+        <Route path="/" element={<StartingPage />} />
+
+
       </Routes>
       </ResumeProvider>
     </BrowserRouter>

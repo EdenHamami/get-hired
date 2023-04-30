@@ -5,7 +5,7 @@ import Template2 from  "../../templates/Template2";
 import Template3 from  "../../templates/Template3";
 import html2pdf from 'html2pdf.js';
 import "../../styles/RightSide.css";
-
+import Button from '../../components/Button';
 const RightSide = () => {
   
   const {
@@ -79,6 +79,7 @@ const RightSide = () => {
       <div className="resume-preview">
         <div className="resume">{renderTemplate()}</div>
       </div>
+
       <button className="btn btn-primary" onClick={handleDownload}>
         Download as PDF
       </button>
