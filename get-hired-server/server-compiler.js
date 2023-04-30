@@ -181,6 +181,7 @@ app.post('/compile', (req, res) => {
     }
     // delet the file
     fs.unlinkSync('./temp/Main.java');
+    fs.unlinkSync('./temp/Solution.class');
     fs.unlinkSync('./temp/Main.class');
     if (test_output == "True"){
       if ("true" == stdout){
