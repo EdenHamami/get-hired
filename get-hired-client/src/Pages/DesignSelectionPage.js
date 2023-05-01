@@ -6,6 +6,9 @@ import design2 from '../images/design2.jpg';
 import design3 from '../images/design3.jpg';
 import { ResumeContext } from '../context/ResumeContext';
 import "../styles/DesignSelectionPage.css"
+import Navbar from '../components/Navbar';
+import titleImage from './designSelection.jpg'; // Add this import for the title image
+
 const DesignSelectionPage = () => {
   
   const { setTemplateId } = useContext(ResumeContext);
@@ -17,11 +20,13 @@ const DesignSelectionPage = () => {
   
 
   return (
+    <div>
+      <Navbar></Navbar>
     <div className="design-selection-page">
       <Container >
         <Row className="justify-content-center">
           <Col xs={12} className="my-3">
-            <h2>Choose your favorite design:</h2>
+          <img src={titleImage} alt="Title" className="designSelection-title-image" /> {/* Use img element to display the title image */}
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -57,12 +62,9 @@ const DesignSelectionPage = () => {
             </div>
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xs={10} sm={6} md={4} className="my-3">
-            <Button variant="outline-secondary" className="w-100 back-button" onClick={() => console.log('back clicked')}>Back</Button>
-          </Col>
-        </Row>
+     
       </Container>
+    </div>
     </div>
   );
   

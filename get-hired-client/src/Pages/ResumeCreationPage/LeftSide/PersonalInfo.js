@@ -18,15 +18,21 @@ function PersonalInfo() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreviewImage(URL.createObjectURL(file));
+      const imageURL = URL.createObjectURL(file);
+      setPreviewImage(imageURL);
+      setPersonalInfo((prevPersonalInfo) => ({
+        ...prevPersonalInfo,
+        image: imageURL,
+      }));
     } else {
       setPreviewImage('');
+      setPersonalInfo((prevPersonalInfo) => ({
+        ...prevPersonalInfo,
+        image: 'hila.jpg', // Set it back to the default image when there is no file
+      }));
     }
-    setPersonalInfo((prevPersonalInfo) => ({
-      ...prevPersonalInfo,
-      image: file,
-    }));
   };
+  
 
   return (
     <div className="personal-info">
