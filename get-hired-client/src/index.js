@@ -1,5 +1,9 @@
+
+import JobsSearchResult from './jobs/JobsSearchResult';
+import JobsSearch from './jobs/JobsSearch';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ResumeContext, { ResumeProvider } from './context/ResumeContext';
 import { Link, Routes, Route, BrowserRouter } from "react-router-dom";
 import './index.css';
 import Questions from './TechnicalQuestions/TechnicalQuestions';
@@ -11,21 +15,42 @@ import Opening from './PersonalQuestions/Opening';
 import PersonalTable from './PersonalQuestions/PersonalTable';
 import PersonalQuestion from './PersonalQuestions/PersonalQuestion';
 import reportWebVitals from './reportWebVitals';
-
+import RegistrationPage from './RegistrationPage';
+import OpeningPage from './Pages/OpeningPage';
+import DesignSelectionPage from './Pages/DesignSelectionPage';
+import ResumeCreationPage from './Pages/ResumeCreationPage/ResumeCreationPage';
+import TipsList from './Tips/TipsList';
+import VideoRecorder from './VirtualInterview/VideoRecorder';
+import Navbar from './components/Navbar';
+import MyComponent from './components/MyComponent ';
+import StartingPage from './components/StartingPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+  <ResumeProvider>
       <Routes>
+      <Route path="/OpeningPage" element={<OpeningPage />} />
+      <Route path="/DesignSelectionPage" element={<DesignSelectionPage />} />
+      <Route path="/ResumeCreationPage" element={<ResumeCreationPage/>} />
         <Route path="/technical_questions" element={<Questions />} />
         <Route path="/select_difficulty" element={<SelectDifficulty />} />
-        <Route path="/" element={<Menu />} />
+        <Route path="/RegistrationPage" element={<RegistrationPage />} />
+        <Route path="/Menu" element={<Menu />} />
         <Route path="/select_topics" element={<SelectTopics />} />
         <Route path="/opening_personal_questions" element={<Opening />} />
         <Route path="/online_compiler" element={<OnlineCompiler />} />
         <Route path="/personal_table" element={<PersonalTable />} />
         <Route path="/personal_question" element={<PersonalQuestion />} />
+        <Route path="/JobsSearch" element={<JobsSearch />} />
+        <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
+        <Route path="/VideoRecorder" element={<VideoRecorder />} />
         
+        <Route path="/Tips" element={<TipsList />} />
+        <Route path="/" element={<StartingPage />} />
+
+
       </Routes>
+      </ResumeProvider>
     </BrowserRouter>
 
   

@@ -1,0 +1,14 @@
+.resume-creation-page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.left-side-wrapper,
+.right-side-wrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+

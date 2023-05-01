@@ -1,0 +1,90 @@
+.education {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.education h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.education__item {
+  margin-bottom: 20px;
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.education__item.active {
+  border-color: #007bff;
+}
+
+.education__item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.education__item-institution {
+  font-weight: 600;
+}
+
+.education__item-dates {
+  font-size: 14px;
+}
+
+.education__item-body {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.education__form label {
+  font-weight: 600;
+}
+
+.education__form input {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 16px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.education__form input:focus {
+  outline: none;
+}
+
+.education__form .form-control {
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 992px) {
+  .education {
+    padding: 30px;
+  }
+
+  .education__form {
+    margin-top: 30px;
+  }
+
+  .education__form .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .education__form .col-md-6:first-child {
+    padding-right: 15px;
+  }
+
+  .education__form .col-md-6:last-child {
+    padding-left: 15px;
+  }
+}

@@ -1,0 +1,30 @@
+.start-page {
+    background-image: url("../Pages/StartPage.png");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .start-page__content {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    color: #fff;
+  }
+  
+
+
+  .start-page__button {
+    border-radius: 10px;
+    background-color: #512DA8;
+    color: white;
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  

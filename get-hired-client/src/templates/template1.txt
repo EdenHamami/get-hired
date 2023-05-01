@@ -1,0 +1,166 @@
+import React from 'react';
+import './Template1.css';
+import DesignBar from '../components/DesignBar';
+import { useState } from 'react';
+
+const Template1 = ({ personalInfo, workExperience, education, skills, summary, desiredJob }) => {
+  const { firstName, lastName, email, phone, address, image } = personalInfo;
+  const [leftSideBackground, setLeftSideBackground] = useState("#ffc001");
+  const [rightSideBackground, setRightSideBackground] = useState("#FFFFFF");
+  const [fontFamilyTitle, setFontFamilyTitle] = useState("Berlin Sans FB Demi");
+  const [fontFamily, setFontFamily] = useState('Open Sans');
+  const [fontSizeTitle, setFontSizeTitle] = useState("16px");
+  const [fontSize, setFontSize] = useState("12px");
+  const [fontColorLeftSide, setFontColorLeftSide] = useState("#030303");
+  const [fontColorRightSide, setFontColorRightSide] = useState("#030303");
+  const designOptionsList = [
+    {
+      id: 'left-side-background',
+      label: 'Left Side Background',
+      type: 'color',
+      value: leftSideBackground,
+      setter: setLeftSideBackground,
+    },
+    {
+      id: 'right-side-background',
+      label: 'Right Side Background',
+      type: 'color',
+      value: rightSideBackground,
+      setter: setRightSideBackground,
+    },
+    {
+      id: 'font-family',
+      label: 'Body Font Family',
+      type: 'select',
+      value: fontFamily,
+      setter: setFontFamily,
+      options: [
+        { value: 'berlin-sans-fb-demi', label: 'Berlin Sans FB Demi' },
+        { value: 'open-sans', label: 'Open Sans' },
+        // Add more font options here
+      ],
+    },
+    {
+      id: 'font-size',
+      label: 'Body Font Size',
+      type: 'select',
+      value: fontSize,
+      setter: setFontSize,
+      options: [
+        { value: '12px', label: '12px' },
+        { value: '14px', label: '14px' },
+        { value: '16px', label: '16px' },
+        // Add more font size options here
+      ],
+    },{
+      id: 'font-color-left-side',
+      label: 'Left Side Font Color',
+      type: 'color',
+      value: fontColorLeftSide,
+      setter: setFontColorLeftSide,
+    },
+    {
+      id: 'font-color-right-side',
+      label: 'Right Side Font Color',
+      type: 'color',
+      value: fontColorRightSide,
+      setter: setFontColorRightSide,
+    },
+  ];
+    
+  const leftColumnStyle = {
+    backgroundColor: leftSideBackground,
+    color: fontColorLeftSide,
+    fontFamily: fontFamily,
+    fontSize: fontSize,
+    alignContent: "center",
+    
+
+  };
+
+  const rightColumnStyle = {
+    backgroundColor: rightSideBackground,
+    color: fontColorRightSide,
+    fontFamily: fontFamily,
+    fontSize: fontSize,
+    padding:"20px",
+
+  };
+
+  const titleStyle = {
+    fontFamily: fontFamilyTitle,
+    fontSize: fontSizeTitle,
+  };
+
+  const profileImageStyle = {
+    borderRadius: '50%',
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover',
+    margin:"15px",
+  };
+  const line = {
+    borderBottom: "1px solid " + leftSideBackground, // Use the background color of the left side for the line color
+    margin: "0",
+    width: "80%", // Set the width to 50% of the container element
+    borderBottomWidth: "5px", // Set the height of the line to 5px
+    marginBottom: "10px",
+
+  };
+  
+  
+  const workExpItems = workExperience.map((exp, index) => (
+    <div key={index}>
+      <h3 style={titleStyle}>{exp.position}</h3>
+      <p>{exp.company}</p>
+      <p>{exp.startDate} - {exp.endDate}</p>
+      <p>{exp.description}</p>
+    </div>
+  ));
+
+  const educationItems = education.map((edu, index) => (
+    <div key={index}>
+      <h3 style={titleStyle}>{edu.degree}</h3>
+      <p>{edu.school}</p>
+      <p>{edu.startDate} - {edu.endDate}</p>
+    </div>
+  ));
+
+  const skillItems = skills.map((skill, index) => (
+    <li key={index}>{skill}</li>
+  ));
+  return (
+    <div className="template1-container">
+      <DesignBar designOptions={designOptionsList} />
+      <div className="wrapper">
+        <div className="left-column" style={leftColumnStyle}>
+        <img src={image} alt="Profile" style={profileImageStyle} />
+          <h2 style={titleStyle}>Contact</h2>
+          <p>{email}</p>
+          <p>{phone}</p>
+          <p>{address.street}, {address.city}, {address.state}</p> {/* Render the address properties */}
+          <h2 style={titleStyle}>Skills</h2>
+          <ul>{skillItems}</ul>
+        </div>
+        <div className="right-column" style={rightColumnStyle}>
+
+          <h1 style={titleStyle}>{firstName} {lastName}</h1>
+          <h2 style={titleStyle}>Desired Job</h2>
+          <p>{desiredJob}</p>
+      
+          <h2 style={titleStyle}>Summary</h2>
+          <p>{summary}</p>
+          <div style={line}></div>
+          <h2 style={titleStyle}>Work Experience</h2>
+          {workExpItems}
+          <div style={line}></div>
+          <h2 style={titleStyle}>Education</h2>
+          {educationItems}
+        </div>
+      </div>
+    </div>
+
+  );
+};
+
+export default Template1;

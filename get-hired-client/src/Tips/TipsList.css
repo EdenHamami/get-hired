@@ -1,0 +1,97 @@
+.tablist-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+.title {
+  display: none; /* Hide the original title element */
+}
+
+.title-image {
+  max-width: 50%; /* Set the maximum width of the image */
+  margin-bottom: 20px;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 60px); /* Subtract arrow-button width */
+  position: relative; /* Added */
+}
+
+.arrow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1;
+  border: 2px solid #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1;
+  position: absolute; /* Added */
+  top: 50%; /* Added */
+  transform: translateY(-50%); /* Added */
+  width: 40px; /* Added */
+  height: 40px; /* Added */
+  border-radius: 50%; /* Added */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.arrow-button:hover {
+  background-color: #e1e1e1;
+  border-color: #bbb;
+}
+
+.arrow-button:first-child {
+  left: 0; /* Added */
+}
+
+.arrow-button:last-child {
+  right: 0; /* Added */
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: calc(25% - 10px); /* Subtract margin */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: visible; /* Updated from hidden to visible */
+}
+
+.large-tab {
+  transform: scale(1.1);
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
