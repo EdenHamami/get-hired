@@ -4,41 +4,43 @@ import './WorkExperience.css';
 
 function WorkExperience() {
   const { workExperience, setWorkExperience } = useContext(ResumeContext);
-  const [newExperience, setNewExperience] = useState({
+  const [newWorkExperience, setNewWorkExperience] = useState({
     title: '',
     company: '',
+    location: '',
     startDate: '',
     endDate: '',
     description: '',
   });
-  const [addingNewExperience, setAddingNewExperience] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [addingNewWorkExperience, setAddingNewWorkExperience] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewExperience((prevExperience) => ({
-      ...prevExperience,
+    setNewWorkExperience((prevWorkExperience) => ({
+      ...prevWorkExperience,
       [name]: value,
     }));
   };
 
-  const handleAddExperience = () => {
-    setWorkExperience([...workExperience, newExperience]);
-    setNewExperience({
+  const handleAddWorkExperience = () => {
+    setWorkExperience([...workExperience, newWorkExperience]);
+    setNewWorkExperience({
       title: '',
       company: '',
+      location: '',
       startDate: '',
       endDate: '',
       description: '',
     });
+    setAddingNewWorkExperience(false);
     setActiveIndex(workExperience.length);
-    setAddingNewExperience(false);
   };
 
-  const handleExperienceChange = (index, name, value) => {
-    setWorkExperience((prevExperience) =>
-      prevExperience.map((experienceItem, i) =>
-        i === index ? { ...experienceItem, [name]: value } : experienceItem
+  const handleWorkExperienceChange = (index, name, value) => {
+    setWorkExperience((prevWorkExperience) =>
+      prevWorkExperience.map((workExpItem, i) =>
+        i === index ? { ...workExpItem, [name]: value } : workExpItem
       )
     );
   };
@@ -48,27 +50,29 @@ function WorkExperience() {
   };
 
   return (
-    <>
-      <div className='workExperienceCard'>
-        {workExperience.map((exp, index) => (
-          <div key={index}>
-            <div
-              className={`experience-item-header ${index === activeIndex ? 'active' : ''}`}
-              onClick={() => toggleActiveIndex(index)}
-            >
-              title: {exp.title} at: {exp.company}
-              <span className="toggle-icon">{index === activeIndex ? '-' : '+'}</span>
+    <div className="workExperience">
+      <h2>Work Experience</h2>
+      <div className="workExperience__items">
+        {workExperience.map((work, index) => (
+          <div key={index} className={`workExperience__item ${index === activeIndex ? 'active' : ''}`}>
+            <div className="workExperience__item-header" onClick={() => toggleActiveIndex(index)}>
+              <div className="workExperience__item-title">{work.title}</div>
+              <div className="workExperience__item-company">{work.company}</div>
+              <div className="workExperience__item-dates">
+                {work.startDate} - {work.endDate}
+              </div>
             </div>
             {index === activeIndex && (
-              <div className="experience-item-body">
+              <div className="workExperience__item-body">
+                {/* Add the form elements here */}
                 <div className="form-group">
                   <label htmlFor={`title-${index}`}>Title</label>
                   <input
                     type="text"
                     className="form-control"
                     name={`title-${index}`}
-                    value={exp.title}
-                    onChange={(e) => handleExperienceChange(index, 'title', e.target.value)}
+                    value={work.title}
+                    onChange={(e) => handleWorkExperienceChange(index, 'title', e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -77,28 +81,38 @@ function WorkExperience() {
                     type="text"
                     className="form-control"
                     name={`company-${index}`}
-                    value={exp.company}
-                    onChange={(e) => handleExperienceChange(index, 'company', e.target.value)}
+                    value={work.company}
+                    onChange={(e) => handleWorkExperienceChange(index, 'company', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor={`location-${index}`}>Location</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name={`location-${index}`}
+                    value={work.location}
+                    onChange={(e) => handleWorkExperienceChange(index, 'location', e.target.value)}
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor={`startDate-${index}`}>Start Date</label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
                     name={`startDate-${index}`}
-                    value={exp.startDate}
-                    onChange={(e) => handleExperienceChange(index, 'startDate', e.target.value)}
+                    value={work.startDate}
+                    onChange={(e) => handleWorkExperienceChange(index, 'startDate', e.target.value)}
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor={`endDate-${index}`}>End Date</label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
                     name={`endDate-${index}`}
-                    value={exp.endDate}
-                    onChange={(e) => handleExperienceChange(index, 'endDate', e.target.value)}
+                    value={work.endDate}
+                    onChange={(e) => handleWorkExperienceChange(index, 'endDate', e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -106,87 +120,78 @@ function WorkExperience() {
                   <textarea
                     className="form-control"
                     name={`description-${index}`}
-                    value={exp.description}
-                    onChange={(e) =>
-                      handleExperienceChange(index, 'description', e.target.value)
-                    }
+                    value={work.description}
+                    onChange={(e) => handleWorkExperienceChange(index, 'description', e.target.value)}
                   />
                 </div>
               </div>
             )}
           </div>
         ))}
+   {addingNewWorkExperience && (
+  <div>
+    <div className="form-group">
+      <label htmlFor="company">Company</label>
+      <input
+        type="text"
+        className="form-control"
+        name="company"
+        value={newWorkExperience.company}
+        onChange={handleInputChange}
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="position">Position</label>
+      <input
+        type="text"
+        className="form-control"
+        name="position"
+        value={newWorkExperience.position}
+        onChange={handleInputChange}
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="startDate">Start Date</label>
+      <input
+        type="text"
+        className="form-control"
+        name="startDate"
+        value={newWorkExperience.startDate}
+        onChange={handleInputChange}
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="endDate">End Date</label>
+      <input
+        type="text"
+        className="form-control"
+        name="endDate"
+        value={newWorkExperience.endDate}
+        onChange={handleInputChange}
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="description">Description</label>
+      <textarea
+        className="form-control"
+        name="description"
+        value={newWorkExperience.description}
+        onChange={handleInputChange}
+      />
+    </div>
+    <button className="btn btn-primary" onClick={handleAddWorkExperience}>
+      Add Work Experience
+    </button>
+  </div>
+)}
+
+        {!addingNewWorkExperience && (
+          <button className="btn btn-primary" onClick={() => setAddingNewWorkExperience(true)}>
+            Add New Work Experience
+          </button>
+        )}
       </div>
-      {addingNewExperience ? (
-        <div className="adding-new-experience">
-          <div className="form-group">
-            <label htmlFor="newTitle">Title</label>
-            <input
-              type="text"
-              className="form-control"
-              name="newTitle"
-              value={newExperience.title}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="newCompany">Company</label>
-            <input
-              type="text"
-              className="form-control"
-              name="newCompany"
-              value={newExperience.company}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="newStartDate">Start Date</label>
-            <input
-              type="date"
-              className="form-control"
-              name="newStartDate"
-              value={newExperience.startDate}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-          <label htmlFor="newEndDate">End Date</label>
-            <input
-              type="date"
-              className="form-control"
-              name="newEndDate"
-              value={newExperience.endDate}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="newDescription">Description</label>
-            <textarea
-              className="form-control"
-              name="newDescription"
-              value={newExperience.description}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button className="btn btn-primary" onClick={handleAddExperience}>
-            Add Experience
-          </button>
-          <button
-            className="btn btn-secondary"
-            onClick={() => setAddingNewExperience(false)}
-          >
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <button
-          className="btn btn-primary add-experience-btn"
-          onClick={() => setAddingNewExperience(true)}
-        >
-          Add New Experience
-        </button>
-      )}
-    </>
+    </div>
   );
 }
 

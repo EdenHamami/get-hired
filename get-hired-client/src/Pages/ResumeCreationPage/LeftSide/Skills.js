@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ResumeContext } from "../../../context/ResumeContext";
+import './Skills.css';
+
 function Skills() {
   const { skills, setSkills } = useContext(ResumeContext);
   const [newSkill, setNewSkill] = useState('');
@@ -18,8 +20,9 @@ function Skills() {
   };
 
   return (
-    <>
-      <div>
+    <div className="skills">
+      <h2>Skills</h2>
+      <div className="skills__list">
         {skills.map((skill, index) => (
           <div key={index} className="skill-item">
             {skill}
@@ -28,20 +31,20 @@ function Skills() {
             </button>
           </div>
         ))}
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="New skill"
-            value={newSkill}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={handleAddSkill}>
-          Add Skill
-        </button>
       </div>
-    </>
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="New skill"
+          value={newSkill}
+          onChange={handleInputChange}
+        />
+      </div>
+      <button className="btn btn-primary" onClick={handleAddSkill}>
+        Add Skill
+      </button>
+    </div>
   );
 }
 

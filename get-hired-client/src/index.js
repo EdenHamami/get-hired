@@ -24,6 +24,8 @@ import VideoRecorder from './VirtualInterview/VideoRecorder';
 import Navbar from './components/Navbar';
 import MyComponent from './components/MyComponent ';
 import StartingPage from './components/StartingPage';
+import LoginPage from './LoginPage';
+import AboutUs from './AboutUs';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -47,6 +49,9 @@ root.render(
         
         <Route path="/Tips" element={<TipsList />} />
         <Route path="/" element={<StartingPage />} />
+        <Route path="/loginPage" element={<LoginPage />} />
+        <Route path="/about" element={<AboutUs />} />
+
 
 
       </Routes>
