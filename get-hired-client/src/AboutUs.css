@@ -1,0 +1,9 @@
+.about-us {
+    background-image: url("./aboutUs.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 80vh;
+    
+    /* other background properties can be added here */
+  }

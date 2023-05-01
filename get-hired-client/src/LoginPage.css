@@ -1,0 +1,83 @@
+/* LoginPage.css */
+.login-container {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 92vh;
+    margin: 0;
+  }
+  
+  .login-image-background {
+    flex: 1;
+    background-image: url('../public/LoginPage.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-input-form-container {
+    flex: 1;
+    display: flex;
+  }
+  
+  .login-input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .login-input-form div {
+    margin-bottom: 0.5rem;
+  }
+  
+  .login-input-field {
+    width: 500px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0.3rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-button {
+    background-color: #5754b7;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: darkpurple;
+  }
+  
+  .login-account-link {
+    font-size: 0.9rem;
+  }
+  
+  .login-account-link a {
+    color: #5754b7;
+    text-decoration: none;
+  }
+  
+  .login-account-link a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-title-image {
+    max-width: 65%;
+    margin-bottom: 10px;
+  }  
+  .input-field {
+    width: 500px; /* Set a fixed width for input fields */
+    display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .loinput-field:focus {
+    border-color: #5754b7;
+    box-shadow: 0 0 8px rgba(87, 84, 183, 0.3);
+  }
