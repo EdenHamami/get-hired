@@ -1,64 +1,61 @@
-import React, { useRef, useState } from 'react';
+import {React, useState, useRef} from 'react';
+import VideoRecorder from 'react-video-recorder';
 
-function App() {
-  const [videoBlob, setVideoBlob] = useState(null);
-  const [mediaRecorder, setMediaRecorder] = useState(null);
-  const videoRef = useRef(null);
+const App = () => {
+  const [recordedVideo, setRecordedVideo] = useState(null);
+  const videoRef = useRef();
 
-  const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: {
-        echoCancellation: true,
-      },
-    });
-    // Disable audio output from stream
-    const audioTracks = stream.getAudioTracks();
-    audioTracks.forEach((track) => {
-      track.enabled = false;
-    });
-
-    videoRef.current.srcObject = stream;
-    videoRef.current.play();
-
-    const recorder = new MediaRecorder(stream);
-    const chunks = [];
-    recorder.ondataavailable = (e) => chunks.push(e.data);
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: 'video/webm' });
-      setVideoBlob(blob);
-    };
-    recorder.start();
-    setMediaRecorder(recorder);
+  const handleRecordingComplete = (videoBlob) => {
+    setRecordedVideo(videoBlob);
   };
 
-  const stopRecording = () => {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-      mediaRecorder.stop();
+  const handleDownloadVideo = () => {
+    if (recordedVideo) {
+      const url = URL.createObjectURL(recordedVideo);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'recorded-video.mp4';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
-  const downloadVideo = () => {
-    const url = URL.createObjectURL(videoBlob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'my_video.webm';
-    document.body.appendChild(a);
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
-    <div>
-      <video ref={videoRef} width={640} height={480} />
-      <br />
-      <button onClick={startRecording}>Start Recording</button>
-      <button onClick={stopRecording}>Stop Recording</button>
-      <button onClick={downloadVideo} disabled={!videoBlob}>
-        Download Video
-      </button>
+    <div style={{textAlign:"center", marginTop:"10%",border:"1px solid grey", marginLeft:"30%",
+    marginRight:"30%",padding:"5%"}}>
+      <div style={{position: 'relative'}}>
+        <video
+          ref={videoRef}
+          style={{width: '100%'}}
+          autoPlay
+          muted
+        />
+        {recordedVideo ? null : (
+          <VideoRecorder
+            onRecordingComplete={handleRecordingComplete}
+            isFlipped
+            renderDisconnectedView={() => (
+              <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+                <p style={{fontSize: '48px'}}></p>
+              </div>
+            )}
+            renderUnsupportedView={() => (
+              <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+                <p style={{fontSize: '48px'}}>Browser not supported</p>
+              </div>
+            )}
+            videoStream={videoRef.current && videoRef.current.srcObject}
+          />
+        )}
+      </div>
+      {recordedVideo && (
+        <button onClick={handleDownloadVideo} style={{marginTop: '10px'}}>
+          Download Video
+        </button>
+      )}
     </div>
   );
-}
+};
 
 export default App;
