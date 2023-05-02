@@ -7,6 +7,7 @@ import { Link, useLocation} from "react-router-dom";
 
 
 
+
 function PersonalTable() {
 
   //all the questions from the server
