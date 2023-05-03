@@ -9,7 +9,7 @@ function OpeningPage() {
       <div className="start-page__overlay"></div>
       <div className="start-page__content">
         <Link to="/DesignSelectionPage">
-        <button className="btn-custom">Get Started</button>
+        <button className="start-page__button">Get Started</button>
         </Link>
       </div>
     </div>    </div>

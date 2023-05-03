@@ -1,8 +1,8 @@
 .design-selection-page {
-    background-color: #f5f5f5;
-    padding: 50px 0;
-    min-height: 100vh; /* set a minimum height of 100% viewport height */
+    min-height: 80vh; /* set a minimum height of 100% viewport height */
     align-items: center;
+    font-family: 'Nunito', sans-serif;
+
   }
   
   .design-options-grid {
@@ -57,3 +57,7 @@
     color: #555;
   }
   
+.designSelection-title-image{
+  max-width: 50%; /* Set the maximum width of the image */
+  margin-bottom: 20px;
+}
