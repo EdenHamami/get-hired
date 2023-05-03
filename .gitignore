@@ -1,2 +1,4 @@
 get-hired-client/package-lock.json
 get-hired-client/package.json
+get-hired-server/node_modules/kareem/package.json
+get-hired-client/public/manifest.json
