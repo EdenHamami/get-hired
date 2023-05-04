@@ -1,61 +1,64 @@
-import {React, useState, useRef} from 'react';
-import VideoRecorder from 'react-video-recorder';
+import React, { useState, useRef } from 'react';
 
-const App = () => {
-  const [recordedVideo, setRecordedVideo] = useState(null);
+const VideoRecorder = () => {
+  const [isRecording, setIsRecording] = useState(false);
   const videoRef = useRef();
+  const mediaRecorderRef = useRef(null);
+  const [recordedChunks, setRecordedChunks] = useState([]);
 
-  const handleRecordingComplete = (videoBlob) => {
-    setRecordedVideo(videoBlob);
+  const startRecording = async () => {
+    setRecordedChunks([])
+    setIsRecording(false)
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      videoRef.current.srcObject = stream;
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+      mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+      mediaRecorderRef.current.start();
+      setIsRecording(true);
+    } catch (err) {
+      console.error('Error accessing media devices.', err);
+    }
   };
 
-  const handleDownloadVideo = () => {
-    if (recordedVideo) {
-      const url = URL.createObjectURL(recordedVideo);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'recorded-video.mp4';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  const stopRecording = () => {
+    setIsRecording(false);
+    const tracks = videoRef.current.srcObject.getTracks();
+    tracks.forEach(track => track.stop());
+
+    mediaRecorderRef.current.stop();
+  };
+
+  const downloadVideo = () => {
+    const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    a.href = url;
+    a.download = 'recorded-video.mp4';
+    a.click();
+    window.URL.revokeObjectURL(url);
+    setRecordedChunks([])
+    setIsRecording(false)
+  };
+
+  const handleDataAvailable = (event) => {
+    if (event.data && event.data.size > 0) {
+      setRecordedChunks((prev) => [...prev, event.data]);
     }
   };
 
   return (
-    <div style={{textAlign:"center", marginTop:"10%",border:"1px solid grey", marginLeft:"30%",
-    marginRight:"30%",padding:"5%"}}>
-      <div style={{position: 'relative'}}>
-        <video
-          ref={videoRef}
-          style={{width: '100%'}}
-          autoPlay
-          muted
-        />
-        {recordedVideo ? null : (
-          <VideoRecorder
-            onRecordingComplete={handleRecordingComplete}
-            isFlipped
-            renderDisconnectedView={() => (
-              <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
-                <p style={{fontSize: '48px'}}></p>
-              </div>
-            )}
-            renderUnsupportedView={() => (
-              <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
-                <p style={{fontSize: '48px'}}>Browser not supported</p>
-              </div>
-            )}
-            videoStream={videoRef.current && videoRef.current.srcObject}
-          />
-        )}
-      </div>
-      {recordedVideo && (
-        <button onClick={handleDownloadVideo} style={{marginTop: '10px'}}>
-          Download Video
-        </button>
+    <div>
+      <video ref={videoRef} autoPlay muted />
+      {!isRecording && <button onClick={startRecording}>Start Recording</button>}
+      {isRecording && <button onClick={stopRecording}>Stop Recording</button>}
+      {!isRecording && recordedChunks.length > 0 && (
+        <button onClick={downloadVideo}>Download Video</button>
       )}
     </div>
   );
 };
 
-export default App;
+export default VideoRecorder;
