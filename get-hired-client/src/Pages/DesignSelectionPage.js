@@ -20,8 +20,6 @@ const DesignSelectionPage = () => {
   
 
   return (
-    <div>
-      <Navbar></Navbar>
     <div className="design-selection-page">
       <Container >
         <Row className="justify-content-center">
@@ -64,7 +62,6 @@ const DesignSelectionPage = () => {
         </Row>
      
       </Container>
-    </div>
     </div>
   );
   

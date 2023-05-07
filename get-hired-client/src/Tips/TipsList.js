@@ -25,8 +25,7 @@ const TipsList = () => {
   const displayedTips = tips.slice(startIndex, startIndex + 4);
 
   return (
-    <div>
-      <Navbar></Navbar>
+   
       <div className="tablist-wrapper">
         <img src={titleImage} alt="Title" className="title-image" /> {/* Use img element to display the title image */}
         <div className="tab-container">
@@ -47,7 +46,6 @@ const TipsList = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

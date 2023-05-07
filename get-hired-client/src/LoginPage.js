@@ -16,8 +16,7 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <Navbar />
+    
       <div className="login-container">
         <div className="login-image-background"></div>
         <div className="login-input-form-container">
@@ -38,7 +37,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-    </div>
+  
   );
 }
 

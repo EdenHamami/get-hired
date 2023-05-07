@@ -23,7 +23,6 @@ function App() {
   return (
     <div className='App'>
     <Routes>
-    <Navbar></Navbar>
     <Route path="/" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
       </Routes>

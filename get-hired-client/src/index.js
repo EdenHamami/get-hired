@@ -29,6 +29,7 @@ import AboutUs from './AboutUs';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+      <Navbar></Navbar>
   <ResumeProvider>
       <Routes>
       <Route path="/OpeningPage" element={<OpeningPage />} />

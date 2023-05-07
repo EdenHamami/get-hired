@@ -4,10 +4,7 @@ import "./AboutUs.css"
 function AboutUs() {
 
   return (
-    <div>
-       <Navbar></Navbar>
     <div className="about-us">
-  </div>
   </div>
   );
 }

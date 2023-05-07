@@ -17,7 +17,6 @@ function RegistrationPage() {
   };
 
   return (
-    <div><Navbar></Navbar>
     <div className="register-container">
       <div className="image-background"></div>
       <div className="input-form-container">
@@ -47,7 +46,6 @@ function RegistrationPage() {
     
         </form>
       </div>
-    </div>
     </div>
   );
 }
