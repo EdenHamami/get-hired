@@ -37,7 +37,7 @@ function Menu() {
     navigate("/JobsSearch", {});
   };
   const navigate_job_interview = () => {
-    navigate("/VideoRecorder", {});
+    navigate("/TrialRecording", {});
   };
 
   return (

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
+import { Link, Route, Routes ,useLocation , useNavigate } from "react-router-dom";
 
-const VideoRecorder = () => {
+const TrialRecording = () => {
+  const navigate = useNavigate();
   const [isRecording, setIsRecording] = useState(false);
   const videoRef = useRef();
   const mediaRecorderRef = useRef(null);
@@ -23,6 +25,7 @@ const VideoRecorder = () => {
 
   const stopRecording = () => {
     setIsRecording(false);
+    // with two line black frame between recordings
     const tracks = videoRef.current.srcObject.getTracks();
     tracks.forEach(track => track.stop());
 
@@ -43,22 +46,34 @@ const VideoRecorder = () => {
     setIsRecording(false)
   };
 
+
   const handleDataAvailable = (event) => {
     if (event.data && event.data.size > 0) {
       setRecordedChunks((prev) => [...prev, event.data]);
     }
   };
 
+  const handleClick = () => {
+    navigate('/VirtualInterview', {
+      state: {
+
+      }
+    });
+  };
+
   return (
     <div>
       <video ref={videoRef} autoPlay muted />
-      {!isRecording && <button onClick={startRecording}>Start Recording</button>}
+      {!isRecording && <button onClick={startRecording}>Try recording here</button>}
       {isRecording && <button onClick={stopRecording}>Stop Recording</button>}
       {!isRecording && recordedChunks.length > 0 && (
         <button onClick={downloadVideo}>Download Video</button>
       )}
+      <button onClick={handleClick}>start the interview</button>
     </div>
   );
 };
 
-export default VideoRecorder;
+
+
+export default TrialRecording;
