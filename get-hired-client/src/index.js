@@ -20,7 +20,6 @@ import OpeningPage from './Pages/OpeningPage';
 import DesignSelectionPage from './Pages/DesignSelectionPage';
 import ResumeCreationPage from './Pages/ResumeCreationPage/ResumeCreationPage';
 import TipsList from './Tips/TipsList';
-import VideoRecorder from './VirtualInterview/VideoRecorder';
 import Navbar from './components/Navbar';
 import MyComponent from './components/MyComponent ';
 import StartingPage from './components/StartingPage';
@@ -46,7 +45,6 @@ root.render(
         <Route path="/personal_question" element={<PersonalQuestion />} />
         <Route path="/JobsSearch" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
-        <Route path="/VideoRecorder" element={<VideoRecorder />} />
         
         <Route path="/Tips" element={<TipsList />} />
         <Route path="/" element={<StartingPage />} />

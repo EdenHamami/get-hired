@@ -67,7 +67,6 @@ function JobsSearchResult() {
         </div>
       )}
       <div className="search-result-left-side">
-        {/* Add your background image here */}
       </div>
       <div className="search-result-right-side">
         <div className="search-inputs">
@@ -85,10 +84,11 @@ function JobsSearchResult() {
             onSelect={handleOnSelectCity}
             autoFocus
           />
-          <br />
-          <button type="button" onClick={handleSearch} className="btn btn-light">
+          <div className='button-contanier'>
+          <button type="button" onClick={handleSearch} className="find-jobs-button">
             Find Jobs
           </button>
+          </div>
         </div>
         <div className="saved-jobs">
           <button onClick={hanleSelectSavedJob} className="liked-jobs-button">
