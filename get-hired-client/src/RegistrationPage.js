@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import './RegistrationPage.css';
+import './registrationPage.css';
 import Navbar from "../src/components/Navbar";
 
 function RegistrationPage() {
