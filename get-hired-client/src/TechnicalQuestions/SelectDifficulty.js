@@ -1,10 +1,8 @@
-
-import {useEffect, useState} from "react";
-import { Link, Route, Routes ,useLocation , useNavigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../App.css';
-import * as React from "react";
+import { FaCheckCircle } from "react-icons/fa";
+import './SelectDifficulty.css';
 
 function SelectDifficulty() {
 
@@ -17,13 +15,11 @@ function SelectDifficulty() {
     { id: 3, name: 'hard', checked:false},
   ]);
 
-  // marked difficulties
   const handleDifficultiesClick = (difficultyId) => {
     const updatedDifficulties = primaryDifficulties.map((difficulty) =>
-    difficulty.id === difficultyId ? { ...difficulty, checked: !difficulty.checked } : difficulty
-  );
-  setPrimaryDifficulties(updatedDifficulties);
-  console.log(primaryDifficulties)
+      difficulty.id === difficultyId ? { ...difficulty, checked: !difficulty.checked } : difficulty
+    );
+    setPrimaryDifficulties(updatedDifficulties);
   };
 
   const navigate = useNavigate();
@@ -38,20 +34,17 @@ function SelectDifficulty() {
   };
 
   return (
-    <div>
-    <h6>Select the difficulty that matches your 
-    skills and goals, and we'll provide the 
-    technical questions to help you prepare 
-    for your next job interview.</h6>
-          <ul>
-            {primaryDifficulties.map((option) => (
-              <li key={option.id}>
-                <input type="checkbox" checked={option.checked} onChange={() => handleDifficultiesClick(option.id)} />
-                {option.name}
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleClick}>next</button>
+    <div className="difficulty-container">
+      <div className="select-difficulty-image-container"></div>
+      <div className="select-difficulty-selection-container">
+        {primaryDifficulties.map((option) => (
+          <div key={option.id} className={`select-difficulty-item ${option.checked ? 'checked' : ''}`} onClick={() => handleDifficultiesClick(option.id)}>
+            <FaCheckCircle className="checkbox-icon" />
+            {option.name}
+          </div>
+        ))}
+        <button className="select-difficulty-next-button" onClick={handleClick}>Next</button>
+      </div>
     </div>
   );
 }
