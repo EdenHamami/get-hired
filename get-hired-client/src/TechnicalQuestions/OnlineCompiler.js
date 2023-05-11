@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import '../App.css';
-
+import './OnlineCompiler.css';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-github';
+import 'ace-builds/src-noconflict/theme-monokai'; // This theme provides a dark background
 import { useLocation } from 'react-router-dom';
-
-
 function OnlineCompiler() {
   const location = useLocation();
   const data = location.state;
@@ -72,59 +69,59 @@ function OnlineCompiler() {
     setInput(value);
   }
   return (
+    <div className="compiler-container">
+      <div className="compiler-left-content">
+        <h2 className="compiler-title">{title}</h2>
+        <div className="compiler-question">{question}</div>
+        <ul className="compiler-examples-list">
+          {examples.map((item, index) => (
+            <li key={index}>
+              <h5>Example {index + 1}:</h5>
+              <div>Input: {item.input}</div>
+              <div>Output: {item.output}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="compiler-right-content">
+       
+        <select className="compiler-language-select" value={language} onChange={(event) => {
+          setLanguage(event.target.value);
+          my_initial_code(event.target.value);
+        }}>
+          {options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.text}
+            </option>
+          ))}
+        </select>
+        <h3>Input</h3>
+        <AceEditor
+  mode="javascript"
+  theme="monokai"
+  onChange={handleChange}
+  value={input}
+  name="code-editor"
+  editorProps={{ $blockScrolling: true }}
+  style={{
+    border: '1px solid black',
+    borderRadius: '5px',
+    height: '350px', // adjust this to your preferred height
+    fontSize: '16px',
+  }}
+/>
 
-    <div>
-      <h2>{title}</h2>
-      <div >{question}</div>
-      <ul>
-        {examples.map((item, index) => (
-          <li key={index}>
-            <h5>example {index + 1}:</h5>
-            <div >input: {item.input}</div>
-            <div >output: {item.output}</div>
-          </li>
-        ))}
-      </ul>
-      Languge : <select value={language} onChange={(event) => {
-        setLanguage(event.target.value);
-        my_initial_code(event.target.value);
-      }}>
-        {options.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.text}
-          </option>
-        ))}
-      </select>
-      <h3>input</h3>
-      <AceEditor
-        mode="javascript"
-        theme="github"
-        onChange={handleChange}
-        value={input}
-        name="code-editor"
-        editorProps={{ $blockScrolling: true }}
-        style={{
-          border: '1px solid black',
-          borderRadius: '5px',
-          height: '250px',
-          width: '55%',
-          fontSize: '16px',
-        }}
-      />
-      <br />
-      <h3>output</h3>
-      <ul>
-      {output.map((item, index) => (
-        <li key={index}>
-          <div >case: {item.case}</div>
-          <div>{item.output.split('\n').map(line => <span>{line}<br/></span>)}</div>
-        </li>
-      ))}
-    </ul>
-      <br />
-
-      <br />
-      <button id="submit" onClick={my_print}>submit</button><br></br>
+        <h3>Output</h3>
+        <ul className="compiler-output-list">
+          {output.map((item, index) => (
+            <li key={index}>
+              <div>Case: {item.case}</div>
+              <div>{item.output.split('\n').map(line => <span>{line}<br /></span>)}</div>
+            </li>
+          ))}
+        </ul>
+        <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
+      </div>
     </div>
   );
 }
