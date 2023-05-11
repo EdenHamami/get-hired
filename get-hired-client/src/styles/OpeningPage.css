@@ -1,11 +1,10 @@
 .start-page {
     background-image: url("../Pages/StartPage.png");
     background-size: cover;
-    height: 94vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    position: relative;
   }
 
   .start-page__content {
