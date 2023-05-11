@@ -1,29 +1,27 @@
-import {useEffect, useState} from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import '../App.css';
-import * as React from "react";
+import './SelectTopics.css';
+import { FaCheckCircle } from "react-icons/fa";
+import SelectTopicsLeft from './SelectTopicsLeft.png'; // Import your image here
 
 function SelectTopics() {
 
   const [primaryTopics, setPrimaryTopics] = useState([]);
 
-  //get the topics from the server
   useEffect(() => {
     axios.post("http://127.0.0.1:3001/topics").then((response) => {
       let my_list = [] 
       let i = 1
       response.data.map((topic) =>{
-      my_list = [...my_list, { id: i, name: topic.name,checked: false}]
+      my_list = [...my_list, { id: i, name: topic.name, checked: false}]
       i=i+1
       }
       );
       setPrimaryTopics(my_list)
     });
-    },[]);;
+  },[]);
 
-  // Handle checkbox click event
   const handleTopicsClick = (topicId) => {
     const updatedTopics = primaryTopics.map((topic) =>
       topic.id === topicId ? { ...topic, checked: !topic.checked } : topic
@@ -32,19 +30,17 @@ function SelectTopics() {
   };
 
   return (
-    <div>
-    <h6>Select your preferred topics below, and 
-    we'll provide the questions and solutions 
-    you need to ace your interview.</h6>
-      <ul>
+    <div className="topics-container">
+      <div className="select-topics-image-container"></div>
+      <div className="select-topics-selection-container">
         {primaryTopics.map((option) => (
-          <li key={option.id}>
-            <input type="checkbox" checked={option.checked} onChange={() => handleTopicsClick(option.id)} />
+          <div key={option.id} className={`select-topics-topic-item ${option.checked ? 'checked' : ''}`} onClick={() => handleTopicsClick(option.id)}>
+            <FaCheckCircle className="checkbox-icon" />
             {option.name}
-          </li>
+          </div>
         ))}
-      </ul>
-      <Link to="/select_difficulty" state={primaryTopics}>next</Link>
+        <Link to="/select_difficulty" className="select-topics-next-button">Next</Link>
+      </div>
     </div>
   );
 }

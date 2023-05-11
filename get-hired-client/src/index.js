@@ -25,6 +25,7 @@ import MyComponent from './components/MyComponent ';
 import StartingPage from './components/StartingPage';
 import LoginPage from './LoginPage';
 import AboutUs from './AboutUs';
+import technicalQuestionsIntro from './TechnicalQuestions/technicalQuestionsIntro';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -45,7 +46,6 @@ root.render(
         <Route path="/personal_question" element={<PersonalQuestion />} />
         <Route path="/JobsSearch" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
-        
         <Route path="/Tips" element={<TipsList />} />
         <Route path="/" element={<StartingPage />} />
         <Route path="/loginPage" element={<LoginPage />} />
