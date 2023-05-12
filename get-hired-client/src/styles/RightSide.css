@@ -16,11 +16,13 @@
   margin-bottom: 1rem;
 }
 .btn.btn-primary{
-  border-radius: 10px;
-  background-color: #512DA8;
-  color: white;
-  font-family: "Arial Rounded MT Bold", sans-serif;
-  font-size: 1.2rem;
-  border: none;
+  justify-content: center;
+  align-items: center;
+  background-color:#512DA8;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px;
   cursor: pointer;
+  border-color: #512DA8;
 }
