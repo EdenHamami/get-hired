@@ -10,8 +10,9 @@
 }
 
 .title-image {
-  max-width: 50%; 
-  margin-bottom: 20px;
+  max-width: 40%; 
+  margin-bottom: 40px;
+  align-self:flex-start;
 }
 
 .tab-container {

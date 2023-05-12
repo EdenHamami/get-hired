@@ -6,7 +6,7 @@
   align-items: center;
   background-color: white;
   padding: 10px;
-  margin: 0 5px;
+  margin: 0 10px;
   cursor: pointer;
   transition: all 0.3s;
   width: calc(25% - 10px);
@@ -19,6 +19,7 @@
 
 .large-tab {
   transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .tip-image {
@@ -30,6 +31,7 @@
 .tab-title {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
+  font-weight: bold;
 }
 
 .tab-content {
