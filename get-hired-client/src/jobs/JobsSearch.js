@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import israel_cities from './Israel_cities'
 import jobsList from './JobsList'
 import Job from './Job'
+import './JobsSearch.css';
+
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -35,28 +37,31 @@ function JobsSearch() {
   }
 
   return (
-    <div className="App">   
-      <header className="App-header">
-        <div style={{ width: 400 }}>
+    <div className="job-search-contanier">
+      <div className="job-search-left-side" ></div>
+      <div className="job-search-right-side">
+        <img src="./jobsTitle.png" className="jobSearchTitle" />
+        <div className='jobs-inputs'>
           <ReactSearchAutocomplete
-          placeholder="What would you like to work on?"
+            placeholder="What would you like to work on?"
             items={jobsList}
             onSelect={handleOnSelectJob}
             autoFocus
           />
-          <br></br>
+          <br />
           <ReactSearchAutocomplete
-          placeholder="where?"
-            //resultStringKeyName = "city"
+            placeholder="where?"
             items={israel_cities}
             onSelect={handleOnSelectCity}
             autoFocus
           />
-        <br></br>
-        <button type="button" onClick={handleSearch} className="btn btn-light">Find Jobs</button>
-        <button> <i className="bi bi-heart"></i></button>
+          <br />
+    
         </div>
-        </header>
+        <div className='findJobs'>
+          <button type="button" onClick={handleSearch} className="findJobs-search-button">Find Jobs</button>
+          </div>
+      </div>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import JobsSearch from './jobs/JobsSearch';
 import RegistrationPage from "./RegistrationPage";
 import JobsSearchResult from "./jobs/JobsSearchResult"; 
 import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
 function App() {
   useEffect(() => {
     axios.post('http://127.0.0.1:3001/login', { username: 'john', password: '123456' }).then(res => {

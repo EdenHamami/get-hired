@@ -8,7 +8,6 @@ import CustomButton from './CustomButton';
 const MyComponent = () => {
   return (
     <div>
-        <Navbar></Navbar>
       <Button>Click Me!</Button>
       <InputField placeholder="Enter your name" />
       <SelectionTab options={['Option 1', 'Option 2', 'Option 3']} />

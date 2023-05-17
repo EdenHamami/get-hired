@@ -1,3 +1,103 @@
+li {
+    list-style: none;
+    padding: 4px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Nunito', sans-serif;
+
+  }
+  
+  li:hover {
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+  }
+  .job-contanier{
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    
+  }
+
+  .job-content{
+    width: 100%;
+    margin: 2%;
+    height: 100%;
+
+  }
+  .card-header {
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: 700;
+  }
+  
+  .card-body {
+    font-size: 1.2em;
+    color: #495057;
+  }
+  
+  .card-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #343a40;
+  }
+  
+  .card-text {
+    font-size: 1em;
+    color: #6c757d;
+  }
+  
+  .favorite-icon {
+    cursor: pointer;
+    float: right;
+    font-size: 1.5em;
+  }
+  
+  .favorite-icon.filled {
+    color: #dc3545;
+  }
+
+  .card-job-left{
+    flex: 2;
+    border-right: 1px solid rgb(87, 84, 183,0.5);
+min-height: 100%!important;
+
+  }
+  .card-job-title{
+    font-weight: bold;
+    color:#5754b7;
+    font-size: 1rem;
+    text-align: center;
+    padding: 2px;
+
+  }
+  .card-job-center{
+    flex: 3;
+    margin: 2%;
+
+  }
+  .card-favorite-icon-contanier{
+    margin: 2%;
+    flex:1;
+  }
+
 .accordion-button {
-    display: block;
+}
+.card-company-name{
+    font-weight: bold;
+   
+
+}
+
+.card-job-location{
+    color:#495057;
+    font-size: 0.9rem;
+    margin-top: 1px;
+
+}
+
+.card-job-via{
+    color:#495057;
+    font-size: 0.8rem;
+    margin-top: 1px;
 }

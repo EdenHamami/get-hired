@@ -42,7 +42,7 @@ function Menu() {
 
   return (
     <div className="menu-container">
-      <Navbar></Navbar>
+     
       <div className="content-container">
         <div className="image-container"></div>
         <div className="buttons-container">
