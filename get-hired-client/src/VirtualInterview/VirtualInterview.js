@@ -10,7 +10,7 @@ const VirtualInterview = () => {
   const videoRef1 = useRef();
   const mediaRecorderRef = useRef(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoUrl, setVideoUrl] = useState("");
 
   const videoRef = useRef(null);
 
@@ -32,33 +32,18 @@ const VirtualInterview = () => {
   }, []);
   
 
-  // useEffect(() => {
-  //   startRecording();
-  //   axios.post('http://127.0.0.1:3001/interview-question/').then((response) => {
-  //     console.log(response)
-  //     // setVideoUrl(response.data.videoUrl);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   axios.post("http://127.0.0.1:3001/interview-question").then((response) => {
-  //     console.log(response.data)
-  //     setVideoUrl(response.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    axios
-      .post('http://127.0.0.1:3001/interview-question')
+    startRecording();
+    const Id = '6460de43278574efe5c98689';
+    axios.post(`http://127.0.0.1:3001/interview-question/${Id}`)
       .then((response) => {
-        console.log(response.data);
-        setVideoUrl(response.data);
+        console.log(response.data.videoUrl);
+        setVideoUrl(response.data.videoUrl);
       })
       .catch((error) => {
-        console.error('Error fetching video:', error);
+        console.error('Error fetching video URL:', error);
       });
   }, []);
-
 
   const startRecording = async () => {
     try {
@@ -97,13 +82,12 @@ const VirtualInterview = () => {
     }
   };
 
+
   return (
     <div>
     <Timer />
-    <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480">
-        <source src="https://drive.google.com/uc?export=download&id=1VPalfftzbruc3QBcC8huCaSxjGF-fdT4" type="video/mp4" />
-      </video>
-
+      <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={videoUrl} type="video/mp4" />
+    
       <video ref={videoRef1} autoPlay muted />
       {!isRecording && (
         <button onClick={startRecording}>

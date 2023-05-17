@@ -1,22 +1,32 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+//An interview with his list of questions
 const interviewProblemSchema = new Schema({
 
-    content: {
+    type: {
         type: String,
         required: true
     },
-    video: {
-      name: {
-          type: String,
-          required: true
-      },
-      data: {
-          type: Buffer,
-          required: true
-      }
-  }
+    // name: {
+    //     type: String,
+    //     required: true
+    // },
+    
+    questions:[{
+        
+        content: {
+            type: String,
+            required: true
+        },
+        videoUrl: {
+            type: String,
+            required: true
+        },
+
+    }]
+
     
     // video: {
     //   //link-google drive,amazon....

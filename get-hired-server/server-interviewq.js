@@ -4,19 +4,17 @@ const path = require('path');
 
 module.exports = function configureServer(app){
 
-//get the question
-// app.post('/interview-question',async (req, res) => {
-//   const videoPath = path.join(__dirname, 'videos', 'q1.mp4'); // Replace with the actual path to your video file
+  //get the question
+let question;
+app.post('/interview-question/:Id',async (req, res) => {
+  const Id = req.params.Id;
+  question = await InterviewProblem.findOne({ _id:Id });
+  console.log("question")         
 
-//   res.sendFile(videoPath);
-
-//   });
-  app.post('/interview-question',async (req, res) => {
-
-  const videoPath = path.join(__dirname, 'videos', 'q1.mp4'); // Replace with the actual path to your video file
-  res.setHeader('Content-Type', 'video/mp4');
-  res.sendFile(videoPath);
-  });
-  
+  const data = {
+    videoUrl: question.videoUrl,
+  };
+  res.send(data);
+});
 
 };
