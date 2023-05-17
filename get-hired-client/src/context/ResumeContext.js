@@ -139,3 +139,41 @@ const ResumeProvider = ({ children }) => {
 };
 
 export { ResumeProvider };
+
+
+
+// import { createContext, useState, useEffect } from 'react';
+
+// export const ResumeContext = createContext();
+
+// const ResumeProvider = ({ children }) => {
+//   // ...
+
+//   useEffect(() => {
+//     fetchUserData();
+//   }, []);
+
+//   const fetchUserData = async () => {
+//     try {
+//       const response = await fetch('your-server-api-url/user-data');
+//       if (response.ok) {
+//         const userData = await response.json();
+//         setTemplateId(userData.templateId);
+//         setDesignOptions(userData.designOptions);
+//         setPersonalInfo(userData.personalInfo);
+//         setWorkExperience(userData.workExperience);
+//         setEducation(userData.education);
+//         setSkills(userData.skills);
+//         setSummary(userData.summary);
+//       } else {
+//         console.error('Failed to fetch user data');
+//       }
+//     } catch (error) {
+//       console.error('Error fetching user data:', error);
+//     }
+//   };
+
+//   // ...
+// };
+
+// export { ResumeProvider };

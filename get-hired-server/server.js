@@ -225,6 +225,11 @@ app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.find({ username });  
   if (user.length > 0 && user[0].password == password) {
+    const sessionID = generateSessionID(); // Generate a unique session ID
+    const userID = getUserID(); // Get the user ID
+    req.session.userID = userID; // Store the user ID in the session
+    res.cookie('sessionID', sessionID, { maxAge: 24 * 60 * 60 * 1000 }); // Set cookie with session ID
+    res.redirect('/profile');
     res.sendStatus(200);
   } else {
     res.sendStatus(401);
@@ -277,5 +282,9 @@ const main = async () => {
     console.log(`Server started listening on port ${port}`);
   });    
 };
+
+
+
+
 
 main();

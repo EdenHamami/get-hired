@@ -28,8 +28,10 @@ import LoginPage from './LoginPage';
 import AboutUs from './AboutUs';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <BrowserRouter>
   <ResumeProvider>
+  <Navbar></Navbar>
       <Routes>
       <Route path="/OpeningPage" element={<OpeningPage />} />
       <Route path="/DesignSelectionPage" element={<DesignSelectionPage />} />

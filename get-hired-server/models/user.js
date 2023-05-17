@@ -17,6 +17,21 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    
+    personalInfo: [{
+      firstName: String,
+      lastName: String,
+      email: String,
+      phone: String,
+      address: [{
+        street: String,
+        city: String,
+        state: String,
+      }],
+      image:  String,
+      desiredJob: String // Add desired job field
+    }],
+  
     workExperience: [{
         company: String,
         position: String,
