@@ -1,5 +1,5 @@
 
-const PersonalProblem = require('./models/personalProblem');
+const PersonalProblem = require('../models/personalProblem');
 
 module.exports = function configureServer(app){
 

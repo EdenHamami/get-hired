@@ -1,6 +1,6 @@
 
-const PracticeProblem = require('./models/practiceProblem');
-const ProblemType = require('./models/problemType');
+const PracticeProblem = require('../models/practiceProblem');
+const ProblemType = require('../models/problemType');
 
 
 module.exports = function configureServer(app){
