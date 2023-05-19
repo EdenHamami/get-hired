@@ -23,6 +23,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         <img src="user.png" alt="User" className="user-img" onClick={toggleDropdown} />
+        
         {dropdownVisible && (
           <div className="dropdown" onBlur={handleClickOutside} tabIndex="0">
             <a href="/my-cv" className="dropdown-item">My CV</a>
