@@ -3,6 +3,7 @@ import { createContext, useState } from 'react';
 export const ResumeContext = createContext();
 
 const ResumeProvider = ({ children }) => {
+
   const [templateId, setTemplateId] = useState(1);
 
   const designOptions1 = {

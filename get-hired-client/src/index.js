@@ -1,4 +1,3 @@
-
 import JobsSearchResult from './jobs/JobsSearchResult';
 import JobsSearch from './jobs/JobsSearch';
 import React from 'react';
@@ -21,21 +20,22 @@ import DesignSelectionPage from './Pages/DesignSelectionPage';
 import ResumeCreationPage from './Pages/ResumeCreationPage/ResumeCreationPage';
 import TipsList from './Tips/TipsList';
 import Navbar from './components/Navbar';
-import MyComponent from './components/MyComponent ';
 import StartingPage from './components/StartingPage';
 import LoginPage from './LoginPage';
 import AboutUs from './AboutUs';
+import UserContext, { UserProvider } from './context/UserContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
+
   <BrowserRouter>
-      <Navbar></Navbar>
-  <ResumeProvider>
-  <Navbar></Navbar>
+    
+    <UserProvider>
+    <ResumeProvider>
+    <Navbar></Navbar>
       <Routes>
-      <Route path="/OpeningPage" element={<OpeningPage />} />
-      <Route path="/DesignSelectionPage" element={<DesignSelectionPage />} />
-      <Route path="/ResumeCreationPage" element={<ResumeCreationPage/>} />
+        <Route path="/OpeningPage" element={<OpeningPage />} />
+        <Route path="/DesignSelectionPage" element={<DesignSelectionPage />} />
+        <Route path="/ResumeCreationPage" element={<ResumeCreationPage />} />
         <Route path="/technical_questions" element={<Questions />} />
         <Route path="/select_difficulty" element={<SelectDifficulty />} />
         <Route path="/RegistrationPage" element={<RegistrationPage />} />
@@ -47,19 +47,14 @@ root.render(
         <Route path="/personal_question" element={<PersonalQuestion />} />
         <Route path="/JobsSearch" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
-        
         <Route path="/Tips" element={<TipsList />} />
         <Route path="/" element={<StartingPage />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/about" element={<AboutUs />} />
-
-
-
       </Routes>
-      </ResumeProvider>
-    </BrowserRouter>
-
-  
+    </ResumeProvider>
+    </UserProvider>
+  </BrowserRouter>
 );
 
 
