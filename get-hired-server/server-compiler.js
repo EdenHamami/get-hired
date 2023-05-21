@@ -59,7 +59,7 @@ app.post('/language',async (req, res) => {
 
 // post requset to compile
 app.post('/compile', (req, res) => {
-  
+  console.log("her1")
   
   // get the code from the user
   const { input , language,test_number, } = req.body;
@@ -86,7 +86,7 @@ app.post('/compile', (req, res) => {
     // compile the code
     exec(compile , (err, stdout, stderr) => {
       if (err) {
-        res.send(stderr);
+        res.send("compilation error");
         try{
           fs.unlinkSync('./temp/solution.py');
         }catch{
@@ -115,7 +115,7 @@ app.post('/compile', (req, res) => {
   exec(compile, (err, stdout, stderr) => {
     if (err) {
       console.log(stderr)
-      res.send(stderr);
+      res.send("compilation error");
       try{
         fs.unlinkSync('./temp/solution.cpp');
       }catch{
@@ -165,7 +165,7 @@ app.post('/compile', (req, res) => {
   compile = 'cd temp && javac Main.java && java Main '+ test_input
   exec(compile, (err, stdout, stderr) => {
     if (err) {
-      res.send(stderr);
+      res.send("compilation error");
       try{
         fs.unlinkSync('./temp/Main.java');
       }catch{
