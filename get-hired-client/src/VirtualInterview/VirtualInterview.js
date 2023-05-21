@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
@@ -8,6 +9,9 @@ import VideoCamera from './VideoCamera';
 import "./VirtualInterview.css";
 
 const VirtualInterview = () => {
+  const location = useLocation();
+  const selectedPosition = location.state.selectedPosition;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
@@ -36,8 +40,7 @@ const VirtualInterview = () => {
   const [isDataFetched, setIsDataFetched] = useState(false);
 
   useEffect(() => {
-    const Id = '6465229deca797dacaa82ee1';
-    axios.post(`http://127.0.0.1:3001/interview-question/${Id}`)
+    axios.post(`http://127.0.0.1:3001/interview-question/${selectedPosition}`)
       .then((response) => {
         console.log(response.data.questions);
         setInterviewQuestions(response.data.questions);

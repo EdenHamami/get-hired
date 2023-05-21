@@ -1,20 +1,22 @@
-
 const InterviewProblem = require('./models/interviewProblem');
 const path = require('path');
 
-module.exports = function configureServer(app){
+module.exports = function configureServer(app) {
+  // get the question
+  let interview;
 
-  //get the question
-let interview;
-app.post('/interview-question/:Id',async (req, res) => {
-  const Id = req.params.Id;
-  interview = await InterviewProblem.findOne({ _id:Id });
-  console.log(interview)         
+  app.post('/interview-question/:selectedPosition', async (req, res) => {
+    const selectedPosition = req.params.selectedPosition;
+    interview = await InterviewProblem.findOne({ type: selectedPosition });
+    console.log(selectedPosition)
 
-  const data = {
-    questions: interview.questions,
-  };
-  res.send(data);
-});
-
+    if (interview) {
+      const data = {
+        questions: interview.questions,
+      };
+      res.send(data);
+    } else {
+      res.status(404).send('No item found with the selected position');
+    }
+  });
 };
