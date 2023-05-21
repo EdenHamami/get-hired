@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import '../App.css';
 import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import Filter from './Filter';
 import './TechnicalQuestions.css';
 
@@ -33,52 +33,59 @@ function TechnicalQuestions() {
       setQuestions(response.data);
       setFilteredQuestions(response.data);
     });
-  }, []);
 
-  //search box changes
-  const handleSearchQueryChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+    }, []);
 
-  //table after change in search box
-  useEffect(() => {
-    const filtered = questions.filter(question => question.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    setFilteredQuestions(filtered);
-  }, [searchQuery, questions]);
+    //search box changes
+    const handleSearchQueryChange = (event) => {
+      console.log("her "+ event.target.value)
+      setSearchQuery(event.target.value);
+    };
+
+   //table after change in search box
+    useEffect(() => {
+      const filtered = questions.filter(question => question.title !== undefined && question.title.toLowerCase().includes(searchQuery.toLowerCase())
+      && question)
+      setFilteredQuestions(filtered);
+      console.log(filteredQuestions)
+    }, [searchQuery]);
 
   return (
+
     <div className="questions-container">
-      <div className="questions-image-container"></div>
-      <div className="questions-content-container">
-        <Filter questions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics} />
-        <form className="form-inline questions-search-form">
+    <div className="questions-image-container"></div>
+    <div className="questions-content-container">
+    <Filter questions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics} />
+    <nav class="navbar navbar-light bg-light">
+    <form className="form-inline questions-search-form">
           <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
             onChange={handleSearchQueryChange} />
         </form>
-        <table className="table questions-table">
+</nav>
+<table className="table questions-table">
           <thead className="thead-dark">
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Topic</th>
-              <th scope="col">Difficulty</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredQuestions.map((question) => (
-              <tr key={question.id}>
-                <th className="question-name" scope="row"><Link to="/online_compiler" className="question-name"  state={question}>{question.title}</Link></th>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Difficulty</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {filteredQuestions.map((question) => (
+      <tr key={question.id}>
+      <th className="question-name" scope="row"><Link to="/online_compiler" className="question-name"  state={question}>{question.title}</Link></th>
                 <td>{question.types.map((type, index) => (
                   <div className="question-topic" key={index}>{type.name}</div>
                 ))}</td>
-                <td>{question.difficultyLevel}</td>
-                <td>##</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <td>{question.difficultyLevel}</td>
+      <td>##</td>
+    </tr>
+    ))}
+    </tbody>
+  </table>
+  </div>   
+   </div>
   );
 }
 
