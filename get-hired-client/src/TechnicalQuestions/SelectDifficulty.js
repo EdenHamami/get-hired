@@ -28,7 +28,7 @@ function SelectDifficulty() {
     navigate('/technical_questions', {
       state: {
         primaryDifficulties: primaryDifficulties,
-        primaryTopics: primaryTopics
+        primaryTopics: primaryTopics.primaryTopics
       }
     });
   };

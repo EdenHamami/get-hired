@@ -1,69 +1,93 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from "axios";
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+import Timer from './Timer';
+import VideoCamera from './VideoCamera';
+
+import "./VirtualInterview.css";
 
 const VirtualInterview = () => {
-  const [isRecording, setIsRecording] = useState(false);
-  const videoRef = useRef();
-  const mediaRecorderRef = useRef(null);
-  const [recordedChunks, setRecordedChunks] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [interviewQuestions, setInterviewQuestions] = useState([]);
+  const [currentQuestion , setCurrentQuestion] = useState({});
+  const [nextButton , setNextButton] = useState('next');
+
+
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    startRecording();
+    const player = videojs(videoRef.current, {
+      controls: true,
+      autoplay: true,
+      preload: 'auto',
+      poster: 'path/to/poster/image.jpg',
+    });
+
+    // player.on('ended', () => {
+    //   player.currentTime(0);
+    // });
+
+    return () => {
+      player.dispose();
+    };
   }, []);
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-      videoRef.current.srcObject = stream;
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
-      mediaRecorderRef.current.ondataavailable = handleDataAvailable;
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-    } catch (err) {
-      console.error('Error accessing media devices.', err);
+  const [isDataFetched, setIsDataFetched] = useState(false);
+
+  useEffect(() => {
+    const Id = '6465229deca797dacaa82ee1';
+    axios.post(`http://127.0.0.1:3001/interview-question/${Id}`)
+      .then((response) => {
+        console.log(response.data.questions);
+        setInterviewQuestions(response.data.questions);
+        setCurrentQuestion(response.data.questions[0]);
+        setIsDataFetched(true);
+      })
+      .catch((error) => {
+        console.error('Error fetching video URL:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (currentIndex === interviewQuestions.length - 1) {
+      setNextButton('finish');
+    } else {
+      setNextButton('next');
     }
-  };
-
-  const stopRecording = () => {
-    setIsRecording(false);
-    mediaRecorderRef.current.stop();
-  };
-
-  const downloadVideo = () => {
-    const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style = 'display: none';
-    a.href = url;
-    a.download = 'recorded-video.mp4';
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
-
-  const handleDataAvailable = (event) => {
-    if (event.data && event.data.size > 0) {
-      setRecordedChunks((prev) => [...prev, event.data]);
+  }, [currentIndex]);
+  
+  useEffect(() => {
+    if (isDataFetched) {
+      console.log(interviewQuestions);
+      setCurrentQuestion(interviewQuestions[currentIndex]);
     }
-  };
+  }, [currentIndex, interviewQuestions, isDataFetched]);
 
+  const handleNext = () => {
+    if (currentIndex == interviewQuestions.length-1){
+      console.log("finish!")
+    }
+    else{setCurrentIndex((prevIndex) =>{
+        const updatedIndex = (prevIndex + 1) 
+        return updatedIndex;
+      }
+   ) };
+ 
+  };
+  
   return (
     <div>
-      <video ref={videoRef} autoPlay muted />
-      {!isRecording && (
-        <button onClick={startRecording}>
-          Start Recording
-        </button>
-      )}
-      {isRecording && (
-        <button onClick={stopRecording}>
-          Stop Recording
-        </button>
-      )}
-      {!isRecording && recordedChunks.length > 0 && (
-        <button onClick={downloadVideo}>
-          Download Video
-        </button>
-      )}
+    <Timer />
+    <h3> {currentQuestion.content}</h3>
+    <button onClick={handleNext}>{nextButton}</button>
+    <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
+    {interviewQuestions.map((item, index) => (
+      <button key={index} onClick={() => setCurrentIndex(index)} className={currentIndex === index ? 'active-button' : ''}>
+        {index + 1}
+      </button>
+    ))}
+    <VideoCamera/>
     </div>
   );
 };

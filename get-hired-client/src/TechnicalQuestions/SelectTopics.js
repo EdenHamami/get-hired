@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './SelectTopics.css';
 import { FaCheckCircle } from "react-icons/fa";
@@ -29,6 +29,17 @@ function SelectTopics() {
     setPrimaryTopics(updatedTopics);
   };
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log(primaryTopics)
+    navigate('/select_difficulty', {
+      state: {
+        primaryTopics: primaryTopics
+      }
+    });
+  };
+
   return (
     <div className="topics-container">
       <div className="select-topics-image-container"></div>
@@ -39,7 +50,7 @@ function SelectTopics() {
             {option.name}
           </div>
         ))}
-        <Link to="/select_difficulty" className="select-topics-next-button">Next</Link>
+        <button className="select-topics-next-button" onClick={handleClick}>Next</button>
       </div>
     </div>
   );
