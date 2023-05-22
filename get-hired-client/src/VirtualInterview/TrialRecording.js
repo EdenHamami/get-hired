@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 const TrialRecording = () => {
+  const location = useLocation();
+  const selectedPosition = location.state.selectedPosition;
+
   const navigate = useNavigate();
   const [isRecording, setIsRecording] = useState(false);
   const videoRef = useRef();
@@ -53,7 +56,9 @@ const TrialRecording = () => {
 
   const handleClick = () => {
     navigate('/VirtualInterview', {
-      state: {},
+      state: {
+        selectedPosition: selectedPosition
+      },
     });
   };
 
