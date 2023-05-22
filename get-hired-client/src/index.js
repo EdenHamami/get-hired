@@ -57,8 +57,6 @@ root.render(
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/about" element={<AboutUs />} />
 
-
-
       </Routes>
       </ResumeProvider>
     </BrowserRouter>

@@ -27,3 +27,7 @@
   cursor: pointer;
   border-color: #512DA8;
 }
+
+.designNav{
+  max-height: 10vh;
+}

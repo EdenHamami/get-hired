@@ -16,7 +16,7 @@ const ResumeProvider = ({ children }) => {
   const designOptions2 = {
     backgroundColor: '#718ea8',
     fontColor: '#000',
-    fontFamily: "Verdana, sans-serif",
+    fontFamily: "Calibri, sans-serif",
     fontSize: 16
   };
 

@@ -1,0 +1,62 @@
+.designNavbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .designNavbar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .designNavbar-item button {
+    background-color: white;
+    color: #333;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .designNavbar-item button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .designNavbar-templates {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 60px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 4px;
+    z-index: 10;
+  }
+  
+  .designNavbar-templates label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .designNavbar-templates img {
+    width: 180px;
+    height: auto;
+    padding: 3px;
+  }
+  
+  .designNavbar-templates img.selected {
+    border: 2px solid #512DA8;
+  }
+  
