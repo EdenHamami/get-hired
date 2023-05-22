@@ -64,15 +64,7 @@ function LeftSide() {
               Skills
             </a>
           </li>
-          <li className="nav-item">
-            <a
-              className={`nav-link ${currentComponent === 'Design' ? 'active' : ''}`}
-              href="#"
-              onClick={() => handleTabClick('Design')}
-            >
-              Design
-            </a>
-          </li>
+     
         </ul>
       </div>
       <div className="card-body">
@@ -81,7 +73,7 @@ function LeftSide() {
         {currentComponent === 'WorkExperience' && <WorkExperience />}
         {currentComponent === 'Education' && <Education />}
         {currentComponent === 'Skills' && <Skills />}
-        {currentComponent === 'Design' && <Design />}
+      
       </div>
     </div>
     </div>
