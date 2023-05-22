@@ -9,7 +9,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { user, updateUsername } = useContext(UserContext);
+  const { user, updateUser } = useContext(UserContext);
 
   async function login(event) {
     event.preventDefault();
@@ -21,7 +21,8 @@ function LoginPage() {
       body: JSON.stringify({ username: userName, password: password }),
     });
     if (response.status === 200) {
-      updateUsername(userName)
+      updateUser(userName,true)
+      
       const d = await response.json();
       const token = d["token"]
       

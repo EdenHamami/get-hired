@@ -3,7 +3,7 @@ import axios from "axios";
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ username: 'guest' });
+  const [user, setUser] = useState({ username: 'guest', isLoggedIn: false });
   useEffect(() => {
     async function fetchData() {
       const r = await fetch('http://127.0.0.1:3001/user_name', {
@@ -17,21 +17,24 @@ const UserProvider = ({ children }) => {
         const d = await r.json();
         const user_name = d["user_name"]
         console.log(user_name)
-        setUser({ ...user, username: user_name })
+        setUser({ ...user, username: user_name, isLoggedIn:true })
         //console.log(d)
+      }
+      else{
+        setUser({ ...user, username: 'Guest', isLoggedIn:false })
       }
     }
     fetchData();
   }, []);
 
-  const updateUsername = (newUsername) => {
+  const updateUser = (newUsername, is_logged_in) => {
     // Update the username in the user object
-    setUser({ ...user, username: newUsername });
+    setUser({ ...user, username: newUsername,  isLoggedIn:is_logged_in });
   };
-
+ 
   const userContextValue = {
     user,
-    updateUsername,
+    updateUser,
   };
 
   return (

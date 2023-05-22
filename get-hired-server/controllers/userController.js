@@ -37,6 +37,12 @@ module.exports = function configureServer(app) {
     }
   });
 
+  
+  app.post('/logout', async (req, res) => {
+    res.status(200).json({ message: 'Logout successful' });
+  });
+
+
   app.post('/user_name', async (req, res) => {
     const token = req.headers.authorization;
     if (!token) {
