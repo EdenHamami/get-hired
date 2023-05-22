@@ -1,4 +1,4 @@
-li {
+li job-contanier {
     list-style: none;
     padding: 4px;
     border-radius: 10px;
@@ -54,8 +54,9 @@ li {
   }
   
   .favorite-icon.filled {
-    color: #dc3545;
-  }
+    color:#5754b7;
+    
+    }
 
   .card-job-left{
     flex: 2;

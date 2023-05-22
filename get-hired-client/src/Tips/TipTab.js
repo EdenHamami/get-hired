@@ -1,17 +1,12 @@
 import React from 'react';
 import './TipTab.css';
 
-const TipTab = ({ tip, active, onClick, index }) => {
+const TipTab = ({ tip, active, onClick }) => {
   return (
-    <div
-      className={`tip-tab ${active ? 'active-tip-tab' : ''}`}
-      onClick={onClick}
-    >
-      <div className="tip-index">{index + 1}</div>
-      <div className="tip-tab-content">
-        <h3>{tip.title}</h3>
-        <p>{tip.content}</p>
-      </div>
+    <div className={`tab ${active ? 'large-tab' : ''}`} onClick={onClick}>
+      <img src={tip.img} alt={tip.title} className="tip-image" />
+      <h2 className="tab-title">{tip.title}</h2>
+      <p className="tab-content">{tip.content}</p>
     </div>
   );
 };

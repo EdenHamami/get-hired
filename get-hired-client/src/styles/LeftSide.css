@@ -4,4 +4,10 @@
   padding: 1rem;
   background-color: #f8f9fa;
   border-right: 1px solid #dee2e6;
+  font-family: 'Nunito', sans-serif;
+
+}
+
+.left-side .nav-link {
+  margin-right: 0%;
 }

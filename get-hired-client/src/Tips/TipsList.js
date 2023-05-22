@@ -29,9 +29,9 @@ const TipsList = () => {
       <div className="tablist-wrapper">
         <img src={titleImage} alt="Title" className="title-image" /> {/* Use img element to display the title image */}
         <div className="tab-container">
-          <button className="arrow-button" onClick={goLeft}>
-            &lt;
-          </button>
+        <button className={`arrow-button ${activeIndex === 0 ? 'disabled' : ''}`} onClick={goLeft}>
+  &#8592;
+</button>
           {displayedTips.map((tip, index) => (
             <TipTab
               key={index}
@@ -41,9 +41,9 @@ const TipsList = () => {
               index={index + startIndex}
             />
           ))}
-          <button className="arrow-button" onClick={goRight}>
-            &gt;
-          </button>
+    <button className={`arrow-button ${activeIndex === tips.length - 1 ? 'disabled' : ''}`} onClick={goRight}>
+  &#8594;
+</button>
         </div>
       </div>
   );

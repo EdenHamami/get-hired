@@ -9,6 +9,11 @@ import Questions from './TechnicalQuestions/TechnicalQuestions';
 import OnlineCompiler from './TechnicalQuestions/OnlineCompiler';
 import SelectTopics from './TechnicalQuestions/SelectTopics';
 import SelectDifficulty from './TechnicalQuestions/SelectDifficulty';
+import TrialRecording from './VirtualInterview/TrialRecording';
+import VirtualInterview from './VirtualInterview/VirtualInterview';
+import HelloJohn from './VirtualInterview/HelloJohn';
+import ExplanationInterview from './VirtualInterview/ExplanationInterview';
+import SelectPosition from './VirtualInterview/SelectPosition';
 import Menu from './Menu';
 import Opening from './PersonalQuestions/Opening';
 import PersonalTable from './PersonalQuestions/PersonalTable';
@@ -24,6 +29,7 @@ import StartingPage from './components/StartingPage';
 import LoginPage from './LoginPage';
 import AboutUs from './AboutUs';
 import UserContext, { UserProvider } from './context/UserContext';
+import technicalQuestionsIntro from './TechnicalQuestions/technicalQuestionsIntro';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -45,6 +51,11 @@ root.render(
         <Route path="/online_compiler" element={<OnlineCompiler />} />
         <Route path="/personal_table" element={<PersonalTable />} />
         <Route path="/personal_question" element={<PersonalQuestion />} />
+        <Route path="/VirtualInterview" element={<VirtualInterview />} />
+        <Route path="/SelectPosition" element={<SelectPosition />} />
+        <Route path="/HelloJohn" element={<HelloJohn />} />
+        <Route path="/TrialRecording" element={<TrialRecording />} />
+        <Route path="/ExplanationInterview" element={<ExplanationInterview />} />
         <Route path="/JobsSearch" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
         <Route path="/Tips" element={<TipsList />} />

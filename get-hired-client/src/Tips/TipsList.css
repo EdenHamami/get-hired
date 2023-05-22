@@ -9,39 +9,36 @@
   font-family: 'Nunito', sans-serif;
 }
 
-.title {
-  display: none; /* Hide the original title element */
-}
-
 .title-image {
-  max-width: 50%; /* Set the maximum width of the image */
-  margin-bottom: 20px;
+  max-width: 40%; 
+  margin-bottom: 40px;
+  align-self:flex-start;
 }
 
 .tab-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(100% - 60px); /* Subtract arrow-button width */
-  position: relative; /* Added */
+  width: calc(100% - 60px);
+  position: relative;
 }
 
 .arrow-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f1f1f1;
+  background-color: white;
   border: 2px solid #ccc;
   font-size: 20px;
   cursor: pointer;
   z-index: 1;
-  position: absolute; /* Added */
-  top: 50%; /* Added */
-  transform: translateY(-50%); /* Added */
-  width: 40px; /* Added */
-  height: 40px; /* Added */
-  border-radius: 50%; /* Added */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .arrow-button:hover {
@@ -50,11 +47,11 @@
 }
 
 .arrow-button:first-child {
-  left: 0; /* Added */
+  left: 0;
 }
 
 .arrow-button:last-child {
-  right: 0; /* Added */
+  right: 0;
 }
 
 .tab {
@@ -63,15 +60,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f1f1f1;
+  background-color: white;
   padding: 10px;
   margin: 0 5px;
   cursor: pointer;
   transition: all 0.3s;
-  width: calc(25% - 10px); /* Subtract margin */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: calc(25% - 10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  overflow: visible; /* Updated from hidden to visible */
+  overflow: visible;
 }
 
 .large-tab {

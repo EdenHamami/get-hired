@@ -1,0 +1,68 @@
+.compiler-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-family: 'Nunito', sans-serif;  }
+  
+  .compiler-left-content, .compiler-right-content {
+    width: 45%;
+  }
+
+  
+  .compiler-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+    border: 2px solid black;  /* Adds border to the text */
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .compiler-question {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .compiler-examples-list {
+    margin-bottom: 20px;
+  }
+  
+  .compiler-examples-list h5 {
+    color: #5754b7;
+  }
+  
+  .compiler-language-label {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .compiler-language-select {
+    margin-bottom: 20px;
+    background:#5754b7;
+    color: white;  /* Changes the color of the language selection text to white */
+    border: white;
+    padding: 1%;
+    border-radius: 10px;
+  }
+  
+  .compiler-editor {
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 120px;  /* Reduces the height of the editor */
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .compiler-output-list {
+    margin-bottom: 20px;
+  }
+  
+  .compiler-submit-button {
+    background:#5754b7;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+
