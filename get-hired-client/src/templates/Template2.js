@@ -24,9 +24,10 @@ const Template2 = () => {
          style={{
            color: designOptions.fontColor,
            fontFamily: designOptions.fontFamily,
-           fontSize: `${designOptions.fontSize}px`
+           fontSize: `${designOptions.fontSize}px`,
+           wordWrap: 'break-word'
          }}>
-      <div className="top-section" style={{ backgroundColor: designOptions.backgroundColor }}>
+      <div className="top-section" style={{ backgroundColor: designOptions.backgroundColor,wordWrap: 'break-word' }}>
         {personalInfo.image && (
           <img src={personalInfo.image} alt="Profile" className="profile-image" />
         )}
@@ -35,7 +36,7 @@ const Template2 = () => {
           <Summary summary={summary} template={2} />
         </div>
       </div>
-      <div className="bottom-section">
+      <div className="bottom-section" style={{wordWrap: 'break-all'}}>
         <div className="left-column">
           <PersonalDetails personalInfo={personalInfo} template={2} className="template2-details" />
           <SkillsList skills={skills} template={2} />

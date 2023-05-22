@@ -5,6 +5,7 @@
   display: grid;
   grid-template-rows: 30% 70%;
   height:27.9cm ;
+  word-break: break-all; 
 
   
 
@@ -24,6 +25,7 @@
   display: flex;
   padding: 1rem;
   overflow-wrap: break-word;
+  text-align: center;
 }
 
 .template2 .top-section .header-and-summary {
@@ -35,7 +37,6 @@
 }
 
 .template2 .bottom-section {
-  grid-row: 2;
   width: 100%;
   background-color: white;
   display: flex;
@@ -46,11 +47,10 @@
 }
 
 .template2 .bottom-section .left-column {
-  width: 30%;
+  max-width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow-wrap: break-word!important;
 
 }
 
@@ -59,7 +59,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow-wrap: break-word!important;
 
 }
 
@@ -85,13 +84,11 @@
   margin-bottom: 0.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  overflow-wrap: break-word!important;
 
 }
 
 .template2 .header-2 h4 {
   font-size: 1.5rem;
-  overflow-wrap: break-word!important;
 
 }
 
@@ -100,7 +97,6 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  overflow-wrap: break-word!important;
 
 }
 
