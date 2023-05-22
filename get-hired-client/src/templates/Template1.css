@@ -7,7 +7,8 @@
   display: grid;
   grid-template-columns: 30% 70%;
   grid-gap: 20px;
-  
+  word-break: break-all; 
+
 }
 .template1 .header-1 h1, 
 .template1 .header-1 h4,
