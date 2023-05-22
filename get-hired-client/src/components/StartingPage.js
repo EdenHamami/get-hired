@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './StartingPage.css'; // Import the CSS file
 
 const StartingPage = () => {
+
+
      return (
        <div>
            <div className="startingPage-container"> {/* Use the class name for the button container */}

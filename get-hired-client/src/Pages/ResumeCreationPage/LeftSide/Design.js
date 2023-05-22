@@ -57,10 +57,15 @@ function Design() {
         Font family:
       </label>
       <select name="fontFamily" value={designOptions.fontFamily} onChange={handleFontFamilyChange}>
-        <option value="Lato, sans-serif">Lato</option>
-        <option value="Montserrat, sans-serif">Montserrat</option>
-        <option value="Roboto, sans-serif">Roboto</option>
-      </select>
+  <option value="Arial, sans-serif" className='Arial'>Arial</option>
+  <option value="'Courier New', monospace" className='Courier-New'>Courier New</option>
+  <option value="'Times New Roman', serif" className='Times-New-Roman'>Times New Roman</option>
+  <option value="Verdana, sans-serif"  className='Verdana'>Verdana</option>
+  <option value="Nunito, sans-serif" className='Nunito' >Nunito</option>
+
+
+</select>
+
       <BsFillCaretDownFill className="design-form-group-caret" />
     </div>
       {/* Font size */}
