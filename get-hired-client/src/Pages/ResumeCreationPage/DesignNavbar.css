@@ -2,14 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    font-weight: bold;
   }
   
   .designNavbar-item {
+    position: relative;
     display: flex;
-    flex-direction: column-reverse;
     align-items: center;
   }
   
@@ -30,9 +31,15 @@
     background-color: #f0f0f0;
   }
   
-  .designNavbar-item select,
-  .designNavbar-item input[type='color'] {
-    margin-bottom: 0.25rem;
+  .designNavbar-option {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: -webkit-fill-available;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+    z-index: 10;
   }
   
   .designNavbar-templates {
@@ -63,4 +70,8 @@
   .designNavbar-templates img.selected {
     border: 2px solid #512DA8;
   }
-  
+  .Download-btn{
+    background-color: #512DA8!important;
+    color: white!important;
+    border-radius: 20px;
+  }
