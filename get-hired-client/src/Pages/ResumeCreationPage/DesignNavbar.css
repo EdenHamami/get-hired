@@ -9,7 +9,7 @@
   
   .designNavbar-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
   }
   
@@ -30,14 +30,19 @@
     background-color: #f0f0f0;
   }
   
+  .designNavbar-item select,
+  .designNavbar-item input[type='color'] {
+    margin-bottom: 0.25rem;
+  }
+  
   .designNavbar-templates {
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     position: absolute;
     bottom: 60px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 4px;
     z-index: 10;
   }
@@ -51,9 +56,8 @@
   }
   
   .designNavbar-templates img {
-    width: 180px;
+    width: 100px;
     height: auto;
-    padding: 3px;
   }
   
   .designNavbar-templates img.selected {

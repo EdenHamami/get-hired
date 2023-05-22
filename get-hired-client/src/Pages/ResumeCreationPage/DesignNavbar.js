@@ -13,6 +13,7 @@ function DesignNavbar() {
   const [isTemplatesVisible, setIsTemplatesVisible] = useState(false);
   const [isFontVisible, setIsFontVisible] = useState(false);
   const [isColorVisible, setIsColorVisible] = useState(false);
+  const [isFontColorVisible, setIsFontColorVisible] = useState(false);
 
   const handleBackgroundColorChange = (e) => {
     const newResumeStyle = { ...designOptions, backgroundColor: e.target.value };
@@ -21,6 +22,11 @@ function DesignNavbar() {
 
   const handleFontChange = (e) => {
     const newResumeStyle = { ...designOptions, font: e.target.value };
+    setDesignOptions(newResumeStyle);
+  };
+
+  const handleFontColorChange = (e) => {
+    const newResumeStyle = { ...designOptions, fontColor: e.target.value };
     setDesignOptions(newResumeStyle);
   };
 
@@ -39,6 +45,10 @@ function DesignNavbar() {
 
   const toggleFontVisibility = () => {
     setIsFontVisible(!isFontVisible);
+  };
+
+  const toggleFontColorVisibility = () => {
+    setIsFontColorVisible(!isFontColorVisible);
   };
 
   const toggleTemplatesVisibility = () => {
@@ -77,9 +87,19 @@ function DesignNavbar() {
       </div>
 
       <div className="designNavbar-item">
+        <button onClick={toggleFontColorVisibility}>
+          <BsFonts />
+          Change Font Color
+        </button>
+        {isFontColorVisible && (
+          <input type="color" value={designOptions.fontColor} onChange={handleFontColorChange} />
+        )}
+      </div>
+
+      <div className="designNavbar-item">
         <button onClick={toggleTemplatesVisibility}>
           <BsImages />
-          Select Template
+          Change Template
         </button>
         {isTemplatesVisible && (
           <div className="designNavbar-templates">
