@@ -6,9 +6,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const compilerServer = require('./server-compiler');
 const personalqServer = require('./server-personalq');
+const interviewqServer = require('./server-interviewq');
 
 const PracticeProblem = require('./models/practiceProblem');
 const PersonalProblem = require('./models/personalProblem');
+const InterviewProblem = require('./models/interviewProblem');
 
 const app = express();
 // allow the client to speak to the server 
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 compilerServer(app);
 personalqServer(app);
+interviewqServer(app);
 
 const port = 3001;
 mongoose.set('strictQuery', true);
@@ -123,103 +126,7 @@ app.post('/register', async (req, res) => {
   }
 }); 
 
-////////////////////////////////////////////////////////////////
 
-// let question;
-// app.post('/question',async (req, res) => {
-
-
-//   console.log("orpaz");
-//   const id = "640cce35298f4827800bf64b"
-//   question = await PracticeProblem.findOne({ _id:id }); 
-//   const content = question.content
-//   res.send(content);
-// });
-
-
-// // post requset to compile
-// app.post('/compile', (req, res) => {
-  
-
-//   // get the code from the user
-//   const { input , languge} = req.body;
-//   const { exec } = require('child_process');
-//   const fs = require('fs');
-
-
-//   if (languge == "python"){
-//     const test_input = question.test[0].input
-//     const test_output = question.test[0].output
-//     console.log(test_output);
-//   // add the code to the file 
-//     fs.writeFileSync('./temp/solution.py', input, (err) => {
-//       if (err) {
-//         console.error(err);
-//       }
-      
-//       console.log(stdout);
-//       res.send(stdout);
-//     });
-    
-//     compile = 'py ./temp/solution.py ' + test_input
-//     console.log(compile)
-//     // compile the code
-//     exec(compile , (err, stdout, stderr) => {
-//       // delet the file
-//       fs.unlink('./temp/solution.py', (err) => {
-//         if (err) {
-//           console.error(err);
-//         }
-//       });
-//       if (err) {
-//         console.log(err);
-//         res.send(stderr);
-//         return;
-//       }
-//       if (test_output[0] == stdout[0]){
-//         result_to_user = stdout + '\nYour code is correct'
-//       }else{
-//         result_to_user = stdout + '\nYour code is incorrect, try again'
-//       }
-//       res.send(result_to_user);
-//     });
-
-// }else if (languge == "C++"){
-//   console.log("herrr!!");
-//   fs.writeFileSync('./temp/solution.cpp', input, (err) => {
-//     if (err) {
-//       console.error(err);
-      
-//     }
-//   });
-//   exec('g++ ./temp/solution.cpp -o ./temp/output.exe && cd temp && output.exe', (err, stdout, stderr) => {
-//     // delet the file
-//      fs.unlink('./temp/solution.cpp', (err) => {
-//       if (err) {
-//         console.error(err);
-//       }
-//     });
-//     fs.unlink('./temp/output.exe', (err) => {
-//       if (err) {
-//         console.error(err);
-//       }
-//     });
-//     if (err) {
-//       console.log(err);
-//       res.send(stderr);
-//       return;
-//     }
-//     console.log(stdout);
-    
-//     res.send(stdout);
-    
-     
-//   });
-
-  
-// }
-  
-// });
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -271,6 +178,28 @@ const main = async () => {
   // await personalProblem.save();
   // console.log("Personal problem saved to DB");
 
+
+//   const fs = require('fs');
+
+//   // Read the video file
+//   const videoFilePath = 'temp/question.mp4';
+//   const videoData = fs.readFileSync(videoFilePath);
+
+  // const ip = new InterviewProblem({
+  //   type: 'front-end developer',
+    
+  //   questions:[{content: 'Can you tell me about a challenging project you worked on and how you managed your time to meet deadlines?',
+  //             videoUrl:"https://drive.google.com/uc?export=download&id=1VPalfftzbruc3QBcC8huCaSxjGF-fdT4"},
+  //           {content: 'How do you approach designing responsive and mobile-friendly user interfaces?',
+  //             videoUrl:"https://drive.google.com/uc?export=download&id=1oexaEQ2j3vfB-1uyx6Nbwc6NtWbToh1R"},
+  //             {content: 'Imagine you are tasked with designing a web page for an e-commerce website. The page needs to display product listings with images, titles, descriptions, and prices. How would you structure the HTML, CSS, and JavaScript code to achieve an organized and visually appealing layout? Walk me through your thought process and considerations.',
+  //               videoUrl:"https://drive.google.com/uc?export=download&id=1OQRdYOdYtVStJ_3SN0oi7x9dl9Ujr_ay"}]
+
+  // });
+
+  // const user = await ip.save();
+  // console.log('created a new user');
+  // console.log(user);
 
   //start the server 
   app.listen(port, () => {
