@@ -27,7 +27,6 @@ function LoginPage() {
       
       // After successful login
       localStorage.setItem('token', token);
-      console.log(localStorage.getItem('token'))
       navigate('/Menu');
     } else {
       setErrorMessage('Wrong UserName or password');

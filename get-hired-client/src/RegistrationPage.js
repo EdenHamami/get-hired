@@ -19,7 +19,9 @@ function RegistrationPage() {
       body: JSON.stringify({ username: username, password: password }),
     });
     if (response.status === 200) {
-      console.log('Register successful');
+      const d = await response.json();
+      const token = d["token"]
+      localStorage.setItem('token', token);
       navigate('/Menu', {state: {username: username}});
     } else {
       setErrorMessage('User already exist');

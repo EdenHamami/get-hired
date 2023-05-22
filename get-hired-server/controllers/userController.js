@@ -16,11 +16,11 @@ module.exports = function configureServer(app) {
     const userExists = existingUser.length > 0;
     if (userExists) {
       res.sendStatus(403);
-      console.log("exist");
     } else {
       const user = new User({ username, password });
       await user.save();
-      res.sendStatus(200);
+      const token = generateToken(user);
+      res.status(200).json({ token });
       console.log("200");
 
     }
