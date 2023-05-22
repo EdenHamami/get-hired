@@ -22,7 +22,12 @@ function LoginPage() {
     });
     if (response.status === 200) {
       updateUsername(userName)
-      // Login successful, continue with your logic here
+      const d = await response.json();
+      const token = d["token"]
+      
+      // After successful login
+      localStorage.setItem('token', token);
+      console.log(localStorage.getItem('token'))
       navigate('/Menu');
     } else {
       setErrorMessage('Wrong UserName or password');

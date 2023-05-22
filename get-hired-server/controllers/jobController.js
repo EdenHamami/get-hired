@@ -1,8 +1,31 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const secretKey = 'abcde12345eauofn213-e3i9rfnwjfwf';
+
+const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization;
+  
+    if (!token) {
+        console.log('No token provided')
+      return res.status(401).json({ message: 'No token provided' });
+    }
+  
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        console.log(token)
+        console.log('Failed to authenticate token')
+        return res.status(403).json({ message: 'Failed to authenticate token' });
+      }
+  
+      req.username = decoded.username;
+      next();
+    });
+  };
+
 
 module.exports = function configureServer(app){
-    app.post('/jobSearch', async (req, res) => {
-
+    app.post('/jobSearch', verifyToken , async (req, res) => {
+        const userId = req.userId;
         const { jobdescription, joblocation } = req.body;
         const SerpApi = require('google-search-results-nodejs');
         const query = jobdescription.toString() + ' ' + joblocation.toString()
@@ -14,24 +37,13 @@ module.exports = function configureServer(app){
           q: query,
           hl: "en"
         };
-        
         const callback = function(data) {
           const jsonContent = JSON.stringify(data["jobs_results"]);
           res.end(jsonContent);
           
          
         };
-         // Show result as JSON
           search.json(params, callback);
-        // res.end(search.json(params, callback));
-      //   const uniqueNames = await Vacancy.distinct('job_id');
-      //   await Vacancy.deleteMany({
-      //     name: { $nin: uniqueNames }
-      // });
-        // const jobs = Vacancy.find({title: jobdescription.toString(),location: joblocation.toString()});
-        // const jsonContent = JSON.stringify(jobs);
-        // console.log(jsonContent);
-        // res.end(jsonContent);
       });
       
       
