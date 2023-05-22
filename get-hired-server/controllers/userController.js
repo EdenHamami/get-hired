@@ -37,5 +37,27 @@ module.exports = function configureServer(app) {
     }
   });
 
+  app.post('/user_name', async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      console.log('No token provided')
+    return res.status(401).json({ message: 'No token provided' });
+  }
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.log(token)
+      console.log('Failed to authenticate token')
+      return res.status(403).json({ message: 'Failed to authenticate token' });
+    }
+    console.log(token)
+    //var user = decoded.userId
+    console.log(decoded.userId)
+    console.log(decoded.userId[0].username)
+    //console.log(user.username)
+    const user_name = decoded.userId[0].username
+    return res.status(200).json({ user_name });
+    // req.userId = decoded.userId;
+  });
+  });
 
 };

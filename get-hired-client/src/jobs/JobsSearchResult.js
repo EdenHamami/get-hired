@@ -31,7 +31,7 @@ function JobsSearchResult() {
   };
 
   async function fetchData() {
-    console.log(localStorage.getItem('token'))
+   
     setIsLoading(true); // Set loading state to true
     const r = await fetch('http://127.0.0.1:3001/jobSearch', {
       method: 'POST',
