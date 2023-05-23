@@ -1,24 +1,40 @@
-import React, { useState, useRef } from 'react';
-import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVideo, faVideoSlash, faMicrophone } from '@fortawesome/free-solid-svg-icons';
+
+import "./TrialRecording.css";
+import MicrophoneTest from './MicrophoneTest';
 
 const TrialRecording = () => {
   const location = useLocation();
   const selectedPosition = location.state.selectedPosition;
 
   const navigate = useNavigate();
+
   const [isRecording, setIsRecording] = useState(false);
   const videoRef = useRef();
   const mediaRecorderRef = useRef(null);
-  const [recordedChunks, setRecordedChunks] = useState([]);
+
+  useEffect(() => {
+    const performRecording = async () => {
+      await startRecording();
+      setTimeout(() => {
+        stopRecording();
+      }, 30); // Delay of 1000 milliseconds (adjust as needed)
+    };
+  
+    performRecording();
+  }, []);
+
 
   const startRecording = async () => {
-    setRecordedChunks([]);
+
     setIsRecording(false);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       videoRef.current.srcObject = stream;
       mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
-      mediaRecorderRef.current.ondataavailable = handleDataAvailable;
       mediaRecorderRef.current.start();
       setIsRecording(true);
     } catch (err) {
@@ -32,26 +48,7 @@ const TrialRecording = () => {
     tracks.forEach((track) => track.stop());
 
     mediaRecorderRef.current.stop();
-  };
-
-  const downloadVideo = () => {
-    const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style = 'display: none';
-    a.href = url;
-    a.download = 'recorded-video.mp4';
-    a.click();
-    window.URL.revokeObjectURL(url);
-    setRecordedChunks([]);
-    setIsRecording(false);
-  };
-
-  const handleDataAvailable = (event) => {
-    if (event.data && event.data.size > 0) {
-      setRecordedChunks((prev) => [...prev, event.data]);
-    }
+    
   };
 
   const handleClick = () => {
@@ -62,22 +59,18 @@ const TrialRecording = () => {
     });
   };
 
-  const handleEditMicrophoneSettings = async () => {
-    try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (err) {
-      console.error('Error accessing microphone.', err);
-    }
-  };
-
   return (
     <div>
-      <video ref={videoRef} autoPlay muted />
-      {!isRecording && <button onClick={startRecording}>Try recording here</button>}
-      {isRecording && <button onClick={stopRecording}>Stop Recording</button>}
-      {!isRecording && recordedChunks.length > 0 && <button onClick={downloadVideo}>Download Video</button>}
+    
+      <video ref={videoRef} autoPlay muted  /><br></ br>
+
+      {!isRecording && <button onClick={startRecording}><FontAwesomeIcon icon={faVideoSlash} /></button>}
+      {!isRecording && <button onClick={startRecording}>Start video</button>}
+      {isRecording && <button onClick={stopRecording}><FontAwesomeIcon icon={faVideo} /></button>}
+      {isRecording&& <button onClick={stopRecording}>Stop video</button>}
+      <MicrophoneTest/>
       <button onClick={handleClick}>Start the interview</button>
-      <button onClick={handleEditMicrophoneSettings}>Edit Microphone Settings</button>
+
     </div>
   );
 };
