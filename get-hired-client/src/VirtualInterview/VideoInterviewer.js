@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import videojs from 'video.js';
+import image from './image.png';
 import 'video.js/dist/video-js.css';
 
 const VideoInterviewer = (props) => {
@@ -13,6 +14,7 @@ const VideoInterviewer = (props) => {
       controls: false, // Disable controls
       autoplay: true,
       preload: 'auto',
+      poster: image,
     });
 
     player.on('ended', () => {
