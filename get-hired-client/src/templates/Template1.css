@@ -2,13 +2,15 @@
 
 .template1 {
   color: #000000;
-  max-width: 21cm;
+  max-width: 22cm;
   max-height: 29.7cm;
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-gap: 20px;
+  grid-gap: 10px;
   word-break: break-all; 
   height:27.9cm ;
+  word-break: normal;
+
 
 }
 .template1 .header-1 h1, 
@@ -114,6 +116,7 @@ section.left {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-right: 10px;
   font-size: 12px;
   height:27.9cm ;
 }
@@ -122,6 +125,7 @@ section.right {
   float: left;
   overflow-wrap: break-word;
   height:27.9cm ;
+  padding-right: 10px;
   
 }
 .template1 .skills-1 {

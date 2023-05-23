@@ -24,7 +24,7 @@ function DesignNavbar() {
   };
 
   const handleFontChange = (e) => {
-    const newResumeStyle = { ...designOptions, font: e.target.value };
+    const newResumeStyle = { ...designOptions, fontFamily: e.target.value };
     setDesignOptions(newResumeStyle);
   };
 
@@ -100,12 +100,16 @@ function DesignNavbar() {
            Font
         </button>
         {isFontVisible && (
-          <select name="font" value={designOptions.font} onChange={handleFontChange} className="designNavbar-option">
-            <option value="Arial">Arial</option>
-            <option value="Verdana">Verdana</option>
-            <option value="Courier New">Courier New</option>
-            <option value="Times New Roman">Times New Roman</option>
-          </select>
+          <select name="font" value={designOptions.fontFamily} onChange={handleFontChange} className="designNavbar-option">
+  <option value="'Nunito', sans-serif" style={{ fontFamily: 'Nunito, sans-serif' }}>Nunito</option>
+  <option value="'Calibri', sans-serif" style={{ fontFamily: 'Calibri, sans-serif' }}>Calibri</option>
+  <option value="'Roboto', sans-serif" style={{ fontFamily: 'Roboto, sans-serif' }}>Roboto</option>
+  <option value="'Montserrat', sans-serif" style={{ fontFamily: 'Montserrat, sans-serif' }}>Montserrat</option>
+  <option value="'Lato', sans-serif" style={{ fontFamily: 'Lato, sans-serif' }}>Lato</option>
+  <option value="Arial" style={{ fontFamily: 'Arial' }}>Arial</option>
+
+</select>
+
         )}
       </div>
 
