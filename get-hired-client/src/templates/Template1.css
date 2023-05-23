@@ -8,6 +8,7 @@
   grid-template-columns: 30% 70%;
   grid-gap: 20px;
   word-break: break-all; 
+  height:27.9cm ;
 
 }
 .template1 .header-1 h1, 
