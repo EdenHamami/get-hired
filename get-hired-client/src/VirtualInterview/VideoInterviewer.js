@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import videojs from 'video.js';
 import image from './image.png';
 import 'video.js/dist/video-js.css';
+import { MdRestartAlt } from "react-icons/md";
 
 const VideoInterviewer = (props) => {
   const { width, height, src } = props;
@@ -45,9 +46,8 @@ const VideoInterviewer = (props) => {
         src={src}
         type="video/mp4"
       />
-
       {showRestartButton && (
-        <button onClick={restartVideo}>Restart Video</button>
+        <button onClick={restartVideo}><MdRestartAlt /></button>
       )}
     </div>
   );
