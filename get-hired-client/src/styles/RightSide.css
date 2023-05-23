@@ -7,7 +7,7 @@
 
 .resume-preview {
   width: 100%;
-  max-width: 22cm; /* Adjust this value for your desired preview size */
+  max-width: 21cm; /* Adjust this value for your desired preview size */
   height: 80vh;
   max-height: 29.7cm; /* Adjust this value for your desired preview size */
   overflow: scroll;
@@ -25,4 +25,8 @@
   border-radius: 20px;
   cursor: pointer;
   border-color: #512DA8;
+}
+
+.designNav{
+  max-height: 10vh;
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import '../App.css';
 import * as React from "react";
 import { Link, useLocation} from "react-router-dom";
+import './PersonalQuestion.css';
 
 function PersonalQuestion() {
 
@@ -40,12 +41,20 @@ function PersonalQuestion() {
 
   return (
  
-   <div>
-   <h4> {name}</h4>
+    <div className="PersonalQuestion">
+      <div className="part-1">
+      <div className="name">
+         <h4> {name}</h4>
+         </div>
+         <div className="Question">
    <h5> Question</h5>
    <h6> {question}</h6>
+   </div>
+   <div className="Goal">
    <h5> Goal: </h5>
    <h6>{goal}</h6>
+   </div>
+   </div>
     
 
 

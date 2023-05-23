@@ -6,6 +6,7 @@ import Template3 from  "../../templates/Template3";
 import html2pdf from 'html2pdf.js';
 import "../../styles/RightSide.css";
 import Button from '../../components/Button';
+import DesignNavbar from './DesignNavbar'; 
 const RightSide = () => {
   
   const {
@@ -79,10 +80,10 @@ const RightSide = () => {
       <div className="resume-preview">
         <div className="resume">{renderTemplate()}</div>
       </div>
-
-      <button className="btn btn-primary" onClick={handleDownload}>
+<DesignNavbar className="designNav"></DesignNavbar>
+      {/* <button className="btn btn-primary" onClick={handleDownload}>
         Download as PDF
-      </button>
+      </button> */}
     </div>
   );
 };

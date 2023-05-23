@@ -8,14 +8,15 @@ const ResumeProvider = ({ children }) => {
   const designOptions1 = {
     backgroundColor: '#ffc001',
     fontColor: '#000',
-    fontFamily: "calibri",
-    fontSize: 16
+    fontFamily: "font-family: 'Nunito', sans-serif",
+   
+    fontSize: 16,
   };
 
   const designOptions2 = {
     backgroundColor: '#718ea8',
     fontColor: '#000',
-    fontFamily: "calibri",
+    fontFamily: "Calibri, sans-serif",
     fontSize: 16
   };
 
@@ -139,3 +140,66 @@ const ResumeProvider = ({ children }) => {
 };
 
 export { ResumeProvider };
+// const [personalInfo, setPersonalInfo] = useState({
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   phone: '',
+//   address: {
+//     street: '',
+//     city: '',
+//     state: '',
+//   },
+//   image: '',
+//   desiredJob: '' // Add desired job field
+// });
+
+// const [workExperience, setWorkExperience] = useState([{
+//   title: '',
+//   company: '',
+//   startDate: '',
+//   endDate: '',
+//   description: '',
+// }]);
+
+// const [education, setEducation] = useState([{
+//   institution: '',
+//   degree: '',
+//   grade: '',
+//   startDate: '',
+//   endDate: '',
+//   description: '',
+// }]);
+
+// const [skills, setSkills] = useState([]);
+
+// const [summary, setSummary] = useState('');
+
+// return (
+//   <ResumeContext.Provider
+//     value={{
+//       templateId,
+//       setTemplateId,
+//       designOptions,
+//       designOptions1,
+//       designOptions2,
+//       designOptions3,
+//       setDesignOptions,
+//       personalInfo,
+//       setPersonalInfo,
+//       workExperience,
+//       setWorkExperience,
+//       education,
+//       setEducation,
+//       skills,
+//       setSkills,
+//       summary,
+//       setSummary,
+//     }}
+//   >
+//     {children}
+//   </ResumeContext.Provider>
+// );
+// };
+
+// export { ResumeProvider };

@@ -31,9 +31,11 @@ const Template1 = () => {
     style={{ color: designOptions.fontColor,
      fontFamily: designOptions.fontFamily, fontSize: `${designOptions.fontSize}px` }}>
       <section className='left'  style={{ backgroundColor: designOptions.backgroundColor,wordWrap: 'break-word'}}>
+        <div className='template1-image-contanier'>
       {personalInfo.image && (
         <img src={personalInfo.image} alt="Profile" className="profile-image" />
       )}
+      </div>
       <PersonalDetails personalInfo={personalInfo} template={1} className="template1-details" />
       <SkillsList skills={skills} template={1} />
       </section>
