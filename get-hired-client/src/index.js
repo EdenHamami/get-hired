@@ -12,6 +12,8 @@ import SelectTopics from './TechnicalQuestions/SelectTopics';
 import SelectDifficulty from './TechnicalQuestions/SelectDifficulty';
 import TrialRecording from './VirtualInterview/TrialRecording';
 import VirtualInterview from './VirtualInterview/VirtualInterview';
+import HelloJohn from './VirtualInterview/HelloJohn';
+import ExplanationInterview from './VirtualInterview/ExplanationInterview';
 import SelectPosition from './VirtualInterview/SelectPosition';
 import Menu from './Menu';
 import Opening from './PersonalQuestions/Opening';
@@ -49,7 +51,9 @@ root.render(
         <Route path="/personal_question" element={<PersonalQuestion />} />
         <Route path="/VirtualInterview" element={<VirtualInterview />} />
         <Route path="/SelectPosition" element={<SelectPosition />} />
+        <Route path="/HelloJohn" element={<HelloJohn />} />
         <Route path="/TrialRecording" element={<TrialRecording />} />
+        <Route path="/ExplanationInterview" element={<ExplanationInterview />} />
         <Route path="/JobsSearch" element={<JobsSearch />} />
         <Route path="/JobsSearchResult" element={<JobsSearchResult />} />
         <Route path="/Tips" element={<TipsList />} />

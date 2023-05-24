@@ -6,7 +6,6 @@ import 'video.js/dist/video-js.css';
 import Timer from './Timer';
 import VideoCamera from './VideoCamera';
 
-import "./VirtualInterview.css";
 
 const VirtualInterview = () => {
   const location = useLocation();

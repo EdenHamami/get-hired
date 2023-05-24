@@ -1,4 +1,5 @@
 import {  useState } from "react";
+import VideoInterviewer from './VideoInterviewer';
 import {  useNavigate } from "react-router-dom";
 
 
@@ -26,7 +27,12 @@ function SelectPosition() {
 
   return (
     <div>
-    <h3>Choose the position</h3>
+    <h3>Your next step is to choose your target position.
+    Here's a list.
+    Pick the one that aligns with your career goals.
+    This will customize your interview questions. Take your time,
+    make your choice.</h3>
+    <VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=18KSPR8SgME4EOc0KXdyzxre4Yc3q_vHs"  />
     {options.map((option) => (
       <div key={option}>
         <label>
