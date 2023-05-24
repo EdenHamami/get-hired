@@ -6,7 +6,8 @@ import design2 from '../../images/design2.jpg';
 import design3 from '../../images/design3.jpg';
 import './DesignNavbar.css';
 import html2pdf from 'html2pdf.js';
-
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 function DesignNavbar() {
   const { designOptions, setDesignOptions } = useContext(ResumeContext);
@@ -17,6 +18,7 @@ function DesignNavbar() {
   const [isColorVisible, setIsColorVisible] = useState(false);
   const [isFontColorVisible, setIsFontColorVisible] = useState(false);
   const [isFontSizeVisible, setIsFontSizeVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleBackgroundColorChange = (e) => {
     const newResumeStyle = { ...designOptions, backgroundColor: e.target.value };
@@ -66,7 +68,14 @@ function DesignNavbar() {
   const toggleTemplatesVisibility = () => {
     setIsTemplatesVisible(!isTemplatesVisible);
   };
-
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  
   const handleDownload = () => {
     const resumeElement = document.querySelector('.resume');
     const clone = resumeElement.cloneNode(true);

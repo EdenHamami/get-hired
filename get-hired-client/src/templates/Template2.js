@@ -24,7 +24,7 @@ const Template2 = () => {
          style={{
            color: designOptions.fontColor,
            fontFamily: designOptions.fontFamily,
-           fontSize: `${designOptions.fontSize}px`,
+           fontSize: `${designOptions.fontSize}rem`,
            wordWrap: 'break-word'
          }}>
       <div className="top-section" style={{ backgroundColor: designOptions.backgroundColor,wordWrap: 'break-word' }}>

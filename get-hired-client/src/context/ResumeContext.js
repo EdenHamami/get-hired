@@ -10,21 +10,21 @@ const ResumeProvider = ({ children }) => {
     fontColor: '#000',
     fontFamily: "font-family: 'Nunito', sans-serif",
    
-    fontSize: 16,
+    fontSize: 1,
   };
 
   const designOptions2 = {
     backgroundColor: '#718ea8',
     fontColor: '#000',
     fontFamily: "Calibri, sans-serif",
-    fontSize: 16
+    fontSize: 1
   };
 
   const designOptions3 = {
     backgroundColor: '#d9bcac',
     fontColor: '#351e45',
     fontFamily: "calibri",
-    fontSize: 16,
+    fontSize: 1,
     backgroundColor2: '#f7f4f5',
 
   };

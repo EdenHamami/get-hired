@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { ResumeContext } from "../context/ResumeContext";
 import Header from "../SharedComponents/Header";
 import PersonalDetails from "../SharedComponents/PersonalDetails";
@@ -26,10 +26,24 @@ const Template1 = () => {
     marginBottom: "10px",
 
   };
+  const [height, setHeight] = useState(0);
+  const divRef = useRef(null);
+
+  useEffect(() => {
+    if (divRef.current) {
+      setHeight(divRef.current.offsetHeight);
+    }
+  }, []);
+  useEffect(() => {
+    if (height > 1100) {
+      alert(height,"Your CV is too long, it is not recommended to exceed one page, take this into account");
+    }
+  }, [height]);
+    
   return (
-    <div className="template1" 
+    <div className="template1"  ref={divRef}
     style={{ color: designOptions.fontColor,
-     fontFamily: designOptions.fontFamily, fontSize: `${designOptions.fontSize}px` }}>
+     fontFamily: designOptions.fontFamily, fontSize: `${designOptions.fontSize}em` }}>
       <section className='left'  style={{ backgroundColor: designOptions.backgroundColor,wordWrap: 'break-word'}}>
         <div className='template1-image-contanier'>
       {personalInfo.image && (
