@@ -83,40 +83,24 @@ const userSchema = new Schema({
     interestedVacancies: [{
       title: {
         type: String,
-        required: true
+        
       },
       company_name: {
         type: String,
-        required: false
+       
       },
       location: {
-        type: Number,
-        required: false
+        type: String,
+       
       },
       via: {
         type: String,
-        required: false
+        
       },
       description: {
         type: String,
-        required: true
-      },
-      job_highlights: {
-        type: String,
-        required: false
-      },
-      related_links: {
-        type: String,
-        required: false
-      },
-      extensions: {
-        type: String,
-        required: false
-      },
-        publishedDate: {
-          type: String,
-          default: Date.now.toString()
-        }
+        
+      }
       }]
 
 }, { timestamps: true });

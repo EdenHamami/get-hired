@@ -50,11 +50,13 @@ function JobsSearchResult() {
     const r = await fetch('http://127.0.0.1:3001/getSavedJobs', {
       method: 'POST',
       headers: {
+        Authorization: `${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: 'eden' }),
+      body: JSON.stringify(),
     });
     const d = await r.json();
+    console.log(d)
     setResultList(d);
   }
 
@@ -92,11 +94,11 @@ function JobsSearchResult() {
           </button>
           </div>
         </div>
-        {/* <div className="saved-jobs">
+         <div className="saved-jobs">
           <button onClick={hanleSelectSavedJob} className="liked-jobs-button">
             Jobs I liked<i className="bi bi-heart"></i>
           </button>
-        </div> */}
+        </div> 
         <div className="job-results">
           <ul id="listg" className="list-group">
             {Jobs}

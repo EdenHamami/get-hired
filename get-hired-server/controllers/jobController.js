@@ -17,8 +17,7 @@ const verifyToken = (req, res, next) => {
         return res.status(403).json({ message: 'Failed to authenticate token' });
       }
   
-      // req.userId = decoded.userId;
-      console.log(decoded.userId)
+      req.user = decoded.userId;
       next();
     });
   };
@@ -32,7 +31,6 @@ module.exports = function configureServer(app){
         const query = jobdescription.toString() + ' ' + joblocation.toString()
         console.log(query);
         const search = new SerpApi.GoogleSearch("407730da12c009e6c976a0b294a56048619e1e788b76bad9178e3a8fb34a892b");
-        
         const params = {
           engine: "google_jobs",
           q: query,
@@ -49,20 +47,23 @@ module.exports = function configureServer(app){
       
       
       
-      app.post('/saveJob', async (req, res) => {
-        
-        const { username, password, job } = req.body;
-        var user =  await User.findOne({username: username.toString()});
-        user.interestedVacancies.push(job);
-        //console.log(job)
+      app.post('/saveJob', verifyToken , async (req, res) => {
+        var user =  await User.findOne({_id: req.user[0]._id});
+        const job = req.body
+       user.interestedVacancies.push(job);
         await user.save();
-        res.send('Job saved successfully!');
+        //console.log(user)
+        return res.status(200)
       });
       
-      app.post('/getSavedJobs', async (req, res) => {
-        console.log("post");
-        const { username } = req.body;
-      
+      app.post('/getSavedJobs',verifyToken , async (req, res) => {
+        
+        var user =  await User.findOne({_id: req.user[0]._id});
+        console.log(user)
+        const jobs = user.interestedVacancies.map((vacancy) => {
+          const { _id, ...vacancyWithoutId } = vacancy.toObject();
+          return vacancyWithoutId;
+        });
         // User.findOne({ username: username.toString() })
         // .populate({
         //   path: 'interestedVacancies.vacancy',
@@ -88,13 +89,14 @@ module.exports = function configureServer(app){
         //   console.log(vacancyJsonArray); // do something with the JSON object array
         // });
       
-        var user =  await User.findOne({username: username.toString()});
-        var jobs = user.interestedVacancies
-        var vacancies = user.interestedVacancies.map(vacancy => vacancy.vacancy)
-        var jsonContent = JSON.stringify(vacancies);
-        const vacancyJsonArray = vacancies.map(vacancy => vacancy.toJSON());
-        console.log(vacancyJsonArray)
-        res.send(jsonContent)
+        // var user =  await User.findOne({username: username.toString()});
+        // var jobs = user.interestedVacancies
+        // var vacancies = user.interestedVacancies.map(vacancy => vacancy.vacancy)
+        // var jsonContent = JSON.stringify(vacancies);
+        // const jobsJsonArray = jobs.map(job => job.toJSON());
+        const jobsJSON = JSON.stringify(jobs);
+        console.log(jobsJSON)
+        res.send(jobsJSON)
       });
   
 

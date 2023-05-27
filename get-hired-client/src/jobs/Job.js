@@ -19,15 +19,11 @@ function Job({
 
   function send_job() {
     var job_to_send = {
-      title: { title },
-      company_name: { company_name },
-      location: { location },
-      via: { via },
-      description: { description },
-      job_highlights: { job_highlights },
-      related_links: { related_links },
-      extensions: { extensions },
-      publishedDate: { publishedDate },
+       title ,
+       company_name ,
+       location ,
+       via ,
+       description
     };
     return job_to_send;
   }
@@ -38,9 +34,10 @@ function Job({
     const r = await fetch('http://127.0.0.1:3001/saveJob', {
       method: 'POST',
       headers: {
+        Authorization: `${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: 'hilanin', password: 'hila1234', job: send_job() }),
+      body: JSON.stringify( send_job() ),
     });
   }
 
@@ -85,42 +82,3 @@ function Job({
 }
 
 export default Job;
-// return (
-//   <li className='job-contanier'>
-//     <Accordion className='job-content'>
-//       <Accordion.Item eventKey="0">
-//         <Accordion.Header>
-//           {/**Backend developer */}
-//           <h5 className="card-header" id="title-name">
-//             {title}
-//           </h5>
-//             {/**gotfriends */}
-//           <div className="card-body">
-//             <h5 className="card-title" id="company_name">
-//               {company_name}
-//             </h5>
-//   {/**tel aviv via linkdin */}
-//             <p className="card-text" id="location">
-//               {location} <br />
-//               {via}
-//             </p>
-//                 {/**<3 */}
-
-//             <i
-//               className={`bi bi-heart favorite-icon ${isFavorite ? 'filled' : ''}`}
-//               onClick={save_to_favorites}
-//             ></i>
-//           </div>
-//         </Accordion.Header>
-//         <Accordion.Body>
-//           <div>
-//             {description.split('\n').map((line, index) => (
-//               <p key={index}>{line}</p>
-//             ))}
-//           </div>
-//         </Accordion.Body>
-//       </Accordion.Item>
-//     </Accordion>
-
-//   </li>
-// );
