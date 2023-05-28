@@ -1,53 +1,60 @@
-import {  useState } from "react";
+import { useState } from "react";
 import VideoInterviewer from './VideoInterviewer';
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { FaCheckCircle } from "react-icons/fa";
+import "./SelectPosition.css"
 
 function SelectPosition() {
 
   const options = [
-    "Front-end developer","Full stack developer","Embedded software"
+    { id: 1, name: "Front-end developer", checked: false },
+    { id: 2, name: "Full stack developer", checked: false },
+    { id: 3, name: "Embedded software", checked: false },
   ];
 
-  const [selectedPosition, setSelectedPosition]= useState("");
+  const [positions, setPositions]= useState(options);
 
-  const handlePositionChange = (e) => {
-    setSelectedPosition(e.target.value);
+  const handlePositionClick = (positionId) => {
+    const updatedPositions = positions.map((position) =>
+      position.id === positionId ? { ...position, checked: !position.checked } : { ...position, checked: false }
+    );
+    setPositions(updatedPositions);
   };
 
   const navigate = useNavigate();
 
   const handleClick = () => {
+    const selectedPosition = positions.find(position => position.checked);
     navigate('/TrialRecording', {
       state: {
-        selectedPosition: selectedPosition
+        selectedPosition: selectedPosition.name
       }
     });
   };
 
   return (
-    <div>
-    <h3>Your next step is to choose your target position.
-    Here's a list.
-    Pick the one that aligns with your career goals.
-    This will customize your interview questions. Take your time,
-    make your choice.</h3>
+    <div className="main-container">
+          <div className="video-container">
     <VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=18KSPR8SgME4EOc0KXdyzxre4Yc3q_vHs"  />
-    {options.map((option) => (
-      <div key={option}>
-        <label>
-          <input
-            type="radio"
-            value={option}
-            checked={selectedPosition === option}
-            onChange={handlePositionChange}
-          />
-          {option}
-        </label>
-      </div>
-    ))}
-    <br />
-    <button className="select-position-next-button" onClick={handleClick} disabled={!selectedPosition}>Next</button>
+    </div>
+    <div className="text-container">
+    <h3> <b>Your next step is to choose your target position,</b></h3>
+    <h4><b>Here's a list-</b></h4>
+    <div>Pick the one that aligns with your career goals, <br/>This will customize your interview questions</div>
+     <b>Take your time,make your choice.</b>
+
+
+     <div className="select-position-container">
+
+    {positions.map((option) => (
+          <div key={option.id} className={`select-position-item ${option.checked ? 'checked' : ''}`} onClick={() => handlePositionClick(option.id)}>
+            <FaCheckCircle className="checkbox-icon" />
+            {option.name}
+          </div>
+        ))}
+        </div>
+    <button className="select-position-next-button" onClick={handleClick} disabled={!positions.some(option => option.checked)}>Next</button>
+    </div>
     </div>
   );
 }

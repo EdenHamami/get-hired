@@ -106,19 +106,25 @@ function MicrophoneTest() {
     setTempFile(recordedBlob);
   };
 
-  // const classes = useStyles();
+
+
 
   return (
     <div>
       <Grid container justify="center">
         <Grid item>
-          <IconButton onClick={handleClickOpen}>
-            <MicIcon  />microphone test
-          </IconButton>
+        <div onClick={handleClickOpen} className="mic-container">
+  <IconButton>
+    <MicIcon style={{ fontSize: 50, color: '#5754b7' }} />
+  </IconButton>
+  <div className="mic-text">microphone test</div>
+</div>
+
+
         </Grid>
       </Grid>
       <Dialog maxWidth="sm" open={open} onClose={handleCancel}>
-        <DialogTitle >microphone test</DialogTitle>
+        <DialogTitle >microphone-test</DialogTitle>
         <DialogContent>
           {tempFile ? (
             <div  id="wavesurfer-id" />
