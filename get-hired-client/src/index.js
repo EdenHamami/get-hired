@@ -27,6 +27,7 @@ import TipsList from './Tips/TipsList';
 import Navbar from './components/Navbar';
 import StartingPage from './components/StartingPage';
 import LoginPage from './LoginPage';
+import SavedJobs from './jobs/SavedJobs';
 import AboutUs from './AboutUs';
 import UserContext, { UserProvider } from './context/UserContext';
 import technicalQuestionsIntro from './TechnicalQuestions/technicalQuestionsIntro';
@@ -62,6 +63,7 @@ root.render(
         <Route path="/" element={<StartingPage />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/SavedJobs" element={<SavedJobs />} />
       </Routes>
     </ResumeProvider>
     </UserProvider>

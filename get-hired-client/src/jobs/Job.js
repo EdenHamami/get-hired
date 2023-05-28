@@ -65,6 +65,7 @@ function Job({
                 className={`bi bi-heart favorite-icon ${isFavorite ? 'filled' : ''}`}
                 onClick={save_to_favorites}
               ></i>
+              
               </div>
           </Accordion.Header>
           <Accordion.Body>
