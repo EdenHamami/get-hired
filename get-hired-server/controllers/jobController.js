@@ -86,7 +86,6 @@ module.exports = function configureServer(app) {
       return vacancyWithoutId;
     });
     const jobsJSON = JSON.stringify(jobs);
-    console.log(jobsJSON)
     res.send(jobsJSON)
   });
 
