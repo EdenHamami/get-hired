@@ -31,13 +31,15 @@ function JobsSearchResult() {
   };
 
   async function fetchData() {
+   
     setIsLoading(true); // Set loading state to true
     const r = await fetch('http://127.0.0.1:3001/jobSearch', {
       method: 'POST',
       headers: {
+        Authorization: `${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ jobdescription: jobdescription, joblocation: joblocation }),
+      body: JSON.stringify({ username:'Hila2034', jobdescription: jobdescription, joblocation: joblocation }),
     });
     const d = await r.json();
     setResultList(d);
@@ -48,11 +50,13 @@ function JobsSearchResult() {
     const r = await fetch('http://127.0.0.1:3001/getSavedJobs', {
       method: 'POST',
       headers: {
+        Authorization: `${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: 'eden' }),
+      body: JSON.stringify(),
     });
     const d = await r.json();
+    console.log(d)
     setResultList(d);
   }
 
@@ -90,11 +94,11 @@ function JobsSearchResult() {
           </button>
           </div>
         </div>
-        {/* <div className="saved-jobs">
+         <div className="saved-jobs">
           <button onClick={hanleSelectSavedJob} className="liked-jobs-button">
             Jobs I liked<i className="bi bi-heart"></i>
           </button>
-        </div> */}
+        </div> 
         <div className="job-results">
           <ul id="listg" className="list-group">
             {Jobs}

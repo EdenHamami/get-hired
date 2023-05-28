@@ -14,6 +14,7 @@
   background-image: url("../public/menu.png");
   background-size: cover;
   background-position: center;
+  border-color: white;
 }
 
 .buttons-container {
