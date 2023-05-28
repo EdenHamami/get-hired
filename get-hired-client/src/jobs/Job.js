@@ -9,11 +9,7 @@ function Job({
   company_name,
   location,
   via,
-  description,
-  job_highlights,
-  related_links,
-  extensions,
-  publishedDate,
+  description
 }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
