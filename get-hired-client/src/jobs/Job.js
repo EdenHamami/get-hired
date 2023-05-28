@@ -19,11 +19,11 @@ function Job({
 
   function send_job() {
     var job_to_send = {
-       title ,
-       company_name ,
-       location ,
-       via ,
-       description
+      title,
+      company_name,
+      location,
+      via,
+      description
     };
     return job_to_send;
   }
@@ -37,7 +37,7 @@ function Job({
         Authorization: `${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify( send_job() ),
+      body: JSON.stringify(send_job()),
     });
   }
 
@@ -48,25 +48,25 @@ function Job({
           <Accordion.Header>
             {/**Backend developer */}
             <div className='card-job-left'>
-            <div className='card-job-title'> {title}</div>
+              <div className='card-job-title'> {title}</div>
             </div>
-    <div className='card-job-center'>
+            <div className='card-job-center'>
               {/**gotfriends */}
-    <div className='card-company-name'>{company_name}</div>
-    {/**tel aviv via linkdin */}
-    <div className='card-job-location'> {location}</div>
-    <div className='card-job-via'>{via}</div>
-    </div>
+              <div className='card-company-name'>{company_name}</div>
+              {/**tel aviv via linkdin */}
+              <div className='card-job-location'> {location}</div>
+              <div className='card-job-via'>{via}</div>
+            </div>
 
-                  {/**<3 */}
-                  <div className='card-favorite-icon-contanier'>
+            {/**<3 */}
+            <div className='card-favorite-icon-contanier'>
 
               <i
                 className={`bi bi-heart favorite-icon ${isFavorite ? 'filled' : ''}`}
                 onClick={save_to_favorites}
               ></i>
-              
-              </div>
+
+            </div>
           </Accordion.Header>
           <Accordion.Body>
             <div>
@@ -77,7 +77,7 @@ function Job({
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-  
+
     </li>
   );
 }
