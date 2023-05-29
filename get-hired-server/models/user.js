@@ -51,13 +51,18 @@ const userSchema = new Schema({
           ref: 'PracticeProblem',
           required: true
         },
-        solution: {
-          type: String,
-          required: true
-        },
-        solutionTime: {
-          type: Number,
-          required: true
+        solutions: [{
+          language:{
+            type: String,
+            
+          },
+          solution: {
+            type: String,
+           
+          }
+        }],
+        isSucceed:{
+          type: bool
         }
       }],
       myInterviewProblems: [{
