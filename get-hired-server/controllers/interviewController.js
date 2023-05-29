@@ -1,4 +1,4 @@
-const InterviewProblem = require('./models/interviewProblem');
+const InterviewProblem = require('../models/interviewProblem');
 const path = require('path');
 
 module.exports = function configureServer(app) {
@@ -6,10 +6,11 @@ module.exports = function configureServer(app) {
   let interview;
 
   app.post('/interview-question/:selectedPosition', async (req, res) => {
+    console.log("her111")
     const selectedPosition = req.params.selectedPosition;
     interview = await InterviewProblem.findOne({ type: selectedPosition });
     console.log(selectedPosition)
-
+    console.log(interview)
     if (interview) {
       const data = {
         questions: interview.questions,
@@ -19,4 +20,7 @@ module.exports = function configureServer(app) {
       res.status(404).send('No item found with the selected position');
     }
   });
+
+
+  
 };
