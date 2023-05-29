@@ -1,0 +1,77 @@
+.designNavbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  
+  .designNavbar-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .designNavbar-item button {
+    background-color: white;
+    color: #333;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .designNavbar-item button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .designNavbar-option {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: -webkit-fill-available;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+    z-index: 10;
+  }
+  
+  .designNavbar-templates {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    bottom: 60px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+    z-index: 10;
+  }
+  
+  .designNavbar-templates label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .designNavbar-templates img {
+    width: 100px;
+    height: auto;
+  }
+  
+  .designNavbar-templates img.selected {
+    border: 2px solid #512DA8;
+  }
+  .Download-btn{
+    background-color: #512DA8!important;
+    color: white!important;
+    border-radius: 20px;
+  }

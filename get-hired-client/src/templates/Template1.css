@@ -1,23 +1,32 @@
 @import url('https://fonts.cdnfonts.com/css/berlin-sans-fb-demi');
 
 .template1 {
-  font-family: "calibri";
-  font-size: 12px;
   color: #000000;
-  max-width: 21cm;
+  max-width: 22cm;
   max-height: 29.7cm;
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-gap: 20px;
-  
+  grid-gap: 10px;
+  word-break: break-all; 
+  height:27.9cm ;
+  word-break: normal;
+
+
 }
+.template1 .header-1 h1, 
+.template1 .header-1 h4,
+.template1 .work-experience-1 .experience h3,
+.template1 .education-1 .education-item h3 {
+  word-break: break-all; 
+}
+
 
 .template1 .header-1 h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  font-family:"calibri";
+  min-height: 2.5rem;
 }
 
 .template1 .header-1 h4 {
@@ -30,10 +39,9 @@
 }
 .template1 .personal-details-1 h3 ,
 .template1 .skills-1 h3{
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  text-align: center;
 
 
 ;}
@@ -41,7 +49,7 @@
   margin-bottom: 0.5rem;
   align-items: center;
   align-content: center;
-  text-align: center;
+
   font-size: 12px;
 }
 
@@ -91,8 +99,11 @@ margin-bottom: 2px;
   margin: 0px;
 }
 .template1  .profile-image {
-  width: 150x;
+  width: 150px;
   height: 150px;
+  overflow: hidden;
+  object-fit: cover;
+  
   margin-right: 20px;
   margin: 20px;
   border-color: white;
@@ -105,6 +116,7 @@ section.left {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-right: 10px;
   font-size: 12px;
   height:27.9cm ;
 }
@@ -113,6 +125,7 @@ section.right {
   float: left;
   overflow-wrap: break-word;
   height:27.9cm ;
+  padding-right: 10px;
   
 }
 .template1 .skills-1 {
@@ -126,4 +139,9 @@ section.right {
 .header-1 {
   text-align: center;
   padding: 1rem 0;
+}
+.template1-image-contanier{
+  min-height: 150px;
+  min-width: 150px;
+
 }

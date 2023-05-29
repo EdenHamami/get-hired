@@ -1,0 +1,29 @@
+.MuiDialog-paperWidthSm {
+  max-width: 600px;
+  flex: 1;
+}
+.test-mic{
+  display: flex;
+  flex-direction: row;
+}
+.mic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10%;
+  border: 2px solid #5754b7;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease; /* Transition for smooth shadow effect */
+
+}
+
+.mic-container:hover {
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.15); /* Add shadow effect on hover */
+}
+.mic-text {
+  text-align: center;
+}
+button.MuiIconButton-root {
+  color: #5754b7;
+}

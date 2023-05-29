@@ -31,11 +31,13 @@ const Template3 = () => {
   return (
     <div className="template3" 
     style={{  backgroundColor: designOptions.backgroundColor2,color: designOptions.fontColor,
-     fontFamily: designOptions.fontFamily, fontSize: `${designOptions.fontSize}px`,wordWrap: 'break-word' }}>
+     fontFamily: designOptions.fontFamily, fontSize: `${designOptions.fontSize}rem`,wordWrap: 'break-word' }}>
       <section className='left'  style={{ backgroundColor: designOptions.backgroundColor,wordWrap: 'break-word'}}>
+        <div className='template3-image-contanier'>
       {personalInfo.image && (
         <img src={personalInfo.image} alt="Profile" className="profile-image" />
       )}
+      </div>
             <div className='left-content'>
 
        <Header personalInfo={personalInfo} template={3} />

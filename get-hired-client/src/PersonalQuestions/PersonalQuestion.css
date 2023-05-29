@@ -1,0 +1,39 @@
+/* PersonalQuestion.css */
+
+.PersonalQuestion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    font-family: "Nunito", sans-serif;
+    text-align: center;
+    margin: 5%;
+  }
+  
+  .PersonalQuestion h4, .PersonalQuestion h5 {
+    color: #5754b7;
+  }
+  
+  .PersonalQuestion button {
+    background-color:#5754b7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .PersonalQuestion button:hover {
+    background-color: #5754b7;
+  }
+  
+  .PersonalQuestion h6 {
+    margin: 10px 0;
+  }
+  
+  .part-1{
+    margin-bottom: 4%;
+  }

@@ -1,0 +1,19 @@
+.video-test{
+width: 70%;
+}
+
+#on-off{
+    border-radius: 0px;
+}
+
+.video-test-contanier{
+
+}
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  

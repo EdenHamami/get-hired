@@ -9,22 +9,23 @@ const ResumeProvider = ({ children }) => {
   const designOptions1 = {
     backgroundColor: '#ffc001',
     fontColor: '#000',
-    fontFamily: "calibri",
-    fontSize: 16
+    fontFamily: "font-family: 'Nunito', sans-serif",
+   
+    fontSize: 1,
   };
 
   const designOptions2 = {
     backgroundColor: '#718ea8',
     fontColor: '#000',
-    fontFamily: "calibri",
-    fontSize: 16
+    fontFamily: "Calibri, sans-serif",
+    fontSize: 1
   };
 
   const designOptions3 = {
     backgroundColor: '#d9bcac',
     fontColor: '#351e45',
     fontFamily: "calibri",
-    fontSize: 16,
+    fontSize: 1,
     backgroundColor2: '#f7f4f5',
 
   };
@@ -140,41 +141,66 @@ const ResumeProvider = ({ children }) => {
 };
 
 export { ResumeProvider };
+// const [personalInfo, setPersonalInfo] = useState({
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   phone: '',
+//   address: {
+//     street: '',
+//     city: '',
+//     state: '',
+//   },
+//   image: '',
+//   desiredJob: '' // Add desired job field
+// });
 
+// const [workExperience, setWorkExperience] = useState([{
+//   title: '',
+//   company: '',
+//   startDate: '',
+//   endDate: '',
+//   description: '',
+// }]);
 
+// const [education, setEducation] = useState([{
+//   institution: '',
+//   degree: '',
+//   grade: '',
+//   startDate: '',
+//   endDate: '',
+//   description: '',
+// }]);
 
-// import { createContext, useState, useEffect } from 'react';
+// const [skills, setSkills] = useState([]);
 
-// export const ResumeContext = createContext();
+// const [summary, setSummary] = useState('');
 
-// const ResumeProvider = ({ children }) => {
-//   // ...
-
-//   useEffect(() => {
-//     fetchUserData();
-//   }, []);
-
-//   const fetchUserData = async () => {
-//     try {
-//       const response = await fetch('your-server-api-url/user-data');
-//       if (response.ok) {
-//         const userData = await response.json();
-//         setTemplateId(userData.templateId);
-//         setDesignOptions(userData.designOptions);
-//         setPersonalInfo(userData.personalInfo);
-//         setWorkExperience(userData.workExperience);
-//         setEducation(userData.education);
-//         setSkills(userData.skills);
-//         setSummary(userData.summary);
-//       } else {
-//         console.error('Failed to fetch user data');
-//       }
-//     } catch (error) {
-//       console.error('Error fetching user data:', error);
-//     }
-//   };
-
-//   // ...
+// return (
+//   <ResumeContext.Provider
+//     value={{
+//       templateId,
+//       setTemplateId,
+//       designOptions,
+//       designOptions1,
+//       designOptions2,
+//       designOptions3,
+//       setDesignOptions,
+//       personalInfo,
+//       setPersonalInfo,
+//       workExperience,
+//       setWorkExperience,
+//       education,
+//       setEducation,
+//       skills,
+//       setSkills,
+//       summary,
+//       setSummary,
+//     }}
+//   >
+//     {children}
+//   </ResumeContext.Provider>
+// );
 // };
 
 // export { ResumeProvider };

@@ -17,9 +17,8 @@ const Navbar = () => {
     if (dropdownVisible) {
       setDropdownVisible(false);
     }
-
-  
   };
+  
   const is_logged_in = () => {
     if (user.isLoggedIn) {
       navigate('/Menu');
@@ -34,6 +33,7 @@ const Navbar = () => {
       setDropdownVisible(!dropdownVisible);
       navigate('/LoginPage');
   }
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -43,7 +43,10 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         <img src="user.png" alt="User" className="user-img" onClick={toggleDropdown} />
-        <p>Welcome {user.username}</p>
+        <div>
+        <p className="welcome-text">Welcome {user.username}</p>
+        {!user.isLoggedIn && <a href="/LoginPage" className="login-link">Login/Register</a>}
+        </div>
         {dropdownVisible && user.isLoggedIn && (
           <div className="dropdown" onBlur={handleClickOutside} tabIndex="0">
             <a href="/my-cv" className="dropdown-item">My CV</a>

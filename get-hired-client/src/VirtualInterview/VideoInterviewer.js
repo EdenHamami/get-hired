@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import videojs from 'video.js';
+import image from './image.png';
 import 'video.js/dist/video-js.css';
-
+import { MdRestartAlt } from "react-icons/md";
+import './VideoInterviewer.css';
 const VideoInterviewer = (props) => {
   const { width, height, src } = props;
   const videoRef = useRef(null);
@@ -13,6 +15,7 @@ const VideoInterviewer = (props) => {
       controls: false, // Disable controls
       autoplay: true,
       preload: 'auto',
+      poster: image,
     });
 
     player.on('ended', () => {
@@ -43,9 +46,8 @@ const VideoInterviewer = (props) => {
         src={src}
         type="video/mp4"
       />
-
       {showRestartButton && (
-        <button onClick={restartVideo}>Restart Video</button>
+        <button className='btn btn-primary' onClick={restartVideo}><MdRestartAlt /></button>
       )}
     </div>
   );
