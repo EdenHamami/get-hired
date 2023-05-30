@@ -4,6 +4,7 @@ import 'video.js/dist/video-js.css';
 import VideoInterviewer from './VideoInterviewer';
 import './HelloJohn.css';
 import videojs from 'video.js';
+import axios from "axios";
 
 
 
@@ -13,7 +14,7 @@ const LastPage = () => {
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const recordedChunks = location.state.recordedChunks;
+  const blob = location.state.blob;
 
   useEffect(() => {
     const player = videojs(videoRef.current, {
@@ -32,16 +33,23 @@ const LastPage = () => {
     };
   }, []);
   
-  const downloadVideo = () => {
-    const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style = 'display: none';
-    a.href = url;
-    a.download = 'recorded-video.mp4';
-    a.click();
-    window.URL.revokeObjectURL(url);
+  const downloadVideo = async () => {
+    // Create a FormData object and append the Blob to it
+    const formData = new FormData();
+    formData.append('video', blob, 'custom_video_name.mp4');
+    if (true) {
+      try {
+        const response = await axios.post('http://127.0.0.1:3001/upload-video', formData);
+
+        if (response.status === 200) {
+          console.log(response.data);
+        } else {
+          console.error('Failed to upload video.');
+        }
+      } catch (error) {
+        console.error('Error uploading video:', error);
+      }
+    }
   };
 
   const handleClick = () => {

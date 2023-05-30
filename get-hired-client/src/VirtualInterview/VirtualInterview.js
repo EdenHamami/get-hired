@@ -71,13 +71,13 @@ const VirtualInterview = () => {
     console.log(currentQuestion.videoUrl)
   }, [currentIndex, interviewQuestions, isDataFetched]);
 
-  const handleNext = () => {
+  const handleNext = async ()  => {
     if (currentIndex === interviewQuestions.length - 1) {
-      stopRecording();
-      console.log("her2")
+      await stopRecording();
+      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
       navigate('/LastPage', {
         state: {
-          recordedChunks: recordedChunks
+          blob: blob
         }
       });
     } else {
@@ -154,6 +154,27 @@ const VirtualInterview = () => {
     }
   };
 
+  const handleUpload  = async () => {
+    
+
+    // // Create a FormData object and append the Blob to it
+    // const formData = new FormData();
+    // formData.append('video', blob, 'custom_video_name.mp4');
+    // if (true) {
+    //   try {
+    //     const response = await axios.post('http://127.0.0.1:3001/upload-video', formData);
+
+    //     if (response.status === 200) {
+    //       console.log(response.data);
+    //     } else {
+    //       console.error('Failed to upload video.');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error uploading video:', error);
+    //   }
+    // }
+  };
+
   
   return (
     <div>
@@ -167,7 +188,6 @@ const VirtualInterview = () => {
 
     ))}
     <button onClick={handleAlert}>end</button>
-    
     
     <video ref={videoRef1} autoPlay muted />
       {!isRecording && (
