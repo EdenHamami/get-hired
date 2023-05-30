@@ -1,36 +1,31 @@
 import React from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Nav, Navbar, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVideo, faVideoSlash, faCircle, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import './InterviewNavbar.css';
-
-const InterviewNavbar = ({currentIndex, questionsLength, handleNext, handleAlert, handleRecording}) => {
+import Timer from './Timer';
+import VirtualInterview from "./VirtualInterview"
+import {stopRecording,startRecording} from "./VirtualInterview"
+const InterviewNavbar = ({currentIndex, questionsLength, handleNext, handleAlert, handleRecording, isRecording}) => {
     return (
-        <Navbar bg="dark" variant="dark" className="justify-content-between">
+        <Navbar bg="dark" variant="dark" className="justify-content-between interview-navbar">
             <Nav>
                 <Button variant="danger" className="rounded-pill mr-2" onClick={handleAlert}>End</Button>
                 <Button variant="outline-light" className="rounded-circle" onClick={handleRecording}>
-                    <FontAwesomeIcon icon={faVideoSlash} />
+                    <FontAwesomeIcon icon={isRecording ? faVideo : faVideoSlash} />
                 </Button>
+                <Timer />
             </Nav>
-
             <Nav>
-                {Array.from({length: questionsLength}, (_, i) => (
-                    <FontAwesomeIcon 
-                        key={i} 
-                        icon={faCircle} 
-                        className={`mr-1 ${currentIndex === i ? 'active-question' : 'inactive-question'}`} 
-                    />
+                {[...Array(questionsLength)].map((_, i) => (
+                    <span key={i} className={currentIndex === i ? 'active-question' : 'inactive-question'}>{i + 1}</span>
                 ))}
             </Nav>
-
             <Nav>
-                <Button variant="primary" className="rounded-pill" onClick={handleNext}>
-                    Next <FontAwesomeIcon icon={faArrowRight} />
-                </Button>
+                <Button variant="outline-light" className="rounded-pill" onClick={handleNext}>Next</Button>
             </Nav>
         </Navbar>
     );
-}
+};
 
 export default InterviewNavbar;

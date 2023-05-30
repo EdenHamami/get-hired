@@ -19,13 +19,7 @@ const VirtualInterview = () => {
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
   const [nextButton , setNextButton] = useState('next');
-  const handleRecording = () => {
-    if (isRecording) {
-      stopRecording();
-    } else {
-      startRecording();
-    }
-  }
+
 
   const videoRef = useRef(null);
 
@@ -181,11 +175,17 @@ const VirtualInterview = () => {
     // }
   };
 
-  
+  const handleRecording = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
   return (
     <div>
-   
-      <Timer />
+      
       <h3> {currentQuestion.content}</h3>
       <h4>When you finish, click {nextButton}</h4>
       <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
@@ -196,6 +196,7 @@ const VirtualInterview = () => {
         handleNext={handleNext}
         handleAlert={handleAlert}
         handleRecording={handleRecording} 
+        isRecording={isRecording}
       />
     </div>
   );
