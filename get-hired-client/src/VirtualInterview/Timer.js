@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import "./Timer.css"
 
 function Timer() {
   const [seconds, setSeconds] = useState(0);
@@ -23,9 +25,9 @@ function Timer() {
   };
 
   return (
-    <div>
-      <h1>Timer: {formatTime(seconds)}</h1>
-    </div>
+    <Button variant="outline-light" className="timer-btn">
+      Timer: {formatTime(seconds)}
+    </Button>
   );
 }
 
