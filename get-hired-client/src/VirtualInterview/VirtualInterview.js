@@ -4,11 +4,11 @@ import axios from "axios";
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import Timer from './Timer';
-import './VirtualInterview.css';
 import VideoCamera from './VideoCamera';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
-
+import './VirtualInterview.css';
+import InterviewNavbar from './InterviewNavbar';
 
 const VirtualInterview = () => {
   const navigate = useNavigate();
@@ -19,7 +19,13 @@ const VirtualInterview = () => {
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
   const [nextButton , setNextButton] = useState('next');
-
+  const handleRecording = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  }
 
   const videoRef = useRef(null);
 
@@ -178,24 +184,19 @@ const VirtualInterview = () => {
   
   return (
     <div>
-    <Timer />
-    <h3> {currentQuestion.content}</h3>
-    <h4>When you finish, click {nextButton}</h4>
-    <button onClick={handleNext}>{nextButton}</button>
-    <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
-    {interviewQuestions.map((item, index) => (
-      <span key={index} className={currentIndex === index ? 'active-button' : ''}>{index + 1}</span>
-
-    ))}
-    <button onClick={handleAlert}>end</button>
-    
-    <video ref={videoRef1} autoPlay muted />
-      {!isRecording && (
-        <button className="btn btn-primary" id="on-off" onClick={startRecording}><FontAwesomeIcon icon={faVideoSlash} /></button>
-      )}
-      {isRecording && (
-        <button className="btn btn-primary" id="on-off" onClick={stopRecording}><FontAwesomeIcon icon={faVideo} /></button>
-      )}
+   
+      <Timer />
+      <h3> {currentQuestion.content}</h3>
+      <h4>When you finish, click {nextButton}</h4>
+      <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
+      <video ref={videoRef1} autoPlay muted />
+      <InterviewNavbar 
+        currentIndex={currentIndex} 
+        questionsLength={interviewQuestions.length}
+        handleNext={handleNext}
+        handleAlert={handleAlert}
+        handleRecording={handleRecording} 
+      />
     </div>
   );
 };

@@ -1,0 +1,11 @@
+.interview-navbar .active-question {
+    color: #512DA8;
+}
+
+.interview-navbar .inactive-question {
+    color: #6c757d;
+}
+
+.interview-navbar {
+    background-color: black !important;
+}
