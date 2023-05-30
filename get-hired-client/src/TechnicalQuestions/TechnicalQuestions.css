@@ -1,40 +1,55 @@
 .questions-container {
-    display: flex;
-    height: 100vh;
-    position: relative;
-    text-align: center;
-    font-family: 'Nunito', sans-serif;
-  }
-  
-  .questions-image-container {
-    width: 40%;
-    background: url('./technicalQuestionsLeft.png'); /* Replace with your image path */
-    background-size: cover;
-  }
-  
-  .questions-content-container {
-    width: 60%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .questions-search-form {
-    width: 80%;
-    margin-bottom: 20px;
-  }
-  
-  .questions-table {
-    width: 100%;
-  }
-  
-  .questions-table th,
-  .questions-table td {
-    text-align: center;
-  }
+  display: flex;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
 
-  .question-name{
-color:  #5754b7;
-width: 100%;
-  }
+.questions-image-container {
+  width: 40%;
+  background: url('./technicalQuestionsLeft.png'); /* Replace with your image path */
+  background-size: cover;
+}
+
+.questions-content-container {
+  width: 60%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-search-container {
+  display: flex;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.search-input {
+  border-radius: 15px;
+}
+
+.search-bar .fa-search {
+  margin-left: -30px; /* Adjust as necessary to position the icon inside the input box */
+}
+
+.questions-table {
+  width: 100%;
+}
+
+.questions-table th,
+.questions-table td {
+  text-align: center;
+}
+
+.question-name{
+  color:  #5754b7;
+  width: 100%;
+}

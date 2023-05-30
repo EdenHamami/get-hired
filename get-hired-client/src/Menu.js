@@ -12,6 +12,7 @@ import {
   faSearch,
   faLightbulb,
   faUser,
+  faMapSigns ,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,11 +22,14 @@ function Menu() {
   const navigate = useNavigate();
 
   const navigate_resume = () => {
-    navigate("/OpeningPage", {});
+    navigate("/ResumePortfolio", {});
+  };
+  const navigate_career_plan = () => {
+    navigate("/CareerPlanner", {});
   };
 
   const navigate_technical_questions = () => {
-    navigate("/select_topics", {});
+    navigate("/TechnicalPersonal", {});
   };
   const navigate_personal_questions = () => {
     navigate("/opening_personal_questions", {});
@@ -49,22 +53,19 @@ function Menu() {
           <div className="button-row">
             <button onClick={navigate_resume} className="menu-button">
               <FontAwesomeIcon icon={faFileAlt} className="icon" />
-              <span>Create your resume</span>
+              <span>CV and portfolio</span>
             </button>
             <button onClick={navigate_technical_questions} className="menu-button">
               <FontAwesomeIcon icon={faQuestionCircle} className="icon" />
-              <span>Technical Questions</span>
+              <span>Practice Interview Questions</span>
             </button>
-            <button onClick={navigate_personal_questions} className="menu-button">
-              <FontAwesomeIcon icon={faUser} className="icon" />
-              <span>Personal Questions</span>
-            </button>
-          </div>
-          <div className="button-row">
             <button onClick={navigate_tips} className="menu-button">
               <FontAwesomeIcon icon={faLightbulb} className="icon" />
               <span>Tips and Tricks</span>
             </button>
+          </div>
+          <div className="button-row">
+     
             <button onClick={navigate_search_jobs} className="menu-button">
               <FontAwesomeIcon icon={faSearch} className="icon" />
               <span>Search for vacancies</span>
@@ -72,6 +73,10 @@ function Menu() {
             <button onClick={navigate_job_interview} className="menu-button">
               <FontAwesomeIcon icon={faVideo} className="icon" />
               <span>Virtual Job Interview</span>
+            </button>
+            <button onClick={navigate_career_plan} className="menu-button">
+              <FontAwesomeIcon icon={faMapSigns} className="icon" /> 
+              <span>Plan Your Career</span>
             </button>
           </div>
         </div>
