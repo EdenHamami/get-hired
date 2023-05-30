@@ -27,6 +27,8 @@ const VideoCamera = () => {
 
   const stopRecording = () => {
     setIsRecording(false);
+    const tracks = videoRef1.current.srcObject.getTracks();
+    tracks.forEach((track) => track.stop());
     mediaRecorderRef.current.stop();
     setRecordedChunks([])
   };
