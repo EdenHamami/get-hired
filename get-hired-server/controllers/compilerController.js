@@ -94,8 +94,10 @@ app.post('/question/:problemId',async (req, res) => {
   res.send(data);
 });
 
+let is_succeed = true
 //send the initial code by the lang
 app.post('/language',async (req, res) => {
+  
   const {language} = req.body;
   const initial_code = question[language].initial_code;
   res.send(initial_code);
@@ -110,6 +112,10 @@ app.post('/compile', verifyToken, (req, res) => {
   const { exec, execSync } = require('child_process');
   const fs = require('fs');
 
+  if (test_number == 0){
+    is_succeed = true
+  }
+
   const main_code = question[language].main;
   const header_code = question[language].header;
 
@@ -117,7 +123,6 @@ app.post('/compile', verifyToken, (req, res) => {
   const test_output = question.test[test_number].output
 
   text_file = header_code + input + main_code
-  var is_succeed = true
   if (language == "python"){
   // add the code to the file 
     fs.writeFileSync('./temp/solution.py', text_file, (err) => {
@@ -261,6 +266,12 @@ app.post('/compile', verifyToken, (req, res) => {
   res.send(result_to_user);
 });
 
+}
+
+// in the last test- check if passed all the tests
+if(test_number == question.test.length-1){
+  //add is_succeed to the db
+  console.log(is_succeed)
 }
 });
 };
