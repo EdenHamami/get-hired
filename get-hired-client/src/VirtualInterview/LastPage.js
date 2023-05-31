@@ -22,7 +22,7 @@ const LastPage = () => {
       controls: true,
       autoplay: true,
       preload: 'auto',
-      poster: 'path/to/poster/image.jpg',
+      // poster: 'path/to/poster/image.jpg',
     });
 
     // player.on('ended', () => {
