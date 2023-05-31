@@ -15,10 +15,12 @@ const VirtualInterview = () => {
   const location = useLocation();
   const selectedPosition = location.state.selectedPosition;
 
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
   const [nextButton , setNextButton] = useState('next');
+  const [isFinish, setIsFinish] =  useState(false);
 
 
   const videoRef = useRef(null);
@@ -73,17 +75,33 @@ const VirtualInterview = () => {
 
   const handleNext = async ()  => {
     if (currentIndex === interviewQuestions.length - 1) {
-      await stopRecording();
-      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-      navigate('/LastPage', {
-        state: {
-          blob: blob
-        }
-      });
+      stopRecording();
+      setIsFinish(true)
+      setNextButton('>')
     } else {
       setCurrentIndex(prevIndex => prevIndex + 1);
     }
+
+    if (isFinish){
+      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+      const formData = new FormData();
+      formData.append('video', blob, 'custom_video_name.mp4');
+      if (true) {
+        try {
+          const response = await axios.post('http://127.0.0.1:3001/upload-video', formData);
+          navigate('/LastPage', {
+          state: {
+            video_link: response.data
+          }
+        });
+    } catch (error) {
+          console.error('Error uploading video:', error);
+        }
+      }
+    }
   };
+  
+
 
   const handleDownload = () => {
     const a = document.createElement('a');
@@ -101,8 +119,6 @@ const VirtualInterview = () => {
     else {
     }
   };
-
-
 
   const [isRecording, setIsRecording] = useState(false);
   const videoRef1 = useRef();
@@ -126,14 +142,15 @@ const VirtualInterview = () => {
     }
   };
 
+
   const stopRecording = () => {
-    setIsRecording(false);
-    const tracks = videoRef1.current.srcObject.getTracks();
-    tracks.forEach((track) => track.stop());
-    mediaRecorderRef.current.stop();
-    setRecordedChunks([])
-    console.log(recordedChunks)
-    console.log("her1")
+      setIsRecording(false);
+      const tracks = videoRef1.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      mediaRecorderRef.current.stop();
+      setRecordedChunks([]);
+      console.log(recordedChunks);
+      console.log('here1');
   };
 
   const downloadVideo = () => {
@@ -156,8 +173,8 @@ const VirtualInterview = () => {
 
   const handleUpload  = async () => {
     
-
-    // // Create a FormData object and append the Blob to it
+    // const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+    // // // Create a FormData object and append the Blob to it
     // const formData = new FormData();
     // formData.append('video', blob, 'custom_video_name.mp4');
     // if (true) {
@@ -166,6 +183,7 @@ const VirtualInterview = () => {
 
     //     if (response.status === 200) {
     //       console.log(response.data);
+    //       return response.data
     //     } else {
     //       console.error('Failed to upload video.');
     //     }
