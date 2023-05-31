@@ -45,7 +45,7 @@ const HelloJohn = () => {
     <div className="main-container">
 
       <div className="video-container">
-        <VideoInterviewer className="john-video"  src="https://drive.google.com/uc?export=download&id=1UenqLwWUbEUP20HNzP3sgzX-_7frULem"  />
+        <VideoInterviewer className="john-video"  src="https://drive.google.com/uc?export=download&id=1VPalfftzbruc3QBcC8huCaSxjGF-fdT4"  />
       </div>
 
       <div className="text-container">
