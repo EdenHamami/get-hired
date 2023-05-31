@@ -62,7 +62,7 @@ const userSchema = new Schema({
           }
         }],
         isSucceed:{
-          type: bool
+          type: Boolean
         }
       }],
       myInterviewProblems: [{
