@@ -33,6 +33,8 @@ import SavedJobs from './jobs/SavedJobs';
 import AboutUs from './AboutUs';
 import UserContext, { UserProvider } from './context/UserContext';
 import technicalQuestionsIntro from './TechnicalQuestions/technicalQuestionsIntro';
+import PortfolioProposals from './PortfolioProposals/PortfolioProposals'
+import CareerPlanner from "./CareerPlanner/CareerPlanner"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -68,6 +70,9 @@ root.render(
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/SavedJobs" element={<SavedJobs />} />
+        <Route path="/PortfolioProposals" element={<PortfolioProposals />} />
+        <Route path="/CareerPlanner" element={<CareerPlanner />} />
+
       </Routes>
     </ResumeProvider>
     </UserProvider>

@@ -8,6 +8,14 @@ import { useLocation } from 'react-router-dom';
 function OnlineCompiler() {
   const location = useLocation();
   const data = location.state;
+  const handleJokeButtonClick = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:3001/api/joke');
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const options = [
     { value: '', text: '--Choose a language--' },
@@ -23,7 +31,14 @@ function OnlineCompiler() {
   const [title, setTitle] = useState('');
   const [examples, setExamples] = useState([]);
   const [numberOfTests, setNumberOfTests] = useState(0);
-
+  const getGPTFeedback = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:3001/openai-prompt', { question, code: input });
+      alert(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   useEffect(() => {
 
     const problemId = data._id; // Replace with the actual problemId
@@ -43,13 +58,14 @@ function OnlineCompiler() {
     console.log(input);
     console.log(language);
     setOutput([])
-  
+
     for (let i = 0; i < numberOfTests; i++) {
       try {
-        
-        const res = await axios.post('http://127.0.0.1:3001/compile', { input: input, language: language, test_number: i });
+
+        const res = await axios.post('http://127.0.0.1:3001/compile', { input: input, language: language, test_number: i },
+         { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
-        setOutput(prevOutput => [...prevOutput, {case:i, output:res.data}]);
+        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data }]);
       } catch (error) {
         console.log(error);
       }
@@ -84,7 +100,7 @@ function OnlineCompiler() {
         </ul>
       </div>
       <div className="compiler-right-content">
-       
+
         <select className="compiler-language-select" value={language} onChange={(event) => {
           setLanguage(event.target.value);
           my_initial_code(event.target.value);
@@ -97,19 +113,19 @@ function OnlineCompiler() {
         </select>
         <h3>Input</h3>
         <AceEditor
-  mode="javascript"
-  theme="monokai"
-  onChange={handleChange}
-  value={input}
-  name="code-editor"
-  editorProps={{ $blockScrolling: true }}
-  style={{
-    border: '1px solid black',
-    borderRadius: '5px',
-    height: '350px', // adjust this to your preferred height
-    fontSize: '16px',
-  }}
-/>
+          mode="javascript"
+          theme="monokai"
+          onChange={handleChange}
+          value={input}
+          name="code-editor"
+          editorProps={{ $blockScrolling: true }}
+          style={{
+            border: '1px solid black',
+            borderRadius: '5px',
+            height: '350px', // adjust this to your preferred height
+            fontSize: '16px',
+          }}
+        />
 
         <h3>Output</h3>
         <ul className="compiler-output-list">
@@ -121,6 +137,10 @@ function OnlineCompiler() {
           ))}
         </ul>
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
+        <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
+        <button onClick={handleJokeButtonClick}>Joke</button>
+
+
       </div>
     </div>
   );

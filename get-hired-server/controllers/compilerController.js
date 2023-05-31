@@ -1,6 +1,50 @@
 
 const PracticeProblem = require('../models/practiceProblem');
 const ProblemType = require('../models/problemType');
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const secretKey = 'abcde12345eauofn213-e3i9rfnwjfwf';
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    console.log('No token provided')
+    return res.status(401).json({ message: 'No token provided' });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.log(token)
+      console.log('Failed to authenticate token')
+      return res.status(403).json({ message: 'Failed to authenticate token' });
+    }
+
+    req.user = decoded.userId;
+    next();
+  });
+};
+
+
+const save_to_db = (question_id, solution, language, is_succeed) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    console.log('No token provided')
+    return res.status(401).json({ message: 'No token provided' });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.log(token)
+      console.log('Failed to authenticate token')
+      return res.status(403).json({ message: 'Failed to authenticate token' });
+    }
+
+    req.user = decoded.userId;
+    next();
+  });
+};
 
 
 module.exports = function configureServer(app){
@@ -58,9 +102,9 @@ app.post('/language',async (req, res) => {
 });
 
 // post requset to compile
-app.post('/compile', (req, res) => {
+app.post('/compile', verifyToken, (req, res) => {
   console.log("her1")
-  
+
   // get the code from the user
   const { input , language,test_number, } = req.body;
   const { exec, execSync } = require('child_process');
@@ -73,7 +117,7 @@ app.post('/compile', (req, res) => {
   const test_output = question.test[test_number].output
 
   text_file = header_code + input + main_code
-  
+  var is_succeed = true
   if (language == "python"){
   // add the code to the file 
     fs.writeFileSync('./temp/solution.py', text_file, (err) => {
@@ -86,6 +130,7 @@ app.post('/compile', (req, res) => {
     // compile the code
     exec(compile , (err, stdout, stderr) => {
       if (err) {
+        is_succeed = false
         res.send("compilation error");
         try{
           fs.unlinkSync('./temp/solution.py');
@@ -101,6 +146,7 @@ app.post('/compile', (req, res) => {
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
+        is_succeed = false
       }
       res.send(result_to_user);
     });
@@ -108,6 +154,7 @@ app.post('/compile', (req, res) => {
 }else if (language == "cpp"){
   fs.writeFileSync('./temp/solution.cpp', text_file, (err) => {
     if (err) {
+      is_succeed = false
       console.error(err);
     }
   });
@@ -135,18 +182,21 @@ app.post('/compile', (req, res) => {
       if ("true" == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
+        is_succeed = false
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "true" + '\nyour output: ' + stdout
       }
     }else if (test_output == "False"){
       if ("false" == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
+        is_succeed = false
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "false" + '\nyour output: ' + stdout
       }
     }else{
       if (test_output == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
+        is_succeed = false
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
       }
 
@@ -159,12 +209,14 @@ app.post('/compile', (req, res) => {
 
   fs.writeFileSync('./temp/Main.java', text_file, (err) => {
     if (err) {
+      is_succeed = false
       console.error(err); 
     }
   });
   compile = 'cd temp && javac Main.java && java Main '+ test_input
   exec(compile, (err, stdout, stderr) => {
     if (err) {
+      is_succeed = false
       res.send("compilation error");
       try{
         fs.unlinkSync('./temp/Main.java');
@@ -187,18 +239,21 @@ app.post('/compile', (req, res) => {
       if ("true" == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
+        is_succeed = false
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "true" + '\nyour output: ' + stdout
       }
     }else if (test_output == "False"){
       if ("false" == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
+        is_succeed = false
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "false" + '\nyour output: ' + stdout
       }
     }else{
       if (test_output == stdout){
         result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
+        is_succeed = false
         result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
       }
 

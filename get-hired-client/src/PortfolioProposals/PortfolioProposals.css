@@ -1,0 +1,50 @@
+.portfolio-proposals-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.portfolio-proposals-container form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.portfolio-proposals-container form select,
+.portfolio-proposals-container form textarea {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.portfolio-proposals-container form button {
+    display: block;
+    padding: 10px;
+    background-color: #008CBA; /* Change according to your color scheme */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.custom-checkbox .checkbox-icon {
+    display: none;
+    margin-right: 5px;
+    color: #008CBA; /* Change according to your color scheme */
+}
+
+.custom-checkbox.checked .checkbox-icon {
+    display: inline;
+}
+
+.custom-checkbox span {
+    padding-left: 5px;
+}

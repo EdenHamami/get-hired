@@ -55,14 +55,17 @@ module.exports = function configureServer(app) {
       console.log('Failed to authenticate token')
       return res.status(403).json({ message: 'Failed to authenticate token' });
     }
-    console.log(token)
-    //var user = decoded.userId
     console.log(decoded.userId)
-    console.log(decoded.userId[0].username)
-    //console.log(user.username)
-    const user_name = decoded.userId[0].username
+    console.log(decoded.userId.username)
+    try{
+      var user_name = decoded.userId[0].username
+      } catch{
+     
+        var user_name = decoded.userId.username
+      }
+    // const user_name = decoded.userId[0].username
     return res.status(200).json({ user_name });
-    // req.userId = decoded.userId;
+   
   });
   });
 

@@ -8,7 +8,6 @@ const compilerServer = require('./controllers/compilerController');
 const personalqServer = require('./controllers/personalqController');
 const jobsController = require('./controllers/jobController')
 const userController = require('./controllers/userController')
-const interviewController = require('./controllers/interviewController')
 
 
 const app = express();
@@ -21,7 +20,6 @@ compilerServer(app);
 personalqServer(app);
 userController(app);
 jobsController(app);
-interviewController(app);
 
 const port = 3001;
 mongoose.set('strictQuery', true);

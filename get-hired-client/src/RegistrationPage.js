@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import './RegistrationPage.css';
+import {UserContext} from './context/UserContext';
 
 function RegistrationPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVerification, setPasswordVerification] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const { user, updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   async function register(event) {
@@ -19,6 +21,7 @@ function RegistrationPage() {
       body: JSON.stringify({ username: username, password: password }),
     });
     if (response.status === 200) {
+      updateUser(username,true)
       const d = await response.json();
       const token = d["token"]
       localStorage.setItem('token', token);
