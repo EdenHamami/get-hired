@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-  align-items: center;
 }
 
 .virtual-interview-page .info-container {
@@ -32,6 +31,7 @@
   justify-content: space-around;
   padding: 10px;
   flex-grow: 1;
+  margin-bottom: 50px;
 }
 
 .virtual-interview-page .video-container .video-js, 
@@ -44,4 +44,49 @@
   position: sticky;
   bottom: 0;
   width: 100%;
+}
+
+/* Custom Modal Styling */
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.Modal button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Modal button:first-child {
+  background: purple;
+  color: #fff;
+}
+
+.Modal button:last-child {
+  background: #fff;
+  color: purple;
+  border: 1px solid purple;
+  margin-left: 10px;
 }

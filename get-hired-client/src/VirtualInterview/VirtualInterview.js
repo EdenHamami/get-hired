@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import './VirtualInterview.css';
 import InterviewNavbar from './InterviewNavbar';
+import Modal from 'react-modal';
 
 const VirtualInterview = () => {
   const navigate = useNavigate();
@@ -19,7 +20,30 @@ const VirtualInterview = () => {
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
   const [nextButton , setNextButton] = useState('next');
+  const [modalIsOpen,setIsOpen] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
 
+  function closeModal(){
+    setIsOpen(false);
+  }
+
+  const handleNext = async ()  => {
+    if (currentIndex === interviewQuestions.length - 1) {
+      openModal();
+    } else {
+      setCurrentIndex(prevIndex => prevIndex + 1);
+    }
+  };
+
+  const handleAlert = () => {
+    const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
+
+    if (result) {
+      navigate('/Menu');
+    }
+  };
 
   const videoRef = useRef(null);
 
@@ -71,19 +95,19 @@ const VirtualInterview = () => {
     console.log(currentQuestion.videoUrl)
   }, [currentIndex, interviewQuestions, isDataFetched]);
 
-  const handleNext = async ()  => {
-    if (currentIndex === interviewQuestions.length - 1) {
-      await stopRecording();
-      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-      navigate('/LastPage', {
-        state: {
-          blob: blob
-        }
-      });
-    } else {
-      setCurrentIndex(prevIndex => prevIndex + 1);
-    }
-  };
+  // const handleNext = async ()  => {
+  //   if (currentIndex === interviewQuestions.length - 1) {
+  //     await stopRecording();
+  //     const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+  //     navigate('/LastPage', {
+  //       state: {
+  //         blob: blob
+  //       }
+  //     });
+  //   } else {
+  //     setCurrentIndex(prevIndex => prevIndex + 1);
+  //   }
+  // };
 
   const handleDownload = () => {
     const a = document.createElement('a');
@@ -91,13 +115,13 @@ const VirtualInterview = () => {
     a.download = 'interview_video.mp4';
     a.click();
   };
-  const handleAlert = () => {
-    const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
+  // const handleAlert = () => {
+  //   const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
 
-    if (result) {
-      navigate('/Menu');
-    }
-  };
+  //   if (result) {
+  //     navigate('/Menu');
+  //   }
+  // };
 
 
 
@@ -199,6 +223,18 @@ const VirtualInterview = () => {
           isRecording={isRecording}
         />
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="End Interview Modal"
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <h2>Are you sure you want to finish?</h2>
+        <p>Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu.</p>
+        <button onClick={handleAlert}>Yes, I want to finish</button>
+        <button onClick={closeModal}>No, let me continue</button>
+      </Modal>
     </div>
   );
   
