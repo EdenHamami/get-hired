@@ -1,5 +1,47 @@
-.active-button {
-  background-color: #4b0082;
-  color: white;
-  
+.virtual-interview-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  align-items: center;
+}
+
+.virtual-interview-page .info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: lightgrey;
+  font-size: 16px;
+}
+
+.virtual-interview-page .info-container .question {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.virtual-interview-page .info-container .instructions {
+  font-size: 1em;
+}
+
+.virtual-interview-page .video-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.virtual-interview-page .video-container .video-js, 
+.virtual-interview-page .video-container video {
+  max-width: 40%;
+  height: auto;
+}
+
+.virtual-interview-page .navbar-container {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
 }

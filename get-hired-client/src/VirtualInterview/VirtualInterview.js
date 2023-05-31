@@ -91,14 +91,11 @@ const VirtualInterview = () => {
     a.download = 'interview_video.mp4';
     a.click();
   };
-
   const handleAlert = () => {
-    const result = window.confirm("Eden needs to write");
+    const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
 
     if (result) {
       navigate('/Menu');
-    } 
-    else {
     }
   };
 
@@ -182,24 +179,29 @@ const VirtualInterview = () => {
       startRecording();
     }
   };
-
   return (
-    <div>
-      
-      <h3> {currentQuestion.content}</h3>
-      <h4>When you finish, click {nextButton}</h4>
-      <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
-      <video ref={videoRef1} autoPlay muted />
-      <InterviewNavbar 
-        currentIndex={currentIndex} 
-        questionsLength={interviewQuestions.length}
-        handleNext={handleNext}
-        handleAlert={handleAlert}
-        handleRecording={handleRecording} 
-        isRecording={isRecording}
-      />
+    <div className="virtual-interview-page">
+      <div className="info-container">
+        <p className="question">{currentQuestion.content}</p>
+        <p className="instructions">When you finish, click {nextButton}</p>
+      </div>
+      <div className="video-container">
+        <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
+        <video ref={videoRef1} autoPlay muted />
+      </div>
+      <div className="navbar-container">
+        <InterviewNavbar 
+          currentIndex={currentIndex} 
+          questionsLength={interviewQuestions.length}
+          handleNext={handleNext}
+          handleAlert={handleAlert}
+          handleRecording={handleRecording} 
+          isRecording={isRecording}
+        />
+      </div>
     </div>
   );
+  
 };
 
 export default VirtualInterview;
