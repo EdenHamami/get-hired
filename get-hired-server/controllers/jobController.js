@@ -48,7 +48,14 @@ module.exports = function configureServer(app) {
 
 
   app.post('/saveJob', verifyToken, async (req, res) => {
+    // console.log("savejob/ : req.user[0]",req.user[0] )
+    // console.log("id:",req.user[0]._id)
+    try{
     var user = await User.findOne({ _id: req.user[0]._id });
+    } catch{
+   
+      var user = await User.findOne({ _id: req.user._id });
+    }
     const job = req.body
     const jobExists = user.interestedVacancies.some(savedJob => savedJob.company_name.toString() === job.company_name);
 
@@ -63,7 +70,12 @@ module.exports = function configureServer(app) {
   });
 
   app.post('/unsaveJob', verifyToken, async (req, res) => {
-    var user = await User.findOne({ _id: req.user[0]._id });
+    try{
+      var user = await User.findOne({ _id: req.user[0]._id });
+      } catch{
+     
+        var user = await User.findOne({ _id: req.user._id });
+      }
     const job = req.body
     const jobIndex = user.interestedVacancies.findIndex(job => job.company_name.toString() === job.company_name);
 
@@ -78,9 +90,13 @@ module.exports = function configureServer(app) {
   });
 
   app.post('/getSavedJobs', verifyToken, async (req, res) => {
-
-    var user = await User.findOne({ _id: req.user[0]._id });
-    console.log(user)
+    try{
+      var user = await User.findOne({ _id: req.user[0]._id });
+      } catch{
+     
+        var user = await User.findOne({ _id: req.user._id });
+      }
+    console.log("user:",user)
     const jobs = user.interestedVacancies.map((vacancy) => {
       const { _id, ...vacancyWithoutId } = vacancy.toObject();
       return vacancyWithoutId;
