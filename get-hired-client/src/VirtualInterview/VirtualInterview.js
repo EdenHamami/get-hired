@@ -210,8 +210,9 @@ const VirtualInterview = () => {
         <p className="instructions">When you finish, click {nextButton}</p>
       </div>
       <div className="video-container">
+      <video className="video-container-camera"ref={videoRef1} autoPlay muted />
         <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
-        <video ref={videoRef1} autoPlay muted />
+       
       </div>
       <div className="navbar-container">
         <InterviewNavbar 

@@ -30,16 +30,25 @@
   flex-direction: row;
   justify-content: space-around;
   padding: 10px;
-  flex-grow: 1;
   margin-bottom: 50px;
+  margin: 40px;
 }
 
 .virtual-interview-page .video-container .video-js, 
 .virtual-interview-page .video-container video {
-  max-width: 40%;
-  height: auto;
+width: 500px;
+height: 500px;
+overflow: hidden;
+}
+.video-js vjs-default-skin{
+  height:500px!important;
+  width: 500px!important;
 }
 
+.video-container-camera{
+  height:500px;
+  width: 500px;
+}
 .virtual-interview-page .navbar-container {
   position: sticky;
   bottom: 0;

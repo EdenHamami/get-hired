@@ -37,7 +37,7 @@ const VideoInterviewer = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className='VideoInterviewer-page'>
       <video
         ref={videoRef}
         className="video-js vjs-default-skin"

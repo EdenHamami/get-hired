@@ -10,7 +10,6 @@ const jobsController = require('./controllers/jobController')
 const userController = require('./controllers/userController')
 const openaiController = require('./controllers/openaiController')
 
-
 const app = express();
 // allow the client to speak to the server 
 app.use(cors());
