@@ -12,7 +12,7 @@ module.exports = function configureServer(app) {
     const prompt = "The user is interested in the field of Machine Learning and is proficient in the following programming languages/tools: JavaScript, React.js, HTML/CSS, Node.js. Theyve specified that they are particularly interested in front end. The main purpose of their portfolio is Personal Interest. Could you please provide a light project idea that would be suitable for their portfolio?"
 
     const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [{ role: "user", content: "Hello world" }],
       max_tokens: 64,
     });
