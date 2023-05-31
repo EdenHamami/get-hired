@@ -22,6 +22,7 @@
     "babel-preset-react-app": "^10.0.1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
+    "concat-files": "^0.1.1",
     "google-search-results-nodejs": "^2.1.0",
     "html2pdf.js": "^0.9.0",
     "react": "^18.2.0",

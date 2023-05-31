@@ -52,12 +52,8 @@ const VirtualInterview = () => {
       controls: true,
       autoplay: true,
       preload: 'auto',
-      poster: 'path/to/poster/image.jpg',
+      // poster: 'path/to/poster/image.jpg',
     });
-
-    // player.on('ended', () => {
-    //   player.currentTime(0);
-    // });
 
     return () => {
       player.dispose();
@@ -142,31 +138,20 @@ const VirtualInterview = () => {
       mediaRecorderRef.current.ondataavailable = handleDataAvailable;
       mediaRecorderRef.current.start();
       setIsRecording(true);
+      setIsStoped(false)
     } catch (err) {
       console.error('Error accessing media devices.', err);
     }
   };
 
-  const stopRecording = () => {
-    setIsRecording(false);
-    const tracks = videoRef1.current.srcObject.getTracks();
-    tracks.forEach((track) => track.stop());
-    mediaRecorderRef.current.stop();
-    setRecordedChunks([])
-    console.log(recordedChunks)
-    console.log("her1")
-  };
 
-  const downloadVideo = () => {
-    const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style = 'display: none';
-    a.href = url;
-    a.download = 'recorded-video.mp4';
-    a.click();
-    window.URL.revokeObjectURL(url);
+  const stopRecording = () => {
+      setIsRecording(false);
+      const tracks = videoRef1.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      mediaRecorderRef.current.stop();
+      setRecordedChunks([]);
+      setIsStoped(true)
   };
 
   const handleDataAvailable = (event) => {
