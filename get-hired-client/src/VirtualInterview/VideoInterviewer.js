@@ -47,7 +47,9 @@ const VideoInterviewer = (props) => {
         type="video/mp4"
       />
       {showRestartButton && (
-        <button className='btn btn-primary' onClick={restartVideo}><MdRestartAlt /></button>
+        <button className='restart-button' onClick={restartVideo}>
+          <MdRestartAlt />
+        </button>
       )}
     </div>
   );

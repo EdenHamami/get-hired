@@ -1,100 +1,38 @@
 .virtual-interview-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
+.interview-content {
+  display: flex;
+  overflow: hidden;
+}
+
+.interview-content .interview-column {
+  flex: 1;
+}
+
+.virtual-interview-page .video-interviewer-container .video-js {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* this will ensure video covers the entire space */
+}
 .virtual-interview-page .info-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 20px;
-  background-color: lightgrey;
-  font-size: 16px;
+  padding: 20px; /* Change this to fit your content better */
 }
 
-.virtual-interview-page .info-container .question {
-  font-size: 1.5em;
-  font-weight: 600;
-  margin-bottom: 10px;
+.virtual-interview-page .info-container .video-test {
+  width: 80%;
+  height: auto;
 }
 
-.virtual-interview-page .info-container .instructions {
-  font-size: 1em;
-}
-
-.virtual-interview-page .video-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 10px;
-  margin-bottom: 50px;
-  margin: 40px;
-}
-
-.virtual-interview-page .video-container .video-js, 
-.virtual-interview-page .video-container video {
-width: 500px;
-height: 500px;
-overflow: hidden;
-}
-.video-js vjs-default-skin{
-
-}
-
-.video-container-camera{
-  height:500px;
-  width: 500px;
-}
 .virtual-interview-page .navbar-container {
   position: sticky;
   bottom: 0;
-  width: 100%;
-}
-
-/* Custom Modal Styling */
-.Modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  overflow: auto;
-  border-radius: 4px;
-  outline: none;
-  padding: 20px;
-}
-
-.Overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-.Modal button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.Modal button:first-child {
-  background: purple;
-  color: #fff;
-}
-
-.Modal button:last-child {
-  background: #fff;
-  color: purple;
-  border: 1px solid purple;
-  margin-left: 10px;
+  width: 100%;
+  height: 60px;  /* Adjust this accordingly */
 }

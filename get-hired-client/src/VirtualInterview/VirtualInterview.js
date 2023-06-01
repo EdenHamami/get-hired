@@ -205,14 +205,17 @@ const VirtualInterview = () => {
   };
   return (
     <div className="virtual-interview-page">
-      <div className="info-container">
-        <p className="question">{currentQuestion.content}</p>
-        <p className="instructions">When you finish, click {nextButton}</p>
-      </div>
-      <div className="video-container">
-      <video className="video-container-camera"ref={videoRef1} autoPlay muted />
-        <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
-       
+      <div className="interview-content">
+        <div className="interview-column video-interviewer-container">
+          <video ref={videoRef} className="video-js vjs-default-skin" src={currentQuestion.videoUrl} type="video/mp4" />
+        </div>
+        <div className="interview-column info-container">
+          <div className="question">{currentQuestion.content}</div>
+          <p className="instructions">When you finish, click {nextButton}</p>
+          <div className="video-test-container">
+            <video className="video-test" ref={videoRef1} autoPlay muted />
+          </div>
+        </div>
       </div>
       <div className="navbar-container">
         <InterviewNavbar 
@@ -224,21 +227,10 @@ const VirtualInterview = () => {
           isRecording={isRecording}
         />
       </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="End Interview Modal"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <h2>Are you sure you want to finish?</h2>
-        <p>Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu.</p>
-        <button onClick={handleAlert}>Yes, I want to finish</button>
-        <button onClick={closeModal}>No, let me continue</button>
-      </Modal>
     </div>
   );
   
 };
 
 export default VirtualInterview;
+
