@@ -103,6 +103,7 @@ app.post('/language',async (req, res) => {
   res.send(initial_code);
 });
 
+
 // post requset to compile
 app.post('/compile', verifyToken, (req, res) => {
   console.log("her1")
@@ -221,19 +222,34 @@ app.post('/compile', verifyToken, (req, res) => {
   compile = 'cd temp && javac Main.java && java Main '+ test_input
   exec(compile, (err, stdout, stderr) => {
     if (err) {
-      is_succeed = false
-      res.send("compilation error");
-      try{
+      console.log(stderr);
+      is_succeed = false;
+  
+      // Extract the error message without line number and file location
+      const errorLines = stderr.split('\n');
+      const errorMessages = [];
+      let i = 1
+      for (const line of errorLines) {
+        if (line.includes('error:')) {
+          const cleanedErrorMessage = line.replace(/.*error: /, 'error: ');
+          i +=1
+          errorMessages.push(cleanedErrorMessage);
+        }
+      }
+      errorMessages.push(i-1 + " errors");
+      res.send(errorMessages.join('\n'));
+      try {
         fs.unlinkSync('./temp/Main.java');
-      }catch{
+      } catch {
         return;
       }
-      try{
+  
+      try {
         fs.unlinkSync('./temp/Main.class');
-      }catch{
+      } catch {
         return;
       }
-      
+  
       return;
     }
     // delet the file
