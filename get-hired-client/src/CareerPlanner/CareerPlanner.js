@@ -3,25 +3,36 @@ import { FaCheckCircle } from 'react-icons/fa';
 import './CareerPlanner.css';
 
 function CareerPlanner() {
-    const [studyField, setStudyField] = useState('');
-    const [skills, setSkills] = useState('');
-    const [careerGoal, setCareerGoal] = useState('');
-    const [jobInterests, setJobInterests] = useState('');
+    const [studyField, setStudyField] = useState('Computer Science');
+    const [skills, setSkills] = useState('react, nodejs, python. building web applications');
+    const [careerGoal, setCareerGoal] = useState('An interesting job that will challenge me, work with other people, rewarding work.');
+    const [jobInterests, setJobInterests] = useState('The high-tech field, small start-up companies');
     const [openToLearning, setOpenToLearning] = useState({ checked: false });
-    const [workingConditions, setWorkingConditions] = useState('');
-    const [educationLevel, setEducationLevel] = useState('');
-    const [jobFactors, setJobFactors] = useState('');
+    const [workingConditions, setWorkingConditions] = useState('hybrid');
+    const [educationLevel, setEducationLevel] = useState('first degree');
+    const [jobFactors, setJobFactors] = useState('salary, work-life balance');
     const [leadershipInterest, setLeadershipInterest] = useState({ checked: false });
     const [entrepreneurshipInterest, setEntrepreneurshipInterest] = useState({ checked: false });
 
     const handleCheckboxClick = (setFunction, state) => {
         setFunction({ checked: !state.checked });
     };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert(`The user has a background in ${studyField} and has gained skills in ${skills}. They are interested in ${careerGoal} and are looking at positions or companies in ${jobInterests}. They are ${openToLearning.checked ? 'open' : 'not open'} to learning new skills or gaining additional qualifications. They prefer to work ${workingConditions} and have a highest education level of ${educationLevel}. They value ${jobFactors} in a job. They are ${leadershipInterest.checked ? 'interested' : 'not interested'} in a leadership role in the future and have ${entrepreneurshipInterest.checked ? 'considered' : 'not considered'} entrepreneurship.`);
+    async function handleSubmit(event) {
+        event.preventDefault(); 
+        var question = `The user has a background in ${studyField} and has gained skills in ${skills}. They are interested in ${careerGoal} and are looking at positions or companies in ${jobInterests}. They are ${openToLearning.checked ? 'open' : 'not open'} to learning new skills or gaining additional qualifications. They prefer to work ${workingConditions} and have a highest education level of ${educationLevel}. They value ${jobFactors} in a job. They are ${leadershipInterest.checked ? 'interested' : 'not interested'} in a leadership role in the future and have ${entrepreneurshipInterest.checked ? 'considered' : 'not considered'} entrepreneurship.`
+        const r = await fetch('http://127.0.0.1:3001/askGpt', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ question: question}),
+          });
+        const d = await r.json();
+        console.log(d.message.content)
+        setCareerGoal(d.message.content);
     };
+
+ 
 
     return (
         <div className="career-planner-container">

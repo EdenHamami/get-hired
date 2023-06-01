@@ -23,7 +23,7 @@ function PortfolioProposals() {
     async function handleSubmit(event) {
         event.preventDefault(); 
         var question = `The user is interested in the field of ${field} and is proficient in the following programming languages/tools: ${proficiency.join(', ')}. They've specified that they are particularly interested in ${interests}. The main purpose of their portfolio is ${purpose}. Could you please provide a light project idea that would be suitable for their portfolio?`
-        const r = await fetch('http://127.0.0.1:3001/Portfolio', {
+        const r = await fetch('http://127.0.0.1:3001/askGpt', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
