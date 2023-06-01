@@ -88,7 +88,7 @@ const VirtualInterview = () => {
       formData.append('video', blob, 'custom_video_name.mp4');
       if (true) {
         try {
-          const response = await axios.post('http://127.0.0.1:3001/upload-video', formData);
+          const response = await axios.post('http://127.0.0.1:3001/upload-video', formData, { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
           navigate('/LastPage', {
           state: {
             video_link: response.data

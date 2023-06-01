@@ -65,25 +65,10 @@ const userSchema = new Schema({
           type: Boolean
         }
       }],
-      myInterviewProblems: [{
-        problem: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'InterviewProblem',
-          required: true
-        },
-        video: {
-          type: String,
-          required: true
-        },
-        solutionTime: {
-          type: Number,
-          required: true
-        },
-        expertOpinion: {
-          type: String,
-          default: null
-        }
-      }],
+      interviewDriveLink:
+      {
+        type: String
+      },
 
     interestedVacancies: [{
       title: {
