@@ -16,6 +16,7 @@ const VirtualInterview = () => {
   const location = useLocation();
   const selectedPosition = location.state.selectedPosition;
 
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
