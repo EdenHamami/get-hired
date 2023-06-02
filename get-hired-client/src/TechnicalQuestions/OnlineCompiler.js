@@ -62,7 +62,7 @@ function OnlineCompiler() {
     for (let i = 0; i < numberOfTests; i++) {
       try {
 
-        const res = await axios.post('http://127.0.0.1:3001/compile', { input: input, language: language, test_number: i },
+        const res = await axios.post(`http://127.0.0.1:3001/compile/${language}`, { input: input, language: language, test_number: i },
          { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
         setOutput(prevOutput => [...prevOutput, { case: i, output: res.data }]);
