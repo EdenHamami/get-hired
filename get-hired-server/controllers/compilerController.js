@@ -47,6 +47,15 @@ const save_to_db = (question_id, solution, language, is_succeed) => {
 };
 
 
+function results(test_output, stdout, test_input, is_succeed){
+  if (test_output == stdout){
+    return {result_to_user: "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout, is_succeed: is_succeed}
+  }else{
+    is_succeed = false
+    return {result_to_user: 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout, is_succeed: is_succeed}
+  }
+}
+
 module.exports = function configureServer(app){
 
   app.post('/technical-questions', async (req, res) => {
@@ -104,9 +113,8 @@ app.post('/language',async (req, res) => {
 });
 
 
-// post requset to compile
-app.post('/compile', verifyToken, (req, res) => {
-  console.log("her1")
+
+app.post('/compile/python', verifyToken, (req, res) => {
 
   // get the code from the user
   const { input , language,test_number, } = req.body;
@@ -124,7 +132,6 @@ app.post('/compile', verifyToken, (req, res) => {
   const test_output = question.test[test_number].output
 
   text_file = header_code + input + main_code
-  if (language == "python"){
   // add the code to the file 
     fs.writeFileSync('./temp/solution.py', text_file, (err) => {
       if (err) {
@@ -137,27 +144,49 @@ app.post('/compile', verifyToken, (req, res) => {
     exec(compile , (err, stdout, stderr) => {
       if (err) {
         is_succeed = false
+        console.error(err);
         res.send("compilation error");
         try{
           fs.unlinkSync('./temp/solution.py');
         }catch{
           return;
         }
-        return;
-      }
-      // delet the file
-      fs.unlinkSync('./temp/solution.py');
-
-      if (test_output == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
       }else{
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
-        is_succeed = false
+        // delet the file
+        fs.unlinkSync('./temp/solution.py');
+        result = results(test_output, stdout, test_input, is_succeed)
+        result_to_user = result.result_to_user
+        is_succeed = result.is_succeed
+        res.send(result_to_user);
       }
-      res.send(result_to_user);
-    });
 
-}else if (language == "cpp"){
+      // in the last test- check if passed all the tests
+      if(test_number == question.test.length-1){
+        //add is_succeed to the db
+        console.log("her: " + is_succeed)
+      }
+    });   
+})
+
+
+app.post('/compile/cpp', verifyToken, (req, res) => {
+  // get the code from the user
+  const { input , language,test_number, } = req.body;
+  const { exec, execSync } = require('child_process');
+  const fs = require('fs');
+
+  if (test_number == 0){
+    is_succeed = true
+  }
+
+  const main_code = question[language].main;
+  const header_code = question[language].header;
+
+  const test_input = question.test[test_number].input
+  const test_output = question.test[test_number].output
+
+  text_file = header_code + input + main_code
+  // add the code to the file 
   fs.writeFileSync('./temp/solution.cpp', text_file, (err) => {
     if (err) {
       is_succeed = false
@@ -168,50 +197,52 @@ app.post('/compile', verifyToken, (req, res) => {
   exec(compile, (err, stdout, stderr) => {
     if (err) {
       console.log(stderr)
+      is_succeed = false
       res.send("compilation error");
       try{
         fs.unlinkSync('./temp/solution.cpp');
-      }catch{
-        return;
-      }
+      }catch{}
       try{
         fs.unlinkSync('./temp/output.exe');
-      }catch{
-        return;
-      }
-      return;
-    }
-    // Delete the files after program has finished executing
-    fs.unlinkSync('./temp/solution.cpp');
-    fs.unlinkSync('./temp/output.exe');
-    if (test_output == "True"){
-      if ("true" == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
-      }else{
-        is_succeed = false
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "true" + '\nyour output: ' + stdout
-      }
-    }else if (test_output == "False"){
-      if ("false" == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
-      }else{
-        is_succeed = false
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "false" + '\nyour output: ' + stdout
-      }
+      }catch{}
     }else{
-      if (test_output == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
-      }else{
-        is_succeed = false
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
-      }
+      // Delete the files after program has finished executing
+      fs.unlinkSync('./temp/solution.cpp');
+      fs.unlinkSync('./temp/output.exe');
+      let new_test_output = test_output.replace(/True|False/gi, function(match) {
+        return match === "True" ? "true" : "false";});
+        result = results(new_test_output, stdout, test_input, is_succeed)
+        result_to_user = result.result_to_user
+        is_succeed = result.is_succeed
+        res.send(result_to_user);
+    }
+     // in the last test- check if passed all the tests
+     if(test_number == question.test.length-1){
+      //add is_succeed to the db
+      console.log("wwwwx: " +test_number + " " +is_succeed)
+    }
+  });
+})
 
+// post requset to compile
+app.post('/compile/java', verifyToken, (req, res) => {
+
+  // get the code from the user
+  const { input , language,test_number, } = req.body;
+  const { exec, execSync } = require('child_process');
+  const fs = require('fs');
+
+  if (test_number == 0){
+    is_succeed = true
   }
-  res.send(result_to_user);
 
+  const main_code = question[language].main;
+  const header_code = question[language].header;
 
-});
-}else if (language == "java"){
+  const test_input = question.test[test_number].input
+  const test_output = question.test[test_number].output
+
+  text_file = header_code + input + main_code
 
   fs.writeFileSync('./temp/Main.java', text_file, (err) => {
     if (err) {
@@ -240,54 +271,29 @@ app.post('/compile', verifyToken, (req, res) => {
       res.send(errorMessages.join('\n'));
       try {
         fs.unlinkSync('./temp/Main.java');
-      } catch {
-        return;
-      }
-  
+      } catch {}
       try {
         fs.unlinkSync('./temp/Main.class');
-      } catch {
-        return;
-      }
-  
-      return;
+      } catch {}
+    }else {
+      // delet the file
+      fs.unlinkSync('./temp/Main.java');
+      fs.unlinkSync('./temp/Solution.class');
+      fs.unlinkSync('./temp/Main.class');
+      let new_test_output = test_output.replace(/True|False/gi, function(match) {
+        return match === "True" ? "true" : "false";});
+      result = results(new_test_output, stdout, test_input, is_succeed)
+      result_to_user = result.result_to_user
+      is_succeed = result.is_succeed
+      res.send(result_to_user);
     }
-    // delet the file
-    fs.unlinkSync('./temp/Main.java');
-    fs.unlinkSync('./temp/Solution.class');
-    fs.unlinkSync('./temp/Main.class');
-    if (test_output == "True"){
-      if ("true" == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
-      }else{
-        is_succeed = false
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "true" + '\nyour output: ' + stdout
-      }
-    }else if (test_output == "False"){
-      if ("false" == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
-      }else{
-        is_succeed = false
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + "false" + '\nyour output: ' + stdout
-      }
-    }else{
-      if (test_output == stdout){
-        result_to_user = "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout
-      }else{
-        is_succeed = false
-        result_to_user = 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout
-      }
 
-  }
-  res.send(result_to_user);
+    // in the last test- check if passed all the tests
+    if(test_number == question.test.length-1){
+      //add is_succeed to the db
+      console.log(is_succeed)
+    }
+  });
 });
 
-}
-
-// in the last test- check if passed all the tests
-if(test_number == question.test.length-1){
-  //add is_succeed to the db
-  console.log(is_succeed)
-}
-});
 };
