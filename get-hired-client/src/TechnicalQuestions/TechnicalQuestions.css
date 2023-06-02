@@ -1,7 +1,6 @@
 .questions-container {
   display: flex;
   height: 100vh;
-  position: relative;
   text-align: center;
   font-family: 'Nunito', sans-serif;
 }
@@ -52,4 +51,7 @@
 .question-name{
   color:  #5754b7;
   width: 100%;
+}
+.navbar navbar-light bg-light{
+  background-color: aliceblue;
 }
