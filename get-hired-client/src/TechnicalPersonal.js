@@ -17,7 +17,7 @@ function TechnicalPersonal() {
           We've all stumbled over that classic 'what's your greatest weakness' question. 
           It can feel like walking a tightrope between honesty and creating a negative impression.
            Let's tackle this tightrope together,helping you turn potential negatives into positives, and present yourself as the perfect candidate          </p>
-          <Link to="/personal_question" className="option-button">Perfect My Personal Prowess</Link>
+          <Link to="/personal_table" className="option-button">Perfect My Personal Prowess</Link>
         </div>
 
         <div className="option">
