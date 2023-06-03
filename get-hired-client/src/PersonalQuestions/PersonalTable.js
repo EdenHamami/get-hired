@@ -48,12 +48,10 @@ function PersonalTable() {
     <div className="personal-questions-container">
 <div className="personal-questions-image-container"></div>
 <div className="personal-questions-content-container">
-<nav class="navbar navbar-light bg-light">
 <form class="form-inline">
   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
   onChange={handleSearchQueryChange}/>
 </form>
-</nav>
   <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -64,7 +62,7 @@ function PersonalTable() {
   <tbody>
   {filteredQuestions.map((question) => (
     <tr>
-    <th scope="row"><Link to="/personal_question" state={question}>{question.name}</Link></th>
+    <th scope="row" className="question-name"><Link to="/personal_question" className="question-name" state={question}>{question.name}</Link></th>
     <td>##</td>
   </tr>
   ))}

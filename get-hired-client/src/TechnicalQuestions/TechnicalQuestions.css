@@ -1,7 +1,6 @@
 .questions-container {
   display: flex;
   height: 100vh;
-  text-align: center;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -16,7 +15,6 @@
   padding: 50px;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .filter-search-container {
@@ -45,7 +43,6 @@
 
 .questions-table th,
 .questions-table td {
-  text-align: center;
 }
 
 .question-name{

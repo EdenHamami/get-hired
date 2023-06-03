@@ -40,35 +40,101 @@ function PersonalQuestion() {
     },[location]); 
 
   return (
- 
-    <div className="PersonalQuestion">
-      <div className="part-1">
-      <div className="name">
-         <h4> {name}</h4>
-         </div>
-         <div className="Question">
-   <h5> Question</h5>
-   <h6> {question}</h6>
-   </div>
-   <div className="Goal">
-   <h5> Goal: </h5>
-   <h6>{goal}</h6>
-   </div>
-   </div>
-    
+    <div className="personal-questions2-container">
+ <div className="personal-questions2-image-container"></div>
+ <div className="personal-questions2-content-container">
+    <div className="part-1">
+    <div className="name">
+       <h4> {name}</h4>
+       </div>
+       <div className="Question">
+ <h5> Question</h5>
+ <h6> {question}</h6>
+ </div>
+ <div className="Goal">
+ <h5> Goal: </h5>
+ <h6>{goal}</h6>
+ </div>
+ </div>
+  
 
 
-    {showSolution ? (
-      <div>
-      <h5> Recommended answer</h5>
-      <h6> {recommendedAnswer}</h6>
-      <h5> Example answer</h5>
-      <h6> {exampleAnswer}</h6>
-      </div>
-    ) : (
-      <button onClick={handleButtonClickSolution}>Solution</button>
-    )}
+ {showSolution ? (
+<div>
+  <h5> Recommended answer</h5>
+  <h6> {recommendedAnswer}</h6>
+  <h5> Example answer</h5>
+  <h6> {exampleAnswer}</h6>
+  <button onClick={handleButtonClickSolution}>Hide Solution</button>
+</div>
+) : (
+<button onClick={handleButtonClickSolution}>Show Solution</button>
+)}
+ </div>
+
    </div>
   );
 }
 export default PersonalQuestion;
+
+
+
+ 
+//   <div className="personal-questions-container">
+// <div className="personal-questions-image-container"></div>
+// <div className="personal-questions-content-container">
+// <form class="form-inline">
+// <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
+// onChange={handleSearchQueryChange}/>
+// </form>
+// <table class="table">
+// <thead class="thead-dark">
+//   <tr>
+//     <th scope="col">Name</th>
+//     <th scope="col">Status</th>
+//   </tr>
+// </thead>
+// <tbody>
+// {filteredQuestions.map((question) => (
+//   <tr>
+//   <th scope="row" className="question-name"><Link to="/personal_question" className="question-name" state={question}>{question.name}</Link></th>
+//   <td>##</td>
+// </tr>
+// ))}
+// </tbody>
+// </table>
+//   </div>
+//   </div>
+
+
+// return (
+//   <div className="PersonalQuestion">
+//     <div className="part-1">
+//     <div className="name">
+//        <h4> {name}</h4>
+//        </div>
+//        <div className="Question">
+//  <h5> Question</h5>
+//  <h6> {question}</h6>
+//  </div>
+//  <div className="Goal">
+//  <h5> Goal: </h5>
+//  <h6>{goal}</h6>
+//  </div>
+//  </div>
+  
+
+
+//  {showSolution ? (
+// <div>
+//   <h5> Recommended answer</h5>
+//   <h6> {recommendedAnswer}</h6>
+//   <h5> Example answer</h5>
+//   <h6> {exampleAnswer}</h6>
+//   <button onClick={handleButtonClickSolution}>Hide Solution</button>
+// </div>
+// ) : (
+// <button onClick={handleButtonClickSolution}>Show Solution</button>
+// )}
+//  </div>
+// );

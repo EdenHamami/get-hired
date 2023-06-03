@@ -76,4 +76,7 @@
   .filter-search-form {
     flex-grow: 1;
   }
+  .form-control.mr-sm-2 {
+    width: 50%;
+  }
   

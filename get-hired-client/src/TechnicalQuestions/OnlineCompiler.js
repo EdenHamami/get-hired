@@ -137,8 +137,6 @@ function OnlineCompiler() {
           ))}
         </ul>
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
-        <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
-        <button onClick={handleJokeButtonClick}>Joke</button>
 
 
       </div>

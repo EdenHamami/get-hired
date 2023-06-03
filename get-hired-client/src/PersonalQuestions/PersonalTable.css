@@ -1,7 +1,6 @@
 .personal-questions-container {
     display: flex;
     height: 90vh;
-    text-align: center;
     font-family: 'Nunito', sans-serif;
   }
   .personal-questions-image-container {
@@ -15,11 +14,13 @@
     padding: 50px;
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   .filter-search-container {
     display: flex;
-    width: 80%;
+    width: 50%;
     margin-bottom: 20px;
+  }
+  .personal-questions-container .form-control.mr-sm-2 {
+    width: 50%;
   }
   
