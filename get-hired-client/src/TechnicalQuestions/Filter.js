@@ -3,7 +3,7 @@ import '../App.css';
 import './Filter.css';
 
 function Filter(props) {
-  const { questions, updateQuestions, primaryDifficulties, primaryTopics } = props;
+  const { questions, updateQuestions, primaryDifficulties, primaryTopics, searchQuery, handleSearchQueryChange } = props;
 
   const [showDifficulty, setShowDifficulty] = useState(false);
   const [showTopics, setShowTopics] = useState(false);
@@ -65,6 +65,10 @@ function Filter(props) {
 
   return (
     <div className="button-container">
+        <form className="form-inline filter-search-form">
+          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
+            onChange={handleSearchQueryChange} />
+        </form>
         <button className={showDifficulty ? 'active' : ''} onClick={() => setShowDifficulty(!showDifficulty)}>
             Difficulty
             {showDifficulty && (

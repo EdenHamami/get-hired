@@ -1,13 +1,9 @@
-body {
-    background-color: white;
-  }
-  
+
   .button-container {
     display: flex;
     justify-content: space-between;
+    padding: 10px;
     align-items: center;
-    margin:10px;
-
   }
   
   .button-container button {
@@ -33,15 +29,14 @@ body {
   .button-container button:focus {
     outline: none;
   }
-  
   .dropdown-menu {
-    display: none;
     position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 100px;
     top: 50px;
+    left: 0;
+    z-index: 1;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    background-color: white;
   }
   
   .dropdown-menu input[type="checkbox"] {
@@ -77,5 +72,8 @@ body {
   .search-container button::before {
     content: '🔍';
     margin-right: 5px;
+  }
+  .filter-search-form {
+    flex-grow: 1;
   }
   
