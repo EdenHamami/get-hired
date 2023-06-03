@@ -25,7 +25,9 @@ function CareerPlanner() {
 
     return (
         <div className="career-planner-container">
-            <form onSubmit={handleSubmit}>
+                        <div className="career-planner-container-image"></div>
+
+            <form onSubmit={handleSubmit} className="form-container">
                 <label>
                     What is your field of study or training?
                     <input type="text" value={studyField} onChange={(e) => setStudyField(e.target.value)} required />
@@ -44,9 +46,11 @@ function CareerPlanner() {
                 </label>
                 <label>
                     Are you open to learning new skills or gaining additional qualifications if necessary?
-                    <div className={`custom-checkbox ${openToLearning.checked ? 'checked' : ''}`} onClick={() => handleCheckboxClick(setOpenToLearning, openToLearning)}>
-                        <FaCheckCircle className="checkbox-icon" />
-                    </div>
+                    <select value={openToLearning} onChange={(e) => setOpenToLearning(e.target.value)}>
+                        <option value="">Select...</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
                 </label>
                 <label>
                     What are your preferred working conditions (remote, office, hybrid)?
