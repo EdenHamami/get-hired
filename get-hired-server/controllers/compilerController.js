@@ -143,12 +143,23 @@ app.post('/compile/python', verifyToken, (req, res) => {
     // compile the code
     exec(compile , (err, stdout, stderr) => {
       if (err) {
-        is_succeed = false
+        is_succeed = false;
         console.error(err);
-        res.send("compilation error");
-        try{
+        // Extract the error message using regular expressions
+        let errorMessages = stderr.split("line").slice(1); // Split the error messages at lines starting with "File"
+        let formattedErrors = [];
+        for (let i = 0; i < errorMessages.length; i++) {
+          let errorMessage = errorMessages[i];
+          if (!errorMessage.includes("in <module>")) {
+            errorMessage = errorMessage.replace(/^\s*\d+\s*|, in <module>\n[\s\S]*?\n^\s*\^\^\^\^\^\^\^\^\n/gm, ''); // Remove leading line number and the line marker causing the error
+            errorMessage = "error: " + errorMessage.replace(/(^\s*\d+\s*|File "[^"]+"\s*,)/g, ''); // Remove leading line number and file path
+            formattedErrors.push(errorMessage.trim());
+          }
+        }
+        res.send(formattedErrors.join('\n'));
+        try {
           fs.unlinkSync('./temp/solution.py');
-        }catch{
+        } catch {
           return;
         }
       }else{
