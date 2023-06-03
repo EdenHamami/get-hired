@@ -209,7 +209,19 @@ app.post('/compile/cpp', verifyToken, (req, res) => {
     if (err) {
       console.log(stderr)
       is_succeed = false
-      res.send("compilation error");
+      // Extract the error message without line number and file location
+      const errorLines = stderr.split('\n');
+      const errorMessages = [];
+      let i = 1
+      for (const line of errorLines) {
+        if (line.includes('error:')) {
+          const cleanedErrorMessage = line.replace(/.*error: /, 'error: ');
+          i +=1
+          errorMessages.push(cleanedErrorMessage);
+        }
+      }
+      errorMessages.push(i-1 + " errors");
+      res.send(errorMessages.join('\n'));
       try{
         fs.unlinkSync('./temp/solution.cpp');
       }catch{}
