@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import './PortfolioProposals.css';
+import { useNavigate } from "react-router-dom";
 
 function PortfolioProposals() {
+    const navigate = useNavigate();
     const [field, setField] = useState('');
     const [proficiency, setProficiency] = useState([]);
     const [interests, setInterests] = useState('');
@@ -25,7 +27,9 @@ function PortfolioProposals() {
     const handleSubmit = (e) => {
         e.preventDefault();
         let finalField = field === 'Other' ? otherField : field;
-        alert(`The user is interested in the field of ${finalField} and is proficient in the following programming languages/tools: ${proficiency.join(', ')}. They've specified that they are particularly interested in ${interests}. The main purpose of their portfolio is ${purpose}. Could you please provide a light project idea that would be suitable for their portfolio?`);
+        let message=`The user is interested in the field of ${finalField} and is proficient in the following programming languages/tools: ${proficiency.join(', ')}. They've specified that they are particularly interested in ${interests}. The main purpose of their portfolio is ${purpose}. Could you please provide a light project idea that would be suitable for their portfolio?`;
+        navigate('/PortfolioProposalsResult', { state: { message: message } });
+
     };
 
     return (
