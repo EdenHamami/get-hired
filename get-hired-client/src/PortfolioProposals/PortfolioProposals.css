@@ -1,50 +1,113 @@
 .portfolio-proposals-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    display: flex;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    height: 90vh;  /* sets the height to 100% of the viewport height */
+    max-height: 90vh;  /* ensures that the height doesn't exceed 100% of the viewport height */
+    box-sizing: border-box;
+    overflow: hidden;  /* disables scrolling for the whole container */
+}
+
+.portfolio-proposals-container-image {
+    width: 40%;
+    height: calc(100vh - 100px);  /* 100vh is the total height, 100px is the sum of padding (top and bottom) */
+    background: url('./portfolioLeft.png');
+    background-size:cover;
+}
+
+.portfolio-proposals-container .form-container {
+    width: 60%;
+    overflow-y: auto;  /* enables scrolling if the content overflows the height */
 }
 
 .portfolio-proposals-container form label {
     display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.portfolio-proposals-container form select,
-.portfolio-proposals-container form textarea {
-    display: block;
-    width: 100%;
-    padding: 5px;
     margin-bottom: 20px;
 }
 
-.portfolio-proposals-container form button {
-    display: block;
-    padding: 10px;
-    background-color: #008CBA; /* Change according to your color scheme */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-.custom-checkbox {
+.portfolio-proposals-container form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+.portfolio-proposals-container form select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    background: #fff;
+}
+.portfolio-proposals-container form .custom-checkbox {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    background: #ffffff;
+    padding: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
     cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-.custom-checkbox .checkbox-icon {
-    display: none;
-    margin-right: 5px;
-    color: #008CBA; /* Change according to your color scheme */
+.portfolio-proposals-container form .custom-checkbox.checked {
+    border: 2px solid #5754b7;
+    color: #5754b7;
 }
 
-.custom-checkbox.checked .checkbox-icon {
-    display: inline;
+.portfolio-proposals-container form .custom-checkbox .checkbox-icon {
+    margin-right: 10px;
+    color: transparent;
 }
 
-.custom-checkbox span {
-    padding-left: 5px;
+.portfolio-proposals-container form .custom-checkbox.checked .checkbox-icon {
+    color: #5754b7;
+}
+
+.portfolio-proposals-next-button {
+    display: inline-block;
+    background:#5754b7;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.portfolio-proposals-next-button:hover {
+    background: #4a46a2;
+}
+.portfolio-proposals-container form textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    height: 100px;
+    resize: none; 
+}
+.portfolio-proposals-container form .custom-checkbox {
+    display: inline-flex; /* makes checkboxes appear side by side */
+    align-items: center;
+    margin: 10px 5px; /* gives space between checkboxes */
+    background: #ffffff;
+    padding: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    white-space: nowrap; /* keeps checkbox label on one line */
+    flex-wrap: wrap; /* allows checkboxes to wrap to the next line when they reach the end of the container */
+}
+.portfolio-proposals-container form .custom-checkbox input {
+    width: auto; /* allows the input field to adjust according to the content */
+    margin-right: 5px; /* gives space between the input field and the checkbox label */
 }
