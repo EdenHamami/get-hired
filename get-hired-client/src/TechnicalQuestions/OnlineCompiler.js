@@ -30,6 +30,7 @@ function OnlineCompiler() {
   const [question, setQuestion] = useState('');
   const [title, setTitle] = useState('');
   const [examples, setExamples] = useState([]);
+  const [solution, setSolution] = useState('');
   const [numberOfTests, setNumberOfTests] = useState(0);
   const getGPTFeedback = async () => {
     try {
@@ -77,13 +78,22 @@ function OnlineCompiler() {
     console.log(language);
     axios.post('http://127.0.0.1:3001/language', { language: lang }).then(res => {
       console.log(res.data);
-      setInput(res.data);
+      setInput(res.data.initial_code);
+      setSolution(res.data.solution)
     });
   };
 
   function handleChange(value) {
     setInput(value);
   }
+
+  const [showSolution, setShowSolution] = useState(false);
+  //show the solution
+  const handleButtonClickSolution = () => {
+    setShowSolution(!showSolution);
+  };
+
+
   return (
     <div className="compiler-container">
       <div className="compiler-left-content">
@@ -105,11 +115,16 @@ function OnlineCompiler() {
           setLanguage(event.target.value);
           my_initial_code(event.target.value);
         }}>
-          {options.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.text}
-            </option>
-          ))}
+        {options.map((option) => (
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.value === '' && language !== ''}
+          >
+            {option.text}
+          </option>
+        ))}
+  
         </select>
         <h3>Input</h3>
         <AceEditor
@@ -139,7 +154,25 @@ function OnlineCompiler() {
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
         <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
         <button onClick={handleJokeButtonClick}>Joke</button>
-
+        <button onClick={handleButtonClickSolution}>
+        {showSolution ? 'Close Solution' : 'Open Solution'}
+      </button>
+      {showSolution && 
+        <AceEditor
+          mode="javascript"
+          theme="monokai"
+          value={solution}
+          name="code-editor"
+          readOnly={true} // Set readOnly prop to true
+          editorProps={{ $blockScrolling: true }}
+          style={{
+            border: '1px solid black',
+            borderRadius: '5px',
+            height: '350px', // adjust this to your preferred height
+            fontSize: '16px',
+          }}
+        />
+      }
 
       </div>
     </div>

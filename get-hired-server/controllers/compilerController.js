@@ -108,8 +108,11 @@ let is_succeed = true
 app.post('/language',async (req, res) => {
   
   const {language} = req.body;
-  const initial_code = question[language].initial_code;
-  res.send(initial_code);
+  const data = {
+    initial_code: question[language].initial_code,
+    solution: question[language].solution
+  };
+  res.send(data);
 });
 
 
