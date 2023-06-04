@@ -1,4 +1,5 @@
 import React, { useContext,useEffect } from 'react';
+import axios from "axios";
 import { ResumeContext } from "../../context/ResumeContext";
 import Template1 from "../../templates/Template1";
 import Template2 from  "../../templates/Template2";
@@ -20,7 +21,8 @@ const RightSide = () => {
     designOptions1,
     designOptions2,
     designOptions3,
-    setDesignOptions 
+    setDesignOptions ,
+    saveData  
   } = useContext(ResumeContext);
   useEffect(() => {
     switch (templateId) {
@@ -74,6 +76,25 @@ const RightSide = () => {
         return <div>Please select a template</div>;
     }
   };
+  useEffect(() => {
+    // Add event listener
+    window.addEventListener('beforeunload', saveData);
+
+    // Cleanup
+    return () => {
+      // save data when unmounting the component
+      saveData();
+      
+      // Make sure to remove the event listener when the component is unmounted
+      window.removeEventListener('beforeunload', saveData);
+    }
+  }, [ templateId,
+    personalInfo,
+    workExperience,
+    education,
+    skills,
+    summary ]) 
+
 
   return (
     <div className="right-side">

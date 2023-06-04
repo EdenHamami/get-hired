@@ -112,6 +112,39 @@ const ResumeProvider = ({ children }) => {
   const [summary, setSummary] = useState(
     'Curious about algorithms,math and software engineering Eager to learn and gain new skills,Technological sense,Creative thinker,Fast learner and hard worker,Great social skills'
   );
+  const loadData = async () => {
+    try {
+      const response = await axios.get('/loadData');  // replace '/loadData' with your actual API endpoint
+      // assuming the response data structure is { personalInfo: ... }
+      setPersonalInfo(response.data.personalInfo);
+      setTemplateId(response.data.templateIdtemplateId);
+      setWorkExperience(response.data.workExperience);
+      setEducation(response.data.education);
+      setSkills(response.data.skills);
+      setSummary(response.data.summary);
+    } catch (error) {
+      console.error('Failed to load data', error);
+    }
+  }
+
+  const saveData = async () => {
+    try {
+      await axios.post('/saveData', { personalInfo:personalInfo,
+         templateIdtemplateId:templateIdtemplateId,
+         workExperience:workExperience,
+         education:education,
+         skills: skills,
+         summary:summary
+         });  // replace '/saveData' with your actual API endpoint
+      // ... save other data
+    } catch (error) {
+      console.error('Failed to save data', error);
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <ResumeContext.Provider

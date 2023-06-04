@@ -109,5 +109,17 @@ module.exports = function configureServer(app) {
     await user.save();
     return res.status(200).json(fileId);
   });
+  app.post('/get-video', verifyToken, async (req, res) => {
+
+    try{
+      var user = await User.findOne({ _id: req.user[0]._id });
+      } catch{
+     
+        var user = await User.findOne({ _id: req.user._id });
+      }       
+    fs.unlinkSync(newPath);
+    interviewDriveLink = user.interviewDriveLink;
+    return res.status(200).json(interviewDriveLink);
+  });
   
 };

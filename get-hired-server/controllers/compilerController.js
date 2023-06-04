@@ -26,26 +26,6 @@ const verifyToken = (req, res, next) => {
 };
 
 
-const save_to_db = (question_id, solution, language, is_succeed) => {
-  const token = req.headers.authorization;
-
-  if (!token) {
-    console.log('No token provided')
-    return res.status(401).json({ message: 'No token provided' });
-  }
-
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) {
-      console.log(token)
-      console.log('Failed to authenticate token')
-      return res.status(403).json({ message: 'Failed to authenticate token' });
-    }
-
-    req.user = decoded.userId;
-    next();
-  });
-};
-
 
 function results(test_output, stdout, test_input, is_succeed){
   if (test_output == stdout){
