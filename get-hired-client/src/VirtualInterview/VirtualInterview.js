@@ -4,23 +4,26 @@ import axios from "axios";
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import Timer from './Timer';
+import './VirtualInterview.css';
 import VideoCamera from './VideoCamera';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import './VirtualInterview.css';
 import InterviewNavbar from './InterviewNavbar';
-import Modal from 'react-modal';
+
 
 const VirtualInterview = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedPosition = location.state.selectedPosition;
 
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
   const [nextButton , setNextButton] = useState('next');
+  const [isFinish, setIsFinish] =  useState(false);
+  const [isStoped, setIsStoped] =  useState(false);
+  
   const [modalIsOpen,setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
@@ -29,14 +32,36 @@ const VirtualInterview = () => {
   function closeModal(){
     setIsOpen(false);
   }
-
   const handleNext = async ()  => {
     if (currentIndex === interviewQuestions.length - 1) {
-      openModal();
+      if(!isStoped){
+        stopRecording();
+      }
+      setIsFinish(true)
+      setNextButton('>')
     } else {
       setCurrentIndex(prevIndex => prevIndex + 1);
     }
+
+    if (isFinish){
+      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+      const formData = new FormData();
+      formData.append('video', blob, 'custom_video_name.mp4');
+      if (true) {
+        try {
+          const response = await axios.post('http://127.0.0.1:3001/upload-video', formData);
+          navigate('/LastPage', {
+          state: {
+            video_link: response.data
+          }
+        });
+    } catch (error) {
+          console.error('Error uploading video:', error);
+        }
+      }
+    }
   };
+
 
   const handleAlert = () => {
     const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
@@ -45,7 +70,6 @@ const VirtualInterview = () => {
       navigate('/Menu');
     }
   };
-
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -53,12 +77,8 @@ const VirtualInterview = () => {
       controls: true,
       autoplay: true,
       preload: 'auto',
-      poster: 'path/to/poster/image.jpg',
+      // poster: 'path/to/poster/image.jpg',
     });
-
-    // player.on('ended', () => {
-    //   player.currentTime(0);
-    // });
 
     return () => {
       player.dispose();
@@ -96,35 +116,7 @@ const VirtualInterview = () => {
     console.log(currentQuestion.videoUrl)
   }, [currentIndex, interviewQuestions, isDataFetched]);
 
-  // const handleNext = async ()  => {
-  //   if (currentIndex === interviewQuestions.length - 1) {
-  //     await stopRecording();
-  //     const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-  //     navigate('/LastPage', {
-  //       state: {
-  //         blob: blob
-  //       }
-  //     });
-  //   } else {
-  //     setCurrentIndex(prevIndex => prevIndex + 1);
-  //   }
-  // };
-
-  const handleDownload = () => {
-    const a = document.createElement('a');
-    a.href = currentQuestion.videoUrl;
-    a.download = 'interview_video.mp4';
-    a.click();
-  };
-  // const handleAlert = () => {
-  //   const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
-
-  //   if (result) {
-  //     navigate('/Menu');
-  //   }
-  // };
-
-
+  
 
   const [isRecording, setIsRecording] = useState(false);
   const videoRef1 = useRef();
@@ -148,14 +140,13 @@ const VirtualInterview = () => {
     }
   };
 
+
   const stopRecording = () => {
-    setIsRecording(false);
-    const tracks = videoRef1.current.srcObject.getTracks();
-    tracks.forEach((track) => track.stop());
-    mediaRecorderRef.current.stop();
-    setRecordedChunks([])
-    console.log(recordedChunks)
-    console.log("her1")
+      setIsRecording(false);
+      const tracks = videoRef1.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      mediaRecorderRef.current.stop();
+      setRecordedChunks([]);
   };
 
   const downloadVideo = () => {
@@ -175,28 +166,7 @@ const VirtualInterview = () => {
       setRecordedChunks((prev) => [...prev, event.data]);
     }
   };
-
-  const handleUpload  = async () => {
-    
-
-    // // Create a FormData object and append the Blob to it
-    // const formData = new FormData();
-    // formData.append('video', blob, 'custom_video_name.mp4');
-    // if (true) {
-    //   try {
-    //     const response = await axios.post('http://127.0.0.1:3001/upload-video', formData);
-
-    //     if (response.status === 200) {
-    //       console.log(response.data);
-    //     } else {
-    //       console.error('Failed to upload video.');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error uploading video:', error);
-    //   }
-    // }
-  };
-
+  
   const handleRecording = () => {
     if (isRecording) {
       stopRecording();
@@ -204,6 +174,7 @@ const VirtualInterview = () => {
       startRecording();
     }
   };
+
   return (
     <div className="virtual-interview-page">
       <div className="interview-content">
@@ -223,6 +194,7 @@ const VirtualInterview = () => {
           currentIndex={currentIndex} 
           questionsLength={interviewQuestions.length}
           handleNext={handleNext}
+          nextButton={nextButton}
           handleAlert={handleAlert}
           handleRecording={handleRecording} 
           isRecording={isRecording}
@@ -230,8 +202,6 @@ const VirtualInterview = () => {
       </div>
     </div>
   );
-  
 };
 
 export default VirtualInterview;
-
