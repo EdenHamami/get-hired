@@ -71,8 +71,8 @@ module.exports = function configureServer(app) {
   app.post('/interview-question/:selectedPosition', async (req, res) => {
     const selectedPosition = req.params.selectedPosition;
     interview = await InterviewProblem.findOne({ type: selectedPosition });
-    console.log(selectedPosition)
-    console.log(interview)
+    // console.log(selectedPosition)
+    // console.log(interview)
     if (interview) {
       const data = {
         questions: interview.questions,
@@ -85,6 +85,7 @@ module.exports = function configureServer(app) {
 
   app.post('/upload-video', upload.single('video'),verifyToken, async (req, res) => {
     const file = req.file;
+    console.log(file)
     if (!file) {
       return res.status(400).json({ error: 'No video file provided.' });
     }
@@ -93,22 +94,25 @@ module.exports = function configureServer(app) {
     const fileExtension = path.extname(originalName);
     const newFileName = "user-video" + fileExtension;
     const newPath = path.join(file.destination, newFileName);
-  
+    
     fs.renameSync(file.path, newPath);
   
     const fileId = await uploadFile(newFileName)
-    // try{
-    //   var user = await User.findOne({ _id: req.user[0]._id });
-    //   } catch{
+    
+    
+    try{
+      var user = await User.findOne({ _id: req.user[0]._id });
+      } catch{
      
-    //     var user = await User.findOne({ _id: req.user._id });
-    //   }
-      
+        var user = await User.findOne({ _id: req.user._id });
+      }
+    console.log(user)
 
        
     fs.unlinkSync(newPath);
-    // user.interviewDriveLink = fileId;
-    // await user.save();
+    console.log(fileId)
+    user.interviewDriveLink = fileId;
+    await user.save();
     return res.status(200).json(fileId);
   });
   
