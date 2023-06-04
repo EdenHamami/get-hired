@@ -7,7 +7,7 @@ import Timer from './Timer';
 import VirtualInterview from "./VirtualInterview"
 import { stopRecording, startRecording } from "./VirtualInterview"
 
-const InterviewNavbar = ({ currentIndex, questionsLength, handleNext, handleAlert, handleRecording, isRecording }) => {
+const InterviewNavbar = ({ currentIndex, questionsLength, handleNext, nextButton, handleAlert, handleRecording, isRecording }) => {
   return (
     <Navbar bg="dark" variant="dark" className="justify-content-between interview-navbar">
       <Nav>
@@ -23,7 +23,7 @@ const InterviewNavbar = ({ currentIndex, questionsLength, handleNext, handleAler
         ))}
       </Nav>
       <Nav>
-        <Button variant="outline-light" className="rounded-pill next-button" onClick={handleNext}>Next</Button>
+        <Button variant="outline-light" className="rounded-pill next-button" onClick={handleNext}>{nextButton}</Button>
       </Nav>
     </Navbar>
   );
