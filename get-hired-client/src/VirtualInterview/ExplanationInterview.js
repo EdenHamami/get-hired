@@ -19,23 +19,20 @@ const ExplanationInterview = () => {
   return (
 <div className="main-container">
 <div className="video-container">
-<VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=1JqWH8Y2h4sK5Zz6s32ON7FPErL7n_jLs" />
+<VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=1VPalfftzbruc3QBcC8huCaSxjGF-fdT4" />
 </div>
+
 <div className="text-container">
+    <h4><b>In this interview,I'll ask you five key questions.</b></h4>
+    <h4> You'll respond to each question after I ask it</h4>
+    <div>Your interview will be recorded- <br/>
+    so make sure your camera and environment are set.</div>
+    <div>  There are no do-overs or skipping here, <br/>
+    just like in a real interview.</div>
+     <b>So, bring your best- just like the hero you are!</b>
+     <button className="btn btn-primary" onClick={handleClick} >next</button>
 
-    <h3>In this interview,<br/>
-    I'll ask you five key questions.<br/>
-    You'll respond to each question after I ask it.<br/>
-    Your interview will be recorded-<br/>so make sure
-    your camera and environment are set.<br/>
-    There are no do-overs or skipping here,<br/>
-    just like in a real interview.<br/><br/>
-    <b> So, bring your best,<br/> 
-   just like the hero you are!</b> </h3>
-    <button className="btn btn-primary" onClick={handleClick} >next</button>
-
-</div>
-
+      </div>
     </div>
   );
 };

@@ -4,24 +4,47 @@ import axios from "axios";
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import Timer from './Timer';
-import './VirtualInterview.css';
 import VideoCamera from './VideoCamera';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
-
+import './VirtualInterview.css';
+import InterviewNavbar from './InterviewNavbar';
+import Modal from 'react-modal';
 
 const VirtualInterview = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedPosition = location.state.selectedPosition;
 
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [interviewQuestions, setInterviewQuestions] = useState([]);
   const [currentQuestion , setCurrentQuestion] = useState({});
   const [nextButton , setNextButton] = useState('next');
-  const [isFinish, setIsFinish] =  useState(false);
+  const [modalIsOpen,setIsOpen] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
 
+  function closeModal(){
+    setIsOpen(false);
+  }
+
+  const handleNext = async ()  => {
+    if (currentIndex === interviewQuestions.length - 1) {
+      openModal();
+    } else {
+      setCurrentIndex(prevIndex => prevIndex + 1);
+    }
+  };
+
+  const handleAlert = () => {
+    const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
+
+    if (result) {
+      navigate('/Menu');
+    }
+  };
 
   const videoRef = useRef(null);
 
@@ -73,35 +96,19 @@ const VirtualInterview = () => {
     console.log(currentQuestion.videoUrl)
   }, [currentIndex, interviewQuestions, isDataFetched]);
 
-  const handleNext = async ()  => {
-    if (currentIndex === interviewQuestions.length - 1) {
-      stopRecording();
-      setIsFinish(true)
-      setNextButton('>')
-    } else {
-      setCurrentIndex(prevIndex => prevIndex + 1);
-    }
-
-    if (isFinish){
-      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-      const formData = new FormData();
-      formData.append('video', blob, 'custom_video_name.mp4');
-      if (true) {
-        try {
-          const response = await axios.post('http://127.0.0.1:3001/upload-video', formData, { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
-          navigate('/LastPage', {
-          state: {
-            video_link: response.data
-          }
-        });
-    } catch (error) {
-          console.error('Error uploading video:', error);
-        }
-      }
-    }
-  };
-  
-
+  // const handleNext = async ()  => {
+  //   if (currentIndex === interviewQuestions.length - 1) {
+  //     await stopRecording();
+  //     const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+  //     navigate('/LastPage', {
+  //       state: {
+  //         blob: blob
+  //       }
+  //     });
+  //   } else {
+  //     setCurrentIndex(prevIndex => prevIndex + 1);
+  //   }
+  // };
 
   const handleDownload = () => {
     const a = document.createElement('a');
@@ -109,16 +116,15 @@ const VirtualInterview = () => {
     a.download = 'interview_video.mp4';
     a.click();
   };
+  // const handleAlert = () => {
+  //   const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
 
-  const handleAlert = () => {
-    const result = window.confirm("Eden needs to write");
+  //   if (result) {
+  //     navigate('/Menu');
+  //   }
+  // };
 
-    if (result) {
-      navigate('/Menu');
-    } 
-    else {
-    }
-  };
+
 
   const [isRecording, setIsRecording] = useState(false);
   const videoRef1 = useRef();
@@ -142,15 +148,14 @@ const VirtualInterview = () => {
     }
   };
 
-
   const stopRecording = () => {
-      setIsRecording(false);
-      const tracks = videoRef1.current.srcObject.getTracks();
-      tracks.forEach((track) => track.stop());
-      mediaRecorderRef.current.stop();
-      setRecordedChunks([]);
-      console.log(recordedChunks);
-      console.log('here1');
+    setIsRecording(false);
+    const tracks = videoRef1.current.srcObject.getTracks();
+    tracks.forEach((track) => track.stop());
+    mediaRecorderRef.current.stop();
+    setRecordedChunks([])
+    console.log(recordedChunks)
+    console.log("her1")
   };
 
   const downloadVideo = () => {
@@ -173,8 +178,8 @@ const VirtualInterview = () => {
 
   const handleUpload  = async () => {
     
-    // const blob = new Blob(recordedChunks, { type: 'video/mp4' });
-    // // // Create a FormData object and append the Blob to it
+
+    // // Create a FormData object and append the Blob to it
     // const formData = new FormData();
     // formData.append('video', blob, 'custom_video_name.mp4');
     // if (true) {
@@ -183,7 +188,6 @@ const VirtualInterview = () => {
 
     //     if (response.status === 200) {
     //       console.log(response.data);
-    //       return response.data
     //     } else {
     //       console.error('Failed to upload video.');
     //     }
@@ -193,29 +197,41 @@ const VirtualInterview = () => {
     // }
   };
 
-  
+  const handleRecording = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
   return (
-    <div>
-    <Timer />
-    <h3> {currentQuestion.content}</h3>
-    <h4>When you finish, click {nextButton}</h4>
-    <button onClick={handleNext}>{nextButton}</button>
-    <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={currentQuestion.videoUrl} type="video/mp4" />
-    {interviewQuestions.map((item, index) => (
-      <span key={index} className={currentIndex === index ? 'active-button' : ''}>{index + 1}</span>
-
-    ))}
-    <button onClick={handleAlert}>end</button>
-    
-    <video ref={videoRef1} autoPlay muted />
-      {!isRecording && (
-        <button className="btn btn-primary" id="on-off" onClick={startRecording}><FontAwesomeIcon icon={faVideoSlash} /></button>
-      )}
-      {isRecording && (
-        <button className="btn btn-primary" id="on-off" onClick={stopRecording}><FontAwesomeIcon icon={faVideo} /></button>
-      )}
+    <div className="virtual-interview-page">
+      <div className="interview-content">
+        <div className="interview-column video-interviewer-container">
+          <video ref={videoRef} className="video-js vjs-default-skin" src={currentQuestion.videoUrl} type="video/mp4" />
+        </div>
+        <div className="interview-column info-container">
+          <div className="question">{currentQuestion.content}</div>
+          <p className="instructions">When you finish, click {nextButton}</p>
+          <div className="video-test-container">
+            <video className="video-test" ref={videoRef1} autoPlay muted />
+          </div>
+        </div>
+      </div>
+      <div className="navbar-container">
+        <InterviewNavbar 
+          currentIndex={currentIndex} 
+          questionsLength={interviewQuestions.length}
+          handleNext={handleNext}
+          handleAlert={handleAlert}
+          handleRecording={handleRecording} 
+          isRecording={isRecording}
+        />
+      </div>
     </div>
   );
+  
 };
 
 export default VirtualInterview;
+

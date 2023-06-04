@@ -1,9 +1,26 @@
-.video-js {
-    height: 85vh;
-    object-fit: cover;
-    background-color: #F2F2F6;
-    width: 100%;
-    z-index: 8;
-    margin-top: 20px;
-  }
-  
+.VideoInterviewer-page .video-js {
+  object-fit: cover;
+  background-color: #F2F2F6;
+  width: 100%;
+  height: 85vh;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.VideoInterviewer-page {
+  position: relative; /* Add position relative to the container */
+}
+
+.restart-button {
+  position: absolute; /* Position the button relative to the container */
+  top: 30px; /* Adjust the top position as needed */
+  right: 20px; /* Adjust the right position as needed */
+  z-index: 1; /* Ensure the button appears above the video */
+  background-color: #5754b7;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+}

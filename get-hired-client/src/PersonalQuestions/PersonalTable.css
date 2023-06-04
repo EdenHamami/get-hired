@@ -1,0 +1,26 @@
+.personal-questions-container {
+    display: flex;
+    height: 90vh;
+    font-family: 'Nunito', sans-serif;
+  }
+  .personal-questions-image-container {
+    width: 40%;
+    background: url('./PersonalQuestionsLeft.png');
+    background-size: cover;
+  }
+
+  .personal-questions-content-container {
+    width: 60%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+  .filter-search-container {
+    display: flex;
+    width: 50%;
+    margin-bottom: 20px;
+  }
+  .personal-questions-container .form-control.mr-sm-2 {
+    width: 50%;
+  }
+  

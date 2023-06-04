@@ -1,0 +1,6 @@
+.timer-btn {
+    color: #ffffff;  /* white color to match navbar text */
+    font-size: 1rem;
+    border: none; /* Remove border */
+    background-color: transparent; /* Transparent background */
+}

@@ -1,0 +1,23 @@
+.interview-navbar .active-question {
+    color: #512DA8;
+  }
+  
+  .interview-navbar .inactive-question {
+    color: #6c757d;
+  }
+  
+  .interview-navbar {
+    background-color: black !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .interview-navbar .question-indicators {
+    display: flex;
+  }
+  
+  .interview-navbar .question-indicators span {
+    margin-right: 10px; /* Adjust the margin as per your needs */
+  }
+  

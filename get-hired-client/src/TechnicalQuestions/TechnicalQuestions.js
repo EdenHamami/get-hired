@@ -55,13 +55,7 @@ function TechnicalQuestions() {
     <div className="questions-container">
     <div className="questions-image-container"></div>
     <div className="questions-content-container">
-    <Filter questions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics} />
-    <nav class="navbar navbar-light bg-light">
-    <form className="form-inline questions-search-form">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchQuery}
-            onChange={handleSearchQueryChange} />
-        </form>
-</nav>
+    <Filter questions={questions} updateQuestions={updateQuestions} primaryDifficulties={primaryDifficulties} primaryTopics={primaryTopics} searchQuery={searchQuery} handleSearchQueryChange={handleSearchQueryChange} />
 <table className="table questions-table">
           <thead className="thead-dark">
       <tr>
