@@ -5,3 +5,8 @@ get-hired-client/public/manifest.json
 get-hired-server/node_modules/mongoose/package.json
 get-hired-server/node_modules/kareem/package.json
 
+get-hired-client/src/index.js
+get-hired-server/server.js
+get-hired-client/src/index.js
+get-hired-client/package-lock.json
+get-hired-client/package.json
