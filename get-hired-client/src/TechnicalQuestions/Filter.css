@@ -1,0 +1,82 @@
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+  }
+  
+  .button-container button {
+    background-color:#512DA8;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    position: relative;
+    margin: 5px;
+  }
+  
+  .button-container button::after {
+    content: '▼';
+    position: absolute;
+    right: 5px;
+  }
+  
+  .button-container button:focus {
+    outline: none;
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 1;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    background-color: white;
+  }
+  
+  .dropdown-menu input[type="checkbox"] {
+    margin: 10px;
+  }
+  
+  .button-container button.active .dropdown-menu {
+    display: block;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-container input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .search-container button {
+    background-color:#512DA8;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  
+  .search-container button::before {
+    content: '🔍';
+    margin-right: 5px;
+  }
+  .filter-search-form {
+    flex-grow: 1;
+  }
+  .form-control.mr-sm-2 {
+    width: 50%;
+  }
+  

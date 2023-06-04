@@ -1,6 +1,6 @@
 const InterviewProblem = require('../models/interviewProblem');
 const path = require('path');
-
+const User = require('../models/user');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
@@ -8,6 +8,26 @@ const fs = require('fs')
 const {google} = require('googleapis')
 
 const GOOGLE_API_FOLDER_ID = '1x_W4D837Qf-unLskEHty_4ahyDWlGjBJ'
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    console.log('No token provided')
+    return res.status(401).json({ message: 'No token provided' });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.log(token)
+      console.log('Failed to authenticate token')
+      return res.status(403).json({ message: 'Failed to authenticate token' });
+    }
+
+    req.user = decoded.userId;
+    next();
+  });
+};
 
 async function uploadFile(fileName){
   try{
@@ -61,7 +81,7 @@ module.exports = function configureServer(app) {
     }
   });
 
-  app.post('/upload-video', upload.single('video'), async (req, res) => {
+  app.post('/upload-video', upload.single('video'), verifyToken, async (req, res) => {
     const file = req.file;
     if (!file) {
       return res.status(400).json({ error: 'No video file provided.' });
@@ -75,7 +95,18 @@ module.exports = function configureServer(app) {
     fs.renameSync(file.path, newPath);
   
     const fileId = await uploadFile(newFileName)
+    try{
+      var user = await User.findOne({ _id: req.user[0]._id });
+      } catch{
+     
+        var user = await User.findOne({ _id: req.user._id });
+      }
+      
+
+       
     fs.unlinkSync(newPath);
+    user.interviewDriveLink = fileId;
+    await user.save();
     return res.status(200).json(fileId);
   });
   

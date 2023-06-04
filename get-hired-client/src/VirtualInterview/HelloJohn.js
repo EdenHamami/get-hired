@@ -49,11 +49,15 @@ const HelloJohn = () => {
       </div>
 
       <div className="text-container">
-        {accumulatedSubtitles.map((subtitle, index) => (
-          <h3 key={index}>{subtitle}</h3>
-        ))}
-        <button className="btn btn-primary" onClick={handleClick} >Let's get started</button>
+      <h3 className='welcome'> <b>Hello, and welcome to your virtual job interview.</b></h3>
+    <h4><b>I'm John, your interviewer from HIRE-HERO</b></h4>
+    <div>Just like in a real interview, we don't have a pause button here <br/>
+    But don't worry</div>
+     <b>your preparation on our platform has equipped you well</b>
+     <button className="btn btn-primary" onClick={handleClick} >next</button>
+
       </div>
+
 
     </div>
   );

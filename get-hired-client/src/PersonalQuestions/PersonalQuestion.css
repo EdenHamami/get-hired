@@ -1,20 +1,27 @@
 /* PersonalQuestion.css */
 
-.PersonalQuestion {
+.personal-questions2-container {
+  display: flex;
+  height: 90vh;
+  font-family: 'Nunito', sans-serif;
+  }
+  .personal-questions2-image-container {
+    width: 40%;
+    background: url('./personalQuestion2.png');
+    background-size:cover;
+  }
+  .personal-questions2-content-container {
+    width: 60%;
+    padding: 50px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    font-family: "Nunito", sans-serif;
-    text-align: center;
-    margin: 5%;
   }
-  
-  .PersonalQuestion h4, .PersonalQuestion h5 {
+
+  .personal-questions2-container h4, .PersonalQuestion h5 {
     color: #5754b7;
   }
   
-  .PersonalQuestion button {
+  .personal-questions2-container button {
     background-color:#5754b7;
     color: white;
     border: none;
@@ -26,11 +33,11 @@
     border-radius: 5px;
   }
   
-  .PersonalQuestion button:hover {
+  .personal-questions2-container button:hover {
     background-color: #5754b7;
   }
   
-  .PersonalQuestion h6 {
+  .personal-questions2-container h6 {
     margin: 10px 0;
   }
   
