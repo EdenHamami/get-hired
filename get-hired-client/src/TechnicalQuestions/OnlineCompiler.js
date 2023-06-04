@@ -152,27 +152,31 @@ function OnlineCompiler() {
           ))}
         </ul>
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
+<<<<<<<<< Temporary merge branch 1
+
+=========
         <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
         <button onClick={handleJokeButtonClick}>Joke</button>
         <button onClick={handleButtonClickSolution}>
-          {showSolution ? 'Close Solution' : 'Open Solution'}
-        </button>
-        {showSolution && 
-          <AceEditor
-            mode="javascript"
-            theme="monokai"
-            value={solution}
-            name="code-editor"
-            readOnly={true} // Set readOnly prop to true
-            editorProps={{ $blockScrolling: true }}
-            style={{
-              border: '1px solid black',
-              borderRadius: '5px',
-              height: '350px', // adjust this to your preferred height
-              fontSize: '16px',
-            }}
-          />
-        }
+        {showSolution ? 'Close Solution' : 'Open Solution'}
+      </button>
+      {showSolution && 
+        <AceEditor
+          mode="javascript"
+          theme="monokai"
+          value={solution}
+          name="code-editor"
+          readOnly={true} // Set readOnly prop to true
+          editorProps={{ $blockScrolling: true }}
+          style={{
+            border: '1px solid black',
+            borderRadius: '5px',
+            height: '350px', // adjust this to your preferred height
+            fontSize: '16px',
+          }}
+        />
+      }
+>>>>>>>>> Temporary merge branch 2
 
       </div>
     </div>
