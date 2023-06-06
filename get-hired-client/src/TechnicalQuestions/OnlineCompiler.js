@@ -66,9 +66,9 @@ function OnlineCompiler() {
         const res = await axios.post(`http://127.0.0.1:3001/compile/${language}`, { input: input, language: language, test_number: i },
          { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
-        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data }]);
+        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data.message }]);
       } catch (error) {
-        console.log(error);
+        setOutput(prevOutput => [...prevOutput, { case: i, output: error.response.data.message }]);
       }
     }
   }
@@ -152,9 +152,6 @@ function OnlineCompiler() {
           ))}
         </ul>
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
-<<<<<<<<< Temporary merge branch 1
-
-=========
         <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
         <button onClick={handleJokeButtonClick}>Joke</button>
         <button onClick={handleButtonClickSolution}>
@@ -176,7 +173,6 @@ function OnlineCompiler() {
           }}
         />
       }
->>>>>>>>> Temporary merge branch 2
 
       </div>
     </div>
