@@ -1,0 +1,62 @@
+.last-page-container {
+    display: flex;
+    height: 90vh;
+    box-sizing: border-box;
+}
+
+.last-page-container-image {
+    width: 40%;
+    background: url('./LastPageLeft.jpg');
+    background-size:cover;
+}
+
+.right-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+}
+
+.header-image {
+    width: 500px;
+}
+
+.video-download-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.last-page-container .video-js {
+    width: 70%;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.download-button {
+    margin-left: 20px;
+}
+
+.text {
+    color: gray;
+    margin-top: 20px;
+    font-size: 10px;
+}
+.video-text{
+    font-size: 15px;
+
+}
+.home-button {
+    margin-top: 20px;
+    width: fit-content;
+}
+.last-page-container .vjs-modal-dialog .vjs-modal-dialog-content, .video-js .vjs-modal-dialog, .vjs-button > .vjs-icon-placeholder:before, .video-js .vjs-big-play-button .vjs-icon-placeholder:before{
+    position: absolute;
+    height: max-content;
+margin: 10px;}
+
+.last-page-container .video-js .vjs-tech {
+position: relative;
+margin: 10px;
+}
