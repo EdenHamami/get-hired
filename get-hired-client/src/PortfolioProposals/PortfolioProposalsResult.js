@@ -30,6 +30,7 @@ function PortfolioProposalsResult() {
     useEffect(() => {
         fetchData();
       }, []);
+      const lines = answer.split('\n').map((line, i) => <p key={i}>{line}</p>);
     return (
         <div className="PortfolioProposalsResult-container">
         {isLoading && (
@@ -41,7 +42,7 @@ function PortfolioProposalsResult() {
         <div className="PortfolioProposalsResult-container-content">
 
             
-        <p>{answer}</p>
+        {lines}
         </div>
 
         </div>
