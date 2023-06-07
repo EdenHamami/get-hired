@@ -45,7 +45,7 @@ const HelloJohn = () => {
     <div className="main-container">
 
       <div className="video-container">
-        <VideoInterviewer className="john-video"  src="https://drive.google.com/uc?export=download&id=1VPalfftzbruc3QBcC8huCaSxjGF-fdT4"  />
+        <VideoInterviewer className="john-video"  src="https://drive.google.com/uc?export=download&id=1E-Y97ASBjIZdGrPLIc7ePRomSCHZ3570"  />
       </div>
 
       <div className="text-container">
@@ -57,8 +57,6 @@ const HelloJohn = () => {
      <button className="btn btn-primary" onClick={handleClick} >next</button>
 
       </div>
-
-
     </div>
   );
 };
