@@ -51,6 +51,7 @@ const Navbar = () => {
           <div className="dropdown" onBlur={handleClickOutside} tabIndex="0">
             <a href="/my-cv" className="dropdown-item">My CV</a>
             <a href="/SavedJobs" className="dropdown-item">The Jobs I Liked</a>
+            <a href="/MyInterview" className="dropdown-item">My Interview</a>
             <a href="/my-exercises" className="dropdown-item">My Exercises</a>
             <a onClick={log_out} className="dropdown-item">Log Out</a>
           </div>

@@ -30,6 +30,8 @@ import Navbar from './components/Navbar';
 import StartingPage from './components/StartingPage';
 import LoginPage from './LoginPage';
 import SavedJobs from './jobs/SavedJobs';
+import MyInterview from './VirtualInterview/MyInterview';
+
 import AboutUs from './AboutUs';
 import UserContext, { UserProvider } from './context/UserContext';
 import technicalQuestionsIntro from './TechnicalQuestions/technicalQuestionsIntro';
@@ -74,6 +76,7 @@ root.render(
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/SavedJobs" element={<SavedJobs />} />
+        <Route path="/MyInterview" element={<MyInterview />} />
         <Route path="/PortfolioProposals" element={<PortfolioProposals />} />
         <Route path="/CareerPlanner" element={<CareerPlanner />} />
         <Route path="/ResumePortfolio" element={<ResumePortfolio />} />
