@@ -1,26 +1,25 @@
 import axios from 'axios';
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const ResumeContext = createContext();
 
 const ResumeProvider = ({ children }) => {
 
   const [templateId, setTemplateId] = useState(1);
-
+  
   const designOptions1 = {
     backgroundColor: '#ffc001',
     fontColor: '#000',
     fontFamily: "font-family: 'Nunito', sans-serif",
+   
     fontSize: 1,
-    backgroundColor2: '#f7f4f5',
   };
 
   const designOptions2 = {
     backgroundColor: '#718ea8',
     fontColor: '#000',
     fontFamily: "Calibri, sans-serif",
-    fontSize: 1,
-    backgroundColor2: '#f7f4f5',
+    fontSize: 1
   };
 
   const designOptions3 = {
@@ -34,119 +33,86 @@ const ResumeProvider = ({ children }) => {
   const [designOptions, setDesignOptions] = useState(designOptions1);
 
   const [personalInfo, setPersonalInfo] = useState({
-    firstName: 'Hila',
-    lastName: 'Ninio',
-    email: 'hilaninio2034@gmail.com',
-    phone: '0545452034',
-    address: {
-      street: '123 Main St',
-      city: 'Jerusalem',
-      state: 'Israel',
-    },
-    image:  'hila.jpg',
-    desiredJob: 'programmer' // Add desired job field
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    
+      street: '',
+      city: '',
+      state: '',
+    
+    image: '',
+    desiredJob: '' // Add desired job field
   });
 
-  const [workExperience, setWorkExperience] = useState([
-    {
-      title: 'Private Tutor (English and Math)',
-      company: '',
-      startDate: '2021',
-      endDate: 'Present',
-      description: 'Worked on various projects.',
-    },
-    {
-      title: 'Birthright instructor',
-      company: '',
-      startDate: '2020',
-      endDate: '',
-      description: 'Developed user interfaces for various Facebook products.',
-    },
-    {
-      title: 'Special education teacher at Shalva',
-      company: 'Shalva ',
-      startDate: '2020',
-      endDate: '2021',
-      description: 'Worked on the Amazon website and related products.',
-    },
-  ]);
+  const [workExperience, setWorkExperience] = useState([]);
 
-  const [education, setEducation] = useState([
-    {
-      institution: ' Bar Ilan University',
-      degree: 'B.S. Computer Science',
-      grade: '91.91',
-      startDate: '2020',
-      endDate: 'present',
-      description: 'Notable courses: OOP, algorithms, advanced programing, computational complexity.',
-    },  {
-      institution: '',
-      degree: 'Psychometry',
-      grade: '752',
-      startDate: '2017',
-      endDate: '',
-      description: '',
-    }, {
-      institution: 'High School Horev, Jerusalem',
-      degree: '',
-      grade: '114.2',
-      startDate: '2010',
-      endDate: '2016',
-      description: '',
+  const [education, setEducation] = useState([]);
+
+  const [skills, setSkills] = useState([]);
+
+  const [summary, setSummary] = useState('');
+  const loadData = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:3001/loadCvData', {
+        headers: { Authorization: localStorage.getItem('token') }
+      });
+     
+      if (response.data.personalInfo && response.data.personalInfo.length !== 0) {
+        console.log(response.data.personalInfo);
+        setPersonalInfo(response.data.personalInfo);
+      }
+      if (response.data.workExperience && response.data.workExperience.length !== 0) {
+        setWorkExperience(response.data.workExperience);
+      }
+      if (response.data.education && response.data.education.length !== 0) {
+        setEducation(response.data.education);
+      }
+      if (response.data.skills && response.data.skills.length !== 0) {
+        setSkills(response.data.skills);
+      }
+      if (response.data.summary) {
+        setSummary(response.data.summary);
+      }
+      // if (response.data.designOptions1) {
+      //   setDesignOptions1(response.data.designOptions1);
+      // }
+      // if (response.data.designOptions2) {
+      //   setDesignOptions2(response.data.designOptions2);
+      // }
+      // if (response.data.designOptions3) {
+      //   setDesignOptions3(response.data.designOptions3);
+      // }
+    } catch (error) {
+      console.error('Failed to load data', error);
     }
+    console.log(personalInfo)
+  };
 
-  ]);
+  const saveData = async () => {
+    try {
+      await axios.post('http://127.0.0.1:3001/saveCvData', {
+        personalInfo: personalInfo,
+       
+        workExperience: workExperience,
+        education: education,
+        skills: skills,
+        summary: summary,
+        // designOptions1: designOptions1,
+        // designOptions2: designOptions2,
+        // designOptions3: designOptions3
+    }
+        , {headers: { Authorization: localStorage.getItem('token') }
+      });
+    } catch (error) {
+      console.error('Failed to save data', error);
+    }
+  }
 
-  const [skills, setSkills] = useState([
-    'JavaScript',
-    'React',
-    'Node.js',
-    'HTML',
-    'CSS',
-   "Python",
-   "Hebrew-native",
-   "English-fluent speaker",
-"Java",
-"C",
-"C++"
-  ]);
-
-  const [summary, setSummary] = useState(
-    'Curious about algorithms,math and software engineering Eager to learn and gain new skills,Technological sense,Creative thinker,Fast learner and hard worker,Great social skills'
-  );
-  // const loadData = async () => {
-  //   try {
-  //     const response = await axios.get('/loadCvData');  // replace '/loadData' with your actual API endpoint
-  //     
-  //     setPersonalInfo(response.data.personalInfo);
-  //     setTemplateId(response.data.templateIdtemplateId);
-  //     setWorkExperience(response.data.workExperience);
-  //     setEducation(response.data.education);
-  //     setSkills(response.data.skills);
-  //     setSummary(response.data.summary);
-  //   } catch (error) {
-  //     console.error('Failed to load data', error);
-  //   }
-  // }
-
-  // const saveData = async () => {
-  //   try {
-  //     await axios.post('/saveCvData', { personalInfo:personalInfo,
-  //        templateIdtemplateId:templateIdtemplateId,
-  //        workExperience:workExperience,
-  //        education:education,
-  //        skills: skills,
-  //        summary:summary
-  //        });  // replace '/saveData' with your actual API endpoint
-  //     // ... save other data
-  //   } catch (error) {
-  //     console.error('Failed to save data', error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   loadData();
-  // }, []);
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <ResumeContext.Provider
@@ -154,10 +120,13 @@ const ResumeProvider = ({ children }) => {
         templateId,
         setTemplateId,
         designOptions,
+
         designOptions1,
         designOptions2,
+        
         designOptions3,
         setDesignOptions,
+        
         personalInfo,
         setPersonalInfo,
         workExperience,
@@ -168,6 +137,7 @@ const ResumeProvider = ({ children }) => {
         setSkills,
         summary,
         setSummary,
+        saveData
       }}
     >
       {children}

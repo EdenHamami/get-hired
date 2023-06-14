@@ -9,7 +9,7 @@ const PersonalDetails = ({ personalInfo, template }) => {
       <h3>CONTACTS</h3>
       <h5><FontAwesomeIcon icon={faEnvelope} /> {personalInfo.email}</h5>
       <h5><FontAwesomeIcon icon={faPhone} /> {personalInfo.phone}</h5>
-      <h5><FontAwesomeIcon icon={faMapMarkerAlt} /> {personalInfo.address.street}, {personalInfo.address.city}, {personalInfo.address.state}</h5>
+      <h5><FontAwesomeIcon icon={faMapMarkerAlt} /> {personalInfo.street}, {personalInfo.city}, {personalInfo.state}</h5>
     </div>
   );
 };

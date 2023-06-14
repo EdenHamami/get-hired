@@ -18,19 +18,17 @@ const userSchema = new Schema({
     required: true
   },
 
-  personalInfo: [{
+  personalInfo: {
     firstName: String,
     lastName: String,
     email: String,
     phone: String,
-    address: [{
       street: String,
       city: String,
       state: String,
-    }],
     image: String,
     desiredJob: String // Add desired job field
-  }],
+  },
 
 
   workExperience: [{
@@ -53,17 +51,39 @@ const userSchema = new Schema({
   {
     type: String
   },
-  templateId:{
-    type: String
-  },
-  designOptions: [{
-    backgroundColor: String,
-    fontColor: String,
-    fontFamily: String,
-    fontSize: String,
-    backgroundColor2: String,
-  
-  }],
+  // templateId:{
+  //   type: String
+  // },
+  // designOptions1: {
+  //   type: Object,
+  //   default: {
+  //     backgroundColor: '#ffffff',
+  //     fontColor: '#000000',
+  //     fontFamily: 'Arial',
+  //     fontSize: '12',
+  //     backgroundColor2: '#ffffff',
+  //   },
+  // },
+  // designOptions2: {
+  //   type: Object,
+  //   default: {
+  //     backgroundColor: '#ffffff',
+  //     fontColor: '#000000',
+  //     fontFamily: 'Arial',
+  //     fontSize: '12',
+  //     backgroundColor2: '#ffffff',
+  //   },
+  // },
+  // designOptions3: {
+  //   type: Object,
+  //   default: {
+  //     backgroundColor: '#ffffff',
+  //     fontColor: '#000000',
+  //     fontFamily: 'Arial',
+  //     fontSize: '12',
+  //     backgroundColor2: '#ffffff',
+  //   },
+  // },
 
   myPracticeProblems: [{
     problem: {

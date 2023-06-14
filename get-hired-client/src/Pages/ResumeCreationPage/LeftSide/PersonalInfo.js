@@ -148,16 +148,8 @@ function PersonalInfo() {
               className="form-control"
               id="street"
               name="street"
-              value={personalInfo.address.street}
-              onChange={(e) =>
-                setPersonalInfo((prevPersonalInfo) => ({
-                  ...prevPersonalInfo,
-                  address: {
-                    ...prevPersonalInfo.address,
-                    street: e.target.value,
-                  },
-                }))
-              }
+              value={personalInfo.street}
+              onChange={handleChange}
               
             />
           </div>
@@ -171,16 +163,8 @@ function PersonalInfo() {
               className="form-control"
               id="city"
               name="city"
-              value={personalInfo.address.city}
-              onChange={(e) =>
-                setPersonalInfo((prevPersonalInfo) => ({
-                  ...prevPersonalInfo,
-                  address: {
-                    ...prevPersonalInfo.address,
-                    city: e.target.value,
-                  },
-                }))
-              }
+              value={personalInfo.city}
+              onChange={handleChange}
             />
           </div>
 
@@ -193,16 +177,8 @@ function PersonalInfo() {
               className="form-control"
               id="state"
               name="state"
-              value={personalInfo.address.state}
-              onChange={(e) =>
-                setPersonalInfo((prevPersonalInfo) => ({
-                  ...prevPersonalInfo,
-                  address: {
-                    ...prevPersonalInfo.address,
-                    state: e.target.value,
-                  },
-                }))
-              }
+              value={personalInfo.state}
+              onChange={handleChange}
               
             />
           </div>
