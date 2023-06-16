@@ -29,6 +29,7 @@ function CareerPlannerResult() {
     useEffect(() => {
         fetchData();
       }, []);
+      const lines = answer.split('\n').map((line, i) => <p key={i}>{line}</p>);
     return (
         <div className="career-planner-result-container">
         {isLoading && (
@@ -40,7 +41,7 @@ function CareerPlannerResult() {
         <div className="career-planner-result-content">
 
             
-        <p>{answer}</p>
+        {lines}
         </div>
 
         </div>

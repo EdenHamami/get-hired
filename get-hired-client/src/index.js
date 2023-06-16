@@ -40,7 +40,7 @@ import CareerPlanner from "./CareerPlanner/CareerPlanner"
 import ResumePortfolio from "./ResumePortfolio"
 import TechnicalPersonal from "./TechnicalPersonal"
 import CareerPlannerResult from "./CareerPlanner/CareerPlannerResult"
-import PortfolioProposalsResult from "./PortfolioProposals/PortfolioProposalsResult" 
+import PortfolioProposalsResult from "./PortfolioProposals/PortfolioProposalsResult"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -83,7 +83,6 @@ root.render(
         <Route path="/TechnicalPersonal" element={<TechnicalPersonal />} />
         <Route path="/PortfolioProposalsResult" element={<PortfolioProposalsResult />} />
         <Route path="/career-planner-result" element={<CareerPlannerResult />} />
-        <Route path="/LastPage" element={<LastPage />} />
 
       </Routes>
     </ResumeProvider>

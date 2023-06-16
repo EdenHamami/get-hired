@@ -26,44 +26,24 @@ const verifyToken = (req, res, next) => {
 };
 
 
-const save_to_db = async (req, question_id, solution, language, is_succeed) => {
-  try {
-    var user = await User.findOne({ _id: req.user[0]._id });
-  } catch {
-    var user = await User.findOne({ _id: req.user._id });
+const save_to_db = (question_id, solution, language, is_succeed) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    console.log('No token provided')
+    return res.status(401).json({ message: 'No token provided' });
   }
-  console.log(user);
-  console.log(question_id);
-  const questionExists = user.myPracticeProblems.some(savedQuestion => savedQuestion.problem.toString() === question_id);
-  if (questionExists) {
-    // Find the existing question in myPracticeProblems array
-    const existingQuestion = user.myPracticeProblems.find(savedQuestion => savedQuestion.problem.toString() === question_id);
-    
-    // Check if a solution with the same language already exists
-    const existingSolutionIndex = existingQuestion.solutions.findIndex(existingSolution => existingSolution.language === language);
-    existingQuestion.isSucceed = is_succeed
-    if (existingSolutionIndex !== -1) {
-      // If a solution with the same language exists, update its solution
-      existingQuestion.solutions[existingSolutionIndex].solution = solution;
-    } else {
-      // Otherwise, add a new solution to the existing question's solutions array
-      existingQuestion.solutions.push({
-        language: language,
-        solution: solution
-      });
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.log(token)
+      console.log('Failed to authenticate token')
+      return res.status(403).json({ message: 'Failed to authenticate token' });
     }
-  } else {
-    user.myPracticeProblems.push({
-      problem: question_id,
-      solutions: [{
-        language: language,
-        solution: solution
-      }],
-      isSucceed: is_succeed
-    });
-  }
-  await user.save();
-  console.log(user);
+
+    req.user = decoded.userId;
+    next();
+  });
 };
 
 
