@@ -81,7 +81,7 @@ function OnlineCompiler() {
 
     console.log(input);
     console.log(language);
-    axios.post('http://127.0.0.1:3001/language', { language: lang }).then(res => {
+    axios.post('http://127.0.0.1:3001/language', { language: lang },{ headers: { 'Authorization': `${localStorage.getItem('token')}` } }).then(res => {
       console.log(res.data);
       setInput(res.data.initial_code);
       setSolution(res.data.solution)

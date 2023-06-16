@@ -26,24 +26,44 @@ const verifyToken = (req, res, next) => {
 };
 
 
-const save_to_db = (question_id, solution, language, is_succeed) => {
-  const token = req.headers.authorization;
-
-  if (!token) {
-    console.log('No token provided')
-    return res.status(401).json({ message: 'No token provided' });
+const save_to_db = async (req, question_id, solution, language, is_succeed) => {
+  try {
+    var user = await User.findOne({ _id: req.user[0]._id });
+  } catch {
+    var user = await User.findOne({ _id: req.user._id });
   }
-
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) {
-      console.log(token)
-      console.log('Failed to authenticate token')
-      return res.status(403).json({ message: 'Failed to authenticate token' });
+  console.log(user);
+  console.log(question_id);
+  const questionExists = user.myPracticeProblems.some(savedQuestion => savedQuestion.problem.toString() === question_id);
+  if (questionExists) {
+    // Find the existing question in myPracticeProblems array
+    const existingQuestion = user.myPracticeProblems.find(savedQuestion => savedQuestion.problem.toString() === question_id);
+    
+    // Check if a solution with the same language already exists
+    const existingSolutionIndex = existingQuestion.solutions.findIndex(existingSolution => existingSolution.language === language);
+    existingQuestion.isSucceed = is_succeed
+    if (existingSolutionIndex !== -1) {
+      // If a solution with the same language exists, update its solution
+      existingQuestion.solutions[existingSolutionIndex].solution = solution;
+    } else {
+      // Otherwise, add a new solution to the existing question's solutions array
+      existingQuestion.solutions.push({
+        language: language,
+        solution: solution
+      });
     }
-
-    req.user = decoded.userId;
-    next();
-  });
+  } else {
+    user.myPracticeProblems.push({
+      problem: question_id,
+      solutions: [{
+        language: language,
+        solution: solution
+      }],
+      isSucceed: is_succeed
+    });
+  }
+  await user.save();
+  console.log(user);
 };
 
 
@@ -127,13 +147,29 @@ app.post('/question/:problemId',async (req, res) => {
 
 let is_succeed = true
 //send the initial code by the lang
-app.post('/language',async (req, res) => {
-  
+app.post('/language', verifyToken ,async (req, res) => {
   const {language} = req.body;
   const data = {
     initial_code: question[language].initial_code,
     solution: question[language].solution
   };
+  try {
+    var user = await User.findOne({ _id: req.user[0]._id });
+  } catch {
+    var user = await User.findOne({ _id: req.user._id });
+  }
+  const questionExists = user.myPracticeProblems.some(savedQuestion => savedQuestion.problem.toString() === question._id.toString());
+  if (questionExists) {
+    // Find the existing question in myPracticeProblems array
+    const existingQuestion = user.myPracticeProblems.find(savedQuestion => savedQuestion.problem.toString() === question._id.toString());
+    // Check if a solution with the same language already exists
+    const existingSolutionIndex = existingQuestion.solutions.findIndex(existingSolution => existingSolution.language === language);
+    if (existingSolutionIndex !== -1) {
+      data.initial_code = existingQuestion.solutions[existingSolutionIndex].solution
+      // If a solution with the same language exists, update its solution
+      console.log(data.initial_code)
+    } 
+  }
   res.send(data);
 });
 
