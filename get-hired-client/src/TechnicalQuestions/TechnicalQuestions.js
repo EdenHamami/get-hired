@@ -17,6 +17,8 @@ function TechnicalQuestions() {
   //all the questions from the server
   const [questions, setQuestions] = useState([]);
 
+  const [questionStatuses, setQuestionStatuses] = useState([]);
+
   //the search box 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -32,14 +34,60 @@ function TechnicalQuestions() {
     axios.post("http://127.0.0.1:3001/technical-questions").then((response) => {
       setQuestions(response.data);
       setFilteredQuestions(response.data);
+      // fetchQuestionStatuses();
     });
 
     }, []);
+
+    useEffect(() => {
+        fetchQuestionStatuses();
+        console.log(questions.length)
+  
+      }, [questions]);
+    
+    const fetchQuestionStatuses = async () => {
+
+      for (let i = 0; i < questions.length; i++) {
+        try {
+          console.log(questions[i])
+          const res = await axios.post(`http://127.0.0.1:3001/is_succeed`, { question_id: questions[i]._id},
+           { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
+          if (res.data.message == false){
+            setQuestionStatuses(prevStatuses => [...prevStatuses, { question_id: questions[i]._id, status: 1 }]);
+          } else{
+            setQuestionStatuses(prevStatuses => [...prevStatuses, { question_id: questions[i]._id, status: 2 }]);
+          }
+        } catch (error) {
+          setQuestionStatuses(prevStatuses => [...prevStatuses, { question_id: questions[i]._id, status: 0 }]);
+        }
+      }
+      console.log(questionStatuses)
+      // // const questionStatuses = await Promise.all(
+      //   questions.map(async (question) => {
+      //     const response = await axios.post(
+      //       "http://127.0.0.1:3001/is_succeed",
+      //       { question_id: question.id },
+      //       { headers: { Authorization: localStorage.getItem("token") } }
+      //     );
+      //     console.log("herr: ")
+      //     console.log("herr: "+response.data.message)
+      //     // return {
+      //     //   questionId: question.id,
+      //     //   status: response.data.is_succeed
+      //     // };
+      //   })
+      // // );
+      // setQuestionStatuses(questionStatuses);
+      // console.log(questionStatuses)
+    };
 
     //search box changes
     const handleSearchQueryChange = (event) => {
       console.log("her "+ event.target.value)
       setSearchQuery(event.target.value);
+    };
+    const her = () => {
+      console.log(questionStatuses)
     };
 
    //table after change in search box
@@ -73,11 +121,26 @@ function TechnicalQuestions() {
                   <div className="question-topic" key={index}>{type.name}</div>
                 ))}</td>
       <td>{question.difficultyLevel}</td>
-      <td>##</td>
+      <td>
+      {questionStatuses.find((q) => q.question_id === question._id) ? (
+        questionStatuses.find((q) => q.question_id === question._id).status === 1 ? (
+          "solved wrong"
+        ) : questionStatuses.find((q) => q.question_id === question._id).status === 0 ? (
+          "not solved"
+        ) : questionStatuses.find((q) => q.question_id === question._id).status === 2 ? (
+          "solved correctly"
+        ) : (
+          "Loading..."
+        )
+      ) : (
+        "Loading..."
+      )}
+    </td>
     </tr>
     ))}
     </tbody>
   </table>
+  <button onClick={her}>her</button>
   </div>   
    </div>
   );

@@ -31,6 +31,7 @@ function OnlineCompiler() {
   const [title, setTitle] = useState('');
   const [examples, setExamples] = useState([]);
   const [solution, setSolution] = useState('');
+  const [isSucceed, setIsSucceed] = useState('');
   const [numberOfTests, setNumberOfTests] = useState(0);
   const getGPTFeedback = async () => {
     try {
@@ -66,17 +67,21 @@ function OnlineCompiler() {
         const res = await axios.post(`http://127.0.0.1:3001/compile/${language}`, { input: input, language: language, test_number: i },
          { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
-        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data.message }]);
+        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data.message}]);
       } catch (error) {
         setOutput(prevOutput => [...prevOutput, { case: i, output: error.response.data.message }]);
       }
     }
+    //save the sulotion in the db
+    // const res = await axios.post(`http://127.0.0.1:3001/save-solution`, { input: input, language: language, is_succeed: res.data.is_succeed},
+    //      { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
   }
+
   const my_initial_code = (lang) => {
 
     console.log(input);
     console.log(language);
-    axios.post('http://127.0.0.1:3001/language', { language: lang }).then(res => {
+    axios.post('http://127.0.0.1:3001/language', { language: lang },{ headers: { 'Authorization': `${localStorage.getItem('token')}` } }).then(res => {
       console.log(res.data);
       setInput(res.data.initial_code);
       setSolution(res.data.solution)

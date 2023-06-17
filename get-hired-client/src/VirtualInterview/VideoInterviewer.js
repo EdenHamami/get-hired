@@ -15,7 +15,7 @@ const VideoInterviewer = (props) => {
       controls: false, // Disable controls
       autoplay: true,
       preload: 'auto',
-      // poster: image,
+      poster: image,
     });
 
     player.on('ended', () => {

@@ -8,6 +8,7 @@ import './index.css';
 import Questions from './TechnicalQuestions/TechnicalQuestions';
 import OnlineCompiler from './TechnicalQuestions/OnlineCompiler';
 import SelectTopics from './TechnicalQuestions/SelectTopics';
+import MyExercises from './TechnicalQuestions/MyExercises';
 import SelectDifficulty from './TechnicalQuestions/SelectDifficulty';
 import TrialRecording from './VirtualInterview/TrialRecording';
 import VirtualInterview from './VirtualInterview/VirtualInterview';
@@ -30,6 +31,8 @@ import Navbar from './components/Navbar';
 import StartingPage from './components/StartingPage';
 import LoginPage from './LoginPage';
 import SavedJobs from './jobs/SavedJobs';
+import MyInterview from './VirtualInterview/MyInterview';
+
 import AboutUs from './AboutUs';
 import UserContext, { UserProvider } from './context/UserContext';
 import technicalQuestionsIntro from './TechnicalQuestions/technicalQuestionsIntro';
@@ -75,6 +78,8 @@ root.render(
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/SavedJobs" element={<SavedJobs />} />
+        <Route path="/MyInterview" element={<MyInterview />} />
+        <Route path="/MyExercises" element={<MyExercises />} />
         <Route path="/PortfolioProposals" element={<PortfolioProposals />} />
         <Route path="/CareerPlanner" element={<CareerPlanner />} />
         <Route path="/ResumePortfolio" element={<ResumePortfolio />} />
