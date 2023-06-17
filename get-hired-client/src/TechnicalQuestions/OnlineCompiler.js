@@ -66,9 +66,9 @@ function OnlineCompiler() {
         const res = await axios.post(`http://127.0.0.1:3001/compile/${language}`, { input: input, language: language, test_number: i },
          { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
-        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data }]);
+        setOutput(prevOutput => [...prevOutput, { case: i, output: res.data.message }]);
       } catch (error) {
-        console.log(error);
+        setOutput(prevOutput => [...prevOutput, { case: i, output: error.response.data.message }]);
       }
     }
   }
@@ -155,24 +155,24 @@ function OnlineCompiler() {
         <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
         <button onClick={handleJokeButtonClick}>Joke</button>
         <button onClick={handleButtonClickSolution}>
-          {showSolution ? 'Close Solution' : 'Open Solution'}
-        </button>
-        {showSolution && 
-          <AceEditor
-            mode="javascript"
-            theme="monokai"
-            value={solution}
-            name="code-editor"
-            readOnly={true} // Set readOnly prop to true
-            editorProps={{ $blockScrolling: true }}
-            style={{
-              border: '1px solid black',
-              borderRadius: '5px',
-              height: '350px', // adjust this to your preferred height
-              fontSize: '16px',
-            }}
-          />
-        }
+        {showSolution ? 'Close Solution' : 'Open Solution'}
+      </button>
+      {showSolution && 
+        <AceEditor
+          mode="javascript"
+          theme="monokai"
+          value={solution}
+          name="code-editor"
+          readOnly={true} // Set readOnly prop to true
+          editorProps={{ $blockScrolling: true }}
+          style={{
+            border: '1px solid black',
+            borderRadius: '5px',
+            height: '350px', // adjust this to your preferred height
+            fontSize: '16px',
+          }}
+        />
+      }
 
       </div>
     </div>

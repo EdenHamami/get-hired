@@ -16,9 +16,7 @@ const UserProvider = ({ children }) => {
       if (r.status === 200) {
         const d = await r.json();
         const user_name = d["user_name"]
-        console.log(user_name)
         setUser({ ...user, username: user_name, isLoggedIn:true })
-        //console.log(d)
       }
       else{
         setUser({ ...user, username: 'Guest', isLoggedIn:false })

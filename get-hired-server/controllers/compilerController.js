@@ -49,10 +49,10 @@ const save_to_db = (question_id, solution, language, is_succeed) => {
 
 function results(test_output, stdout, test_input, is_succeed){
   if (test_output == stdout){
-    return {result_to_user: "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout, is_succeed: is_succeed}
+    return {result_to_user: "Your code is correct\ninput: "+ test_input + "\noutput: " + stdout, is_succeed: is_succeed, state: 'correct'}
   }else{
     is_succeed = false
-    return {result_to_user: 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout, is_succeed: is_succeed}
+    return {result_to_user: 'Your code is incorrect, try again\ninput: '+ test_input + '\nthe correct output: ' + test_output + '\nyour output: ' + stdout, is_succeed: is_succeed, state: 'incorrect'}
   }
 }
 
@@ -82,7 +82,7 @@ app.post('/topics',async (req, res) => {
 
 
 //get the question
-let question;
+let question = null;
 app.post('/question/:problemId',async (req, res) => {
   // PracticeProblem.find({}, function(err, practiceProblems) {
   //   if (err) {
@@ -118,7 +118,6 @@ app.post('/language',async (req, res) => {
 
 
 app.post('/compile/python', verifyToken, (req, res) => {
-
   // get the code from the user
   const { input , language,test_number, } = req.body;
   const { exec, execSync } = require('child_process');
@@ -127,18 +126,17 @@ app.post('/compile/python', verifyToken, (req, res) => {
   if (test_number == 0){
     is_succeed = true
   }
-
+  console.log("her00: " + question.title)
   const main_code = question[language].main;
   const header_code = question[language].header;
-
   const test_input = question.test[test_number].input
   const test_output = question.test[test_number].output
-
   text_file = header_code + input + main_code
   // add the code to the file 
     fs.writeFileSync('./temp/solution.py', text_file, (err) => {
       if (err) {
         console.error(err);
+        res.status(200)
       }
     });
 
@@ -159,7 +157,7 @@ app.post('/compile/python', verifyToken, (req, res) => {
             formattedErrors.push(errorMessage.trim());
           }
         }
-        res.send(formattedErrors.join('\n'));
+        res.status(400).json({state: 'error', message: formattedErrors.join('\n')});
         try {
           fs.unlinkSync('./temp/solution.py');
         } catch {
@@ -171,7 +169,9 @@ app.post('/compile/python', verifyToken, (req, res) => {
         result = results(test_output, stdout, test_input, is_succeed)
         result_to_user = result.result_to_user
         is_succeed = result.is_succeed
-        res.send(result_to_user);
+        state = result.state
+        
+        return res.status(200).json({state: state, message: result_to_user});
       }
 
       // in the last test- check if passed all the tests
@@ -224,7 +224,7 @@ app.post('/compile/cpp', verifyToken, (req, res) => {
         }
       }
       errorMessages.push(i-1 + " errors");
-      res.send(errorMessages.join('\n'));
+      res.status(400).json({state: 'error', message: errorMessages.join('\n')});
       try{
         fs.unlinkSync('./temp/solution.cpp');
       }catch{}
@@ -240,7 +240,8 @@ app.post('/compile/cpp', verifyToken, (req, res) => {
         result = results(new_test_output, stdout, test_input, is_succeed)
         result_to_user = result.result_to_user
         is_succeed = result.is_succeed
-        res.send(result_to_user);
+        state = result.state
+        return res.status(200).json({state: state, message: result_to_user});
     }
      // in the last test- check if passed all the tests
      if(test_number == question.test.length-1){
@@ -294,7 +295,7 @@ app.post('/compile/java', verifyToken, (req, res) => {
         }
       }
       errorMessages.push(i-1 + " errors");
-      res.send(errorMessages.join('\n'));
+      res.status(400).json({state: 'error', message: errorMessages.join('\n')});
       try {
         fs.unlinkSync('./temp/Main.java');
       } catch {}
@@ -311,7 +312,8 @@ app.post('/compile/java', verifyToken, (req, res) => {
       result = results(new_test_output, stdout, test_input, is_succeed)
       result_to_user = result.result_to_user
       is_succeed = result.is_succeed
-      res.send(result_to_user);
+      state = result.state
+      return res.status(200).json({state: state, message: result_to_user});
     }
 
     // in the last test- check if passed all the tests

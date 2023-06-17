@@ -37,6 +37,8 @@ function CareerPlanner() {
         navigate('/career-planner-result', { state: { message: message } });
     };
 
+ 
+
     return (
         <div className="career-planner-container">
             <div className="career-planner-container-image"></div>
