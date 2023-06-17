@@ -81,9 +81,6 @@ const RightSide = () => {
         <div className="resume">{renderTemplate()}</div>
       </div>
 <DesignNavbar className="designNav"></DesignNavbar>
-      {/* <button className="btn btn-primary" onClick={handleDownload}>
-        Download as PDF
-      </button> */}
     </div>
   );
 };

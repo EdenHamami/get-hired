@@ -39,6 +39,7 @@ import ResumePortfolio from "./ResumePortfolio"
 import TechnicalPersonal from "./TechnicalPersonal"
 import CareerPlannerResult from "./CareerPlanner/CareerPlannerResult"
 import PortfolioProposalsResult from "./PortfolioProposals/PortfolioProposalsResult" 
+import ScreenRecorder from "./ScreenRecorder"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
@@ -81,6 +82,7 @@ root.render(
         <Route path="/PortfolioProposalsResult" element={<PortfolioProposalsResult />} />
         <Route path="/career-planner-result" element={<CareerPlannerResult />} />
         <Route path="/LastPage" element={<LastPage />} />
+        <Route path="/ScreenRecorder" element={<ScreenRecorder />} />
 
       </Routes>
     </ResumeProvider>
