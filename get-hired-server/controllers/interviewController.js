@@ -115,6 +115,7 @@ module.exports = function configureServer(app) {
     await user.save();
     return res.status(200).json(fileId);
   });
+
   app.post('/get-video', verifyToken, async (req, res) => {
 
     try{
@@ -127,4 +128,5 @@ module.exports = function configureServer(app) {
     interviewDriveLink = user.interviewDriveLink;
     return res.status(200).json(interviewDriveLink);
   });
+  
 };

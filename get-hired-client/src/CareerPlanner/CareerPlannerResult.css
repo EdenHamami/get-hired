@@ -16,6 +16,13 @@
     margin-bottom: 20px;
     text-align: center;
 }
+.title {
+    font-size: 2.5em;
+    color:#5754b7; /* Dark gray color for the title */
+    text-shadow: 2px 2px 4px #bbb; /* Slight shadow for the title to make it pop */
+    margin-bottom: 20px;
+    text-align: center;
+}
 
 .career-planner-result-container-image {
     width: 40%;
@@ -25,6 +32,16 @@
 
 .career-planner-result-content {
     width: 60%;
+    overflow-y: auto;
+    font-size: 1.2em; /* Increased the font size */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 30px 5px rgba(0,0,0,0.2); /* Added a shadow effect */
+    padding: 20px;
+    background-color: #f5f5f5; /* Changed the background color to a light gray */
+    border-radius: 15px;
     overflow-y: auto;
     font-size: 1.2em; /* Increased the font size */
     display: flex;
