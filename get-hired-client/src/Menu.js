@@ -68,7 +68,7 @@ function Menu() {
      
             <button onClick={navigate_search_jobs} className="menu-button">
               <FontAwesomeIcon icon={faSearch} className="icon" />
-              <span>Search for vacancies</span>
+              <span>Search for jobs</span>
             </button>
             <button onClick={navigate_job_interview} className="menu-button">
               <FontAwesomeIcon icon={faVideo} className="icon" />
