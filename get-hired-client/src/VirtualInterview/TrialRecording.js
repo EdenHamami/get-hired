@@ -60,7 +60,7 @@ const TrialRecording = () => {
   return (
     <div className="main-container">
       <div className="video-container">
-        <VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=1VPalfftzbruc3QBcC8huCaSxjGF-fdT4"  />
+        <VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=1N5hGZpKvepxOSxd9VHThsWEsh3hZczU3"  />
       </div>
       <div className="text-container">
 
