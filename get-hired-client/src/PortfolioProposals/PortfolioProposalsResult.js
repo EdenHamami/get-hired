@@ -31,7 +31,11 @@ function PortfolioProposalsResult() {
         fetchData();
       }, []);
       const lines = answer.split('\n').map((line, i) => <p key={i}>{line}</p>);
-    return (
+   
+   
+   
+   
+      return (
         <div className="PortfolioProposalsResult-container">
         {isLoading && (
             <div className="loading-container">
@@ -40,6 +44,7 @@ function PortfolioProposalsResult() {
           )}
         <div className="PortfolioProposalsResult-container-image"></div>
         <div className="PortfolioProposalsResult-container-content">
+        <h1 className="title">We found the perfect project for you!</h1>
 
             
         {lines}

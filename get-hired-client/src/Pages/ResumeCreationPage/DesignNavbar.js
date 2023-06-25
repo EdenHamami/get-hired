@@ -6,20 +6,32 @@ import design2 from '../../images/design2.jpg';
 import design3 from '../../images/design3.jpg';
 import './DesignNavbar.css';
 import html2pdf from 'html2pdf.js';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+;
 
 function DesignNavbar() {
+//We define the functional component 'DesignNavbar' 
+//and use the useContext Hook to extract the current design options and template ID from the global state.
   const { designOptions, setDesignOptions } = useContext(ResumeContext);
   const { templateId, setTemplateId } = useContext(ResumeContext);
 
+/*
+These state variables are used to control the visibility of different interactive elements in the design toolbar. 
+The useState Hook initializes these to false, meaning these elements are hidden by default.
+*/
   const [isTemplatesVisible, setIsTemplatesVisible] = useState(false);
   const [isFontVisible, setIsFontVisible] = useState(false);
   const [isColorVisible, setIsColorVisible] = useState(false);
   const [isFontColorVisible, setIsFontColorVisible] = useState(false);
-  const [isFontSizeVisible, setIsFontSizeVisible] = useState(false);
+  // const [isFontSizeVisible, setIsFontSizeVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+
+  /*
+  
+  We define various event handler functions to respond to user interactions.
+   For example, 'handleBackgroundColorChange' updates the designOptions object with the new background color selected by the user.
+   This process repeats for other design features such as font and font color. */
   const handleBackgroundColorChange = (e) => {
     const newResumeStyle = { ...designOptions, backgroundColor: e.target.value };
     setDesignOptions(newResumeStyle);
@@ -35,10 +47,6 @@ function DesignNavbar() {
     setDesignOptions(newResumeStyle);
   };
 
-  const handleFontSizeChange = (e) => {
-    const newResumeStyle = { ...designOptions, fontSize: e.target.value };
-    setDesignOptions(newResumeStyle);
-  };
 
   const handleTemplateChange = (e) => {
     setTemplateId(parseInt(e.target.value));
@@ -61,26 +69,20 @@ function DesignNavbar() {
     setIsFontColorVisible(!isFontColorVisible);
   };
 
-  const toggleFontSizeVisibility = () => {
-    setIsFontSizeVisible(!isFontSizeVisible);
-  };
+  // const toggleFontSizeVisibility = () => {
+  //   setIsFontSizeVisible(!isFontSizeVisible);
+  // };
 
   const toggleTemplatesVisibility = () => {
     setIsTemplatesVisible(!isTemplatesVisible);
   };
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+ 
   
   const handleDownload = () => {
-    const resumeElement = document.querySelector('.resume');
-    const clone = resumeElement.cloneNode(true);
-    clone.style.transform = '';
-
+    const resumeElement = document.querySelector('.resume'); //Selection of the Resume Element
+    const clone = resumeElement.cloneNode(true);    //Cloning the Resume Element-deep clone, including all the child nodes
+    clone.style.transform = ''; //ensure that it retains its original dimensions during the conversion process.
+//Options for PDF Conversion:
     const opt = {
       margin: [0, 0, 0, 0],
       filename: 'resume.pdf',
@@ -88,8 +90,9 @@ function DesignNavbar() {
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
+    html2pdf().set(opt).from(clone).save();//Conversion to PDF
+  };
 
-    html2pdf().set(opt).from(clone).save();  };
 
   return (
     <div className="designNavbar">
@@ -106,7 +109,7 @@ function DesignNavbar() {
       <div className="designNavbar-item">
         <button onClick={toggleFontVisibility}>
           <BsFonts />
-           Font
+           Font Family
         </button>
         {isFontVisible && (
           <select name="font" value={designOptions.fontFamily} onChange={handleFontChange} className="designNavbar-option">
@@ -131,7 +134,7 @@ function DesignNavbar() {
           <input type="color" value={designOptions.fontColor} onChange={handleFontColorChange} className="designNavbar-option"/>
         )}
       </div>
-
+{/* 
       <div className="designNavbar-item">
         <button onClick={toggleFontSizeVisibility}>
           <BsFonts />
@@ -140,7 +143,7 @@ function DesignNavbar() {
         {isFontSizeVisible && (
           <input type="number" value={designOptions.fontSize} onChange={handleFontSizeChange} min="1" max="100" className="designNavbar-option"/>
         )}
-      </div>
+      </div> */}
 
       <div className="designNavbar-item">
         <button onClick={toggleTemplatesVisibility}>
@@ -166,7 +169,7 @@ function DesignNavbar() {
       </div>
 
       <div className="designNavbar-item">
-        <button className='Download-btn' onClick={handleDownload}>
+      <button className='Download-btn' onClick={handleDownload}>
           <BsDownload />
           Download as pdf
         </button>
