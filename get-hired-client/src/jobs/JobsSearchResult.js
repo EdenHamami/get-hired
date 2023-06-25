@@ -94,11 +94,7 @@ function JobsSearchResult() {
           </button>
           </div>
         </div>
-         <div className="saved-jobs">
-          <button onClick={hanleSelectSavedJob} className="liked-jobs-button">
-            Jobs I liked<i className="bi bi-heart"></i>
-          </button>
-        </div> 
+    
         <div className="job-results">
           <ul id="listg" className="list-group">
             {Jobs}

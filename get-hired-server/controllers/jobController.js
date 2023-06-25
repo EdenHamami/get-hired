@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const secretKey = 'abcde12345eauofn213-e3i9rfnwjfwf';
+const google_api_key = "407730da12c009e6c976a0b294a56048619e1e788b76bad9178e3a8fb34a892b";
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
@@ -25,12 +26,11 @@ const verifyToken = (req, res, next) => {
 
 module.exports = function configureServer(app) {
   app.post('/jobSearch', verifyToken, async (req, res) => {
-    const userId = req.userId;
     const { jobdescription, joblocation } = req.body;
     const SerpApi = require('google-search-results-nodejs');
-    const query = jobdescription.toString() + ' ' + joblocation.toString()
-    console.log(query);
-    const search = new SerpApi.GoogleSearch("407730da12c009e6c976a0b294a56048619e1e788b76bad9178e3a8fb34a892b");
+    const query = jobdescription.toString() + ' ' + joblocation.toString(google_api_key)
+    
+    const search = new SerpApi.GoogleSearch();
     const params = {
       engine: "google_jobs",
       q: query,
@@ -40,7 +40,6 @@ module.exports = function configureServer(app) {
       const jsonContent = JSON.stringify(data["jobs_results"]);
       res.end(jsonContent);
 
-
     };
     search.json(params, callback);
   });
@@ -48,8 +47,6 @@ module.exports = function configureServer(app) {
 
 
   app.post('/saveJob', verifyToken, async (req, res) => {
-    // console.log("savejob/ : req.user[0]",req.user[0] )
-    // console.log("id:",req.user[0]._id)
     try{
     var user = await User.findOne({ _id: req.user[0]._id });
     } catch{
