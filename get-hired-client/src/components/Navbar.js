@@ -49,9 +49,9 @@ const Navbar = () => {
         </div>
         {dropdownVisible && user.isLoggedIn && (
           <div className="dropdown" onBlur={handleClickOutside} tabIndex="0">
-            <a href="/MyCv" className="dropdown-item">My CV</a>
-            <a href="/SavedJobs" className="dropdown-item">The Jobs I Liked</a>
-            <a href="/MyInterview" className="dropdown-item">My Interview</a>
+            <a href="/MyCv" className="dropdown-item">My Resume</a>
+            <a href="/SavedJobs" className="dropdown-item">Jobs I Liked</a>
+            <a href="/MyInterview" className="dropdown-item">Last Interview</a>
             <a href="/MyExercises" className="dropdown-item">My Exercises</a>
             <a onClick={log_out} className="dropdown-item">Log Out</a>
           </div>
