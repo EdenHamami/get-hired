@@ -86,9 +86,6 @@ function TechnicalQuestions() {
       console.log("her "+ event.target.value)
       setSearchQuery(event.target.value);
     };
-    const her = () => {
-      console.log(questionStatuses)
-    };
 
    //table after change in search box
     useEffect(() => {
@@ -140,7 +137,6 @@ function TechnicalQuestions() {
     ))}
     </tbody>
   </table>
-  <button onClick={her}>her</button>
   </div>   
    </div>
   );

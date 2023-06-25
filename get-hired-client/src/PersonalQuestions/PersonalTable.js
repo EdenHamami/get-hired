@@ -56,14 +56,12 @@ function PersonalTable() {
   <thead class="thead-dark">
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
   {filteredQuestions.map((question) => (
     <tr>
     <th scope="row" className="question-name"><Link to="/personal_question" className="question-name" state={question}>{question.name}</Link></th>
-    <td>##</td>
   </tr>
   ))}
   </tbody>

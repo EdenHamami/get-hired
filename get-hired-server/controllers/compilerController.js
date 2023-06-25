@@ -134,13 +134,17 @@ app.post('/question/:problemId',async (req, res) => {
   //   }
   // });
   const problemId = req.params.problemId;
-  question = await PracticeProblem.findOne({ _id:problemId });         
+  question = await PracticeProblem.findOne({ _id: problemId })
+  .populate('types', 'name');       
 
+  const typeNames = question.types.map(type => type.name);
   const data = {
     title: question.title,
     content: question.content,
     examples: question.examples,
-    number_of_tests: question.test.length
+    number_of_tests: question.test.length,
+    difficultyLevel: question.difficultyLevel,
+    types: typeNames /// her i dont want to send the IDs i want to senf the names of the types
   };
   res.send(data);
 });
@@ -217,7 +221,7 @@ app.post('/compile/python', verifyToken, (req, res) => {
         }
         res.status(400).json({state: 'error', message: formattedErrors.join('\n')});
         try {
-          fs.unlinkSync('./temp/solution.py');
+          fs.unlinkSync('./temp/solution.py'); // לתקןןןןן
         } catch {
           return;
         }
