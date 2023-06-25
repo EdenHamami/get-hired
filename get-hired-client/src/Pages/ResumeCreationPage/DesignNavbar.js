@@ -69,9 +69,7 @@ The useState Hook initializes these to false, meaning these elements are hidden 
     setIsFontColorVisible(!isFontColorVisible);
   };
 
-  // const toggleFontSizeVisibility = () => {
-  //   setIsFontSizeVisible(!isFontSizeVisible);
-  // };
+
 
   const toggleTemplatesVisibility = () => {
     setIsTemplatesVisible(!isTemplatesVisible);
@@ -134,17 +132,6 @@ The useState Hook initializes these to false, meaning these elements are hidden 
           <input type="color" value={designOptions.fontColor} onChange={handleFontColorChange} className="designNavbar-option"/>
         )}
       </div>
-{/* 
-      <div className="designNavbar-item">
-        <button onClick={toggleFontSizeVisibility}>
-          <BsFonts />
-        Font Size
-        </button>
-        {isFontSizeVisible && (
-          <input type="number" value={designOptions.fontSize} onChange={handleFontSizeChange} min="1" max="100" className="designNavbar-option"/>
-        )}
-      </div> */}
-
       <div className="designNavbar-item">
         <button onClick={toggleTemplatesVisibility}>
           <BsImages />

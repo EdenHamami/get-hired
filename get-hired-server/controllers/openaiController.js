@@ -6,6 +6,8 @@ module.exports = function configureServer(app) {
     const { question } = req.body;
     console.log(question)
     const configuration = new Configuration({
+      organization: "org-yFQucKMEr6u0nULdEMcYtB6v",
+      apiKey: "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",
 
     });
     const openai = new OpenAIApi(configuration);

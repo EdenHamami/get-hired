@@ -113,6 +113,9 @@ function OnlineCompiler() {
             </li>
           ))}
         </ul>
+        <button  className="btn btn-primary" onClick={handleButtonClickSolution}>
+        {showSolution ? 'Close Solution' : 'Open Solution'}
+      </button>
       </div>
       <div className="compiler-right-content">
 
@@ -157,11 +160,7 @@ function OnlineCompiler() {
           ))}
         </ul>
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
-        <button id="gpt-feedback" className="compiler-submit-button" onClick={getGPTFeedback}>GPT Feedback</button>
-        <button onClick={handleJokeButtonClick}>Joke</button>
-        <button onClick={handleButtonClickSolution}>
-        {showSolution ? 'Close Solution' : 'Open Solution'}
-      </button>
+   
       {showSolution && 
         <AceEditor
           mode="javascript"

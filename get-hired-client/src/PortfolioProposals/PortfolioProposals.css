@@ -6,7 +6,6 @@
     height: 90vh;  /* sets the height to 100% of the viewport height */
     max-height: 90vh;  /* ensures that the height doesn't exceed 100% of the viewport height */
     box-sizing: border-box;
-    overflow: hidden;  /* disables scrolling for the whole container */
 }
 
 .portfolio-proposals-container-image {

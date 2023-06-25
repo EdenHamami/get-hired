@@ -8,6 +8,8 @@ import './VirtualInterview.css';
 import VideoCamera from './VideoCamera';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import Modal from 'react-modal';
+
 import './VirtualInterview.css';
 import InterviewNavbar from './InterviewNavbar';
 const VirtualInterview = () => {
@@ -22,13 +24,14 @@ const VirtualInterview = () => {
   const [isFinish, setIsFinish] =  useState(false);
   const [isStoped, setIsStoped] =  useState(false);
   const [modalIsOpen,setIsOpen] = useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
-
   function closeModal(){
     setIsOpen(false);
+    navigate('/Menu');
   }
+
+  const handleAlert = () => {
+    setIsOpen(true);
+  };
   const handleNext = async () => {
     if (currentIndex === interviewQuestions.length - 1) {
       if (!isStoped) {
@@ -67,14 +70,14 @@ const VirtualInterview = () => {
     }
   }, [isFinish]);
 
-  const handleAlert = () => {
-    const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
-    if (result) {
-      navigate('/Menu');
-    } 
-    else {
-    }
-  };
+  // const handleAlert = () => {
+  //   const result = window.confirm("Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu. Are you sure you want to proceed?");
+  //   if (result) {
+  //     navigate('/Menu');
+  //   } 
+  //   else {
+  //   }
+  // };
   const videoRef = useRef(null);
   useEffect(() => {
     const player = videojs(videoRef.current, {
@@ -187,6 +190,34 @@ const VirtualInterview = () => {
           isRecording={isRecording}
         />
       </div>
+      <Modal 
+  isOpen={modalIsOpen}
+  onRequestClose={closeModal}
+  style={{
+    overlay: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    content: {
+      position: 'relative',
+      width: '40%', // reduce the width
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      backgroundColor: '#fff',
+      boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+      textAlign: 'center',
+      color: 'black'
+    }
+  }}
+  contentLabel="Exit Confirmation Modal"
+  ariaHideApp={false}
+>
+  <h2 style={{ fontSize: '18px' }}>Just like a real-life interview, you can't stop midway in this virtual interview. If you exit now, your recording will be discarded and you will be redirected to the main menu.<br/> Are you sure you want to proceed?</h2>
+  <button onClick={closeModal} style={{ backgroundColor: 'purple', color: 'white', padding: '10px 20px', borderRadius: '5px', margin: '10px' }}>Yes, I'm sure</button>
+  <button onClick={() => setIsOpen(false)} style={{ backgroundColor: 'grey', color: 'white', padding: '10px 20px', borderRadius: '5px', margin: '10px' }}>Back to the interview</button>
+</Modal>
     </div>
   );
 };
