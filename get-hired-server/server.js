@@ -10,7 +10,7 @@ const jobsController = require('./controllers/jobController')
 const userController = require('./controllers/userController')
 const openaiController = require('./controllers/openaiController')
 const interviewController = require('./controllers/interviewController')
-
+const cvController = require('./controllers/cvController')
 
 const app = express();
 // allow the client to speak to the server 
@@ -23,7 +23,8 @@ personalqServer(app);
 userController(app);
 jobsController(app);
 interviewController(app);
-openaiController(app)
+openaiController(app);
+cvController(app);
 const port = 3001;
 mongoose.set('strictQuery', true);
 

@@ -1,4 +1,5 @@
 import React, { useContext,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import { ResumeContext } from "../../context/ResumeContext";
 import Template1 from "../../templates/Template1";
@@ -9,7 +10,7 @@ import "../../styles/RightSide.css";
 import Button from '../../components/Button';
 import DesignNavbar from './DesignNavbar'; 
 import { AccordionSummary } from '@material-ui/core';
-const RightSide = () => {
+const MyCv = () => {
   
   const {
     templateId,
@@ -63,6 +64,9 @@ const RightSide = () => {
 
     html2pdf().set(opt).from(clone).save();
   };
+  const edit = () => {
+  
+  };
 
   const renderTemplate = () => {
     switch (templateId) {
@@ -77,34 +81,22 @@ const RightSide = () => {
         return <div>Please select a template</div>;
     }
   };
-  useEffect(() => {
-    // Function to save the data
-    const saveDataInterval = async () => {
-        await saveData();
-    };
-
-    // Call saveDataInterval every 5 seconds
-    const intervalId = setInterval(saveDataInterval, 5000);
-
-    // Cleanup
-    return () => {
-        // Clear the interval when the component is unmounted or dependencies change
-        clearInterval(intervalId);
-    }
-}, [personalInfo, workExperience, education, skills,summary]);
-
+ 
 
   return (
     <div className="right-side">
       <div className="resume-preview">
         <div className="resume">{renderTemplate()}</div>
       </div>
-<DesignNavbar className="designNav"></DesignNavbar>
-      {/* <button className="btn btn-primary" onClick={handleDownload}>
+   
+       <button className="btn btn-primary" onClick={handleDownload}>
         Download as PDF
-      </button> */}
+      </button> 
+      <Link to="/DesignSelectionPage">
+      <button className="btn btn-primary">Edit your Resume</button>
+      </Link>
     </div>
   );
 };
 
-export default RightSide;
+export default MyCv;

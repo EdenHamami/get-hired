@@ -22,7 +22,6 @@ function PortfolioProposals() {
             setProficiency([...proficiency, value]);
         }
     };
-
   
     const handleSubmit = (e) => {
         e.preventDefault();
