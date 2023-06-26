@@ -20,16 +20,11 @@ function MyExercises() {
   useEffect(() => {
     axios.post("http://127.0.0.1:3001/technical-questions").then((response) => {
       setQuestions(response.data);
-      setFilteredQuestions(response.data);
-      // fetchQuestionStatuses();
     });
-
   }, []);
 
   useEffect(() => {
     fetchQuestionStatuses();
-    console.log(questions.length)
-
   }, [questions]);
 
   const fetchQuestionStatuses = async () => {
@@ -41,8 +36,10 @@ function MyExercises() {
           { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         if (res.data.message == false) {
           setQuestionStatuses(prevStatuses => [...prevStatuses, { question_id: questions[i]._id, status: 1 }]);
+          setFilteredQuestions(prevQuestions => [...prevQuestions, questions[i]])
         } else {
           setQuestionStatuses(prevStatuses => [...prevStatuses, { question_id: questions[i]._id, status: 2 }]);
+          setFilteredQuestions(prevQuestions => [...prevQuestions, questions[i]])
         }
       } catch (error) {
         setQuestionStatuses(prevStatuses => [...prevStatuses, { question_id: questions[i]._id, status: 0 }]);
