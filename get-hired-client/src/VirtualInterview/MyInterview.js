@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import React, { useRef, useState, useEffect } from 'react';
 import videojs from 'video.js';
 import VideoInterviewer from "./VideoInterviewer"
+import "./MyInterview.css"
 
 function MyInterview() {
   const location = useLocation();
@@ -53,11 +54,15 @@ function MyInterview() {
   }, []);
   return (
     <div>
-        <div className="job-results">
+        <div className="my-interview">
+        <div>
         <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={myInterview} type="video/mp4" />
-        <button className='btn btn-primary' onClick={handleDownload}>
+        </div>
+        <div>
+        <button className='btn btn-primary button' onClick={handleDownload}>
             Download Video
           </button>
+          </div>
         </div>
      
     </div>
