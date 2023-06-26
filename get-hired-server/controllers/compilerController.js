@@ -135,8 +135,6 @@ app.post('/question/:problemId',async (req, res) => {
   // });
   const problemId = req.params.problemId;
   question = await PracticeProblem.findOne({ _id: problemId });       
-
-  const typeNames = question.types.map(type => type.name);
   const data = {
     title: question.title,
     content: question.content,
