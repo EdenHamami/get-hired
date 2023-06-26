@@ -76,6 +76,11 @@ function results(test_output, stdout, test_input, is_succeed){
   }
 }
 
+const return_question = async (problemId)=> {
+  const question = await PracticeProblem.findOne({ _id: problemId });       
+  return question;
+};
+
 module.exports = function configureServer(app){
 
   app.post('/technical-questions', async (req, res) => {
@@ -124,17 +129,10 @@ app.post('/topics',async (req, res) => {
 
 
 //get the question
-let question = null;
 app.post('/question/:problemId',async (req, res) => {
-  // PracticeProblem.find({}, function(err, practiceProblems) {
-  //   if (err) {
-  //     console.error(err);
-  //   } else {
-  //     console.log(practiceProblems);
-  //   }
-  // });
   const problemId = req.params.problemId;
-  question = await PracticeProblem.findOne({ _id: problemId });       
+  console.log("wwwwwww: "+ problemId)
+  const question = await return_question(problemId)
   const data = {
     title: question.title,
     content: question.content,
@@ -146,7 +144,9 @@ app.post('/question/:problemId',async (req, res) => {
 
 let is_succeed = true
 //send the initial code by the lang
-app.post('/language', verifyToken ,async (req, res) => {
+app.post('/language/:problemId', verifyToken ,async (req, res) => {
+  const problemId = req.params.problemId;
+  const question = await return_question(problemId)
   const {language} = req.body;
   const data = {
     initial_code: question[language].initial_code,
@@ -174,7 +174,9 @@ app.post('/language', verifyToken ,async (req, res) => {
 
 
 
-app.post('/compile/python', verifyToken, (req, res) => {
+app.post('/compile/python/:problemId', verifyToken,async (req, res) => {
+  const problemId = req.params.problemId;
+  const question = await return_question(problemId)
   // get the code from the user
   const { input , language,test_number, } = req.body;
   const { exec, execSync } = require('child_process');
@@ -240,7 +242,9 @@ app.post('/compile/python', verifyToken, (req, res) => {
 })
 
 
-app.post('/compile/cpp', verifyToken, (req, res) => {
+app.post('/compile/cpp/:problemId', verifyToken, async(req, res) => {
+  const problemId = req.params.problemId;
+  const question = await return_question(problemId)
   // get the code from the user
   const { input , language,test_number, } = req.body;
   const { exec, execSync } = require('child_process');
@@ -310,8 +314,9 @@ app.post('/compile/cpp', verifyToken, (req, res) => {
 })
 
 // post requset to compile
-app.post('/compile/java', verifyToken, (req, res) => {
-
+app.post('/compile/java/:problemId', verifyToken, async(req, res) => {
+  const problemId = req.params.problemId;
+  const question = await return_question(problemId)
   // get the code from the user
   const { input , language,test_number, } = req.body;
   const { exec, execSync } = require('child_process');

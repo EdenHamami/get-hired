@@ -9,6 +9,7 @@ function OnlineCompiler() {
 
   const location = useLocation();
   const data = location.state;
+  const problemId = data._id;
 
   const options = [
     { value: '', text: '--Choose a language--' },
@@ -28,7 +29,7 @@ function OnlineCompiler() {
 
   useEffect(() => {
 
-    const problemId = data._id; // Replace with the actual problemId
+     // Replace with the actual problemId
     axios.post(`http://127.0.0.1:3001/question/${problemId}`).then(res => {
       console.log(res.data)
       setQuestion(res.data.content);
@@ -51,7 +52,7 @@ function OnlineCompiler() {
     setOutput([])
     for (let i = 0; i < numberOfTests; i++) {
       try {
-        const res = await axios.post(`http://127.0.0.1:3001/compile/${language}`, { input: input, language: language, test_number: i },
+        const res = await axios.post(`http://127.0.0.1:3001/compile/${language}/${problemId}`, { input: input, language: language, test_number: i },
          { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
         setOutput(prevOutput => [...prevOutput, { case: i, output: res.data.message}]);
@@ -66,7 +67,7 @@ function OnlineCompiler() {
   const my_initial_code = (lang) => {
     console.log(input);
     console.log(language);
-    axios.post('http://127.0.0.1:3001/language', { language: lang },{ headers: { 'Authorization': `${localStorage.getItem('token')}` } }).then(res => {
+    axios.post(`http://127.0.0.1:3001/language/${problemId}`, { language: lang },{ headers: { 'Authorization': `${localStorage.getItem('token')}` } }).then(res => {
       console.log(res.data);
       setInput(res.data.initial_code);
       setSolution(res.data.solution)
