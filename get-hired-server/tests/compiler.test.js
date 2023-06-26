@@ -46,10 +46,10 @@ jest.mock('../models/practiceProblem', () => ({
 }));
 
 //correct answer
-describe('POST /compile/python', () => {
+describe('POST /compile/python/sampleId', () => {
   test('it should require authorization', async () => {
     const res = await request(app)
-      .post('/compile/python')
+      .post('/compile/python/sampleId')
       .send({ input: "def add_two(num):\n return num + 2", language: 'python', test_number: 0 });
 
     expect(res.statusCode).toEqual(401);
@@ -63,7 +63,7 @@ describe('POST /compile/python', () => {
 
 
     const res = await request(app)
-      .post('/compile/python')
+      .post('/compile/python/sampleId')
       .set('Authorization', valid_token)
       .send({ input: "def add_two(num):\n return num + 2", language: 'python', test_number: 0 });
 
@@ -74,10 +74,10 @@ describe('POST /compile/python', () => {
 });
 
 //incorrect answer
-describe('POST /compile/cpp', () => {
+describe('POST /compile/cpp/sampleId', () => {
   test('it should require authorization', async () => {
     const res = await request(app)
-      .post('/compile/cpp')
+      .post('/compile/cpp/sampleId')
       .send({ input: "def add_two(num):\n return num + 2", language: 'cpp', test_number: 0 });
 
     expect(res.statusCode).toEqual(401);
@@ -91,7 +91,7 @@ describe('POST /compile/cpp', () => {
 
 
     const res = await request(app)
-      .post('/compile/cpp')
+      .post('/compile/cpp/sampleId')
       .set('Authorization', valid_token)
       // +3 incorrent
       .send({ input: "int addTwo(int num) {\nint result = num + 3;\nreturn result;\n} ", language: 'cpp', test_number: 0 });// +3 incorrent
@@ -103,10 +103,10 @@ describe('POST /compile/cpp', () => {
 });
 
 //error answer
-describe('POST /compile/java', () => {
+describe('POST /compile/java/sampleId', () => {
   test('it should require authorization', async () => {
     const res = await request(app)
-      .post('/compile/java')
+      .post('/compile/java/sampleId')
       .send({ input: "def add_two(num):\n return num + 2", language: 'java', test_number: 0 });
 
     expect(res.statusCode).toEqual(401);
@@ -120,7 +120,7 @@ describe('POST /compile/java', () => {
 
     
     const res = await request(app)
-      .post('/compile/java')
+      .post('/compile/java/sampleId')
       .set('Authorization', valid_token)
       //missing } at the end of the input
       .send({ input: "class Solution{\npublic static int addTwo(int num) {\nint result = num + 2;\nreturn result;\n}\n", language: 'java', test_number: 0 });// +3 incorrent
