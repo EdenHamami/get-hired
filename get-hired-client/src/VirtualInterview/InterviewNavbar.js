@@ -12,9 +12,7 @@ const InterviewNavbar = ({ currentIndex, questionsLength, handleNext, nextButton
     <Navbar bg="dark" variant="dark" className="justify-content-between interview-navbar">
       <Nav>
         <Button variant="danger" className="rounded-pill mr-2" onClick={handleAlert}>End</Button>
-        <Button variant="outline-light" className="rounded-circle" onClick={handleRecording}>
-          <FontAwesomeIcon icon={isRecording ? faVideo : faVideoSlash} />
-        </Button>
+
         <Timer />
       </Nav>
       <Nav className="question-indicators">

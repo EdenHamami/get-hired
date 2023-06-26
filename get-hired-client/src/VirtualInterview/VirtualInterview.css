@@ -53,3 +53,11 @@
   align-items: center;
 
 }
+
+.virtual-interview-page {
+  width: 100%;
+  min-height: 100vh; /* add this */
+  display: flex; /* add this */
+  flex-direction: column; /* add this */
+  justify-content: space-between; /* add this */
+}

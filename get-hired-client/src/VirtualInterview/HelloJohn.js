@@ -45,7 +45,7 @@ const HelloJohn = () => {
     <div className="main-container">
 
       <div className="video-container">
-        <VideoInterviewer className="john-video"  src="https://drive.google.com/uc?export=download&id=1E-Y97ASBjIZdGrPLIc7ePRomSCHZ3570"  />
+        <VideoInterviewer className="john-video"  src={require('./videos-interviewer/page1.mp4')}  />
       </div>
 
       <div className="text-container">

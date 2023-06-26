@@ -16,7 +16,6 @@ function OnlineCompiler() {
     { value: 'cpp', text: 'C++ 🍌' },
     { value: 'java', text: 'Java 🥝' },
   ];
-
   const [input, setInput] = useState('');
   const [output, setOutput] = useState([]);
   const [language, setLanguage] = useState('');
@@ -54,10 +53,8 @@ function OnlineCompiler() {
     console.log(input);
     console.log(language);
     setOutput([])
-
     for (let i = 0; i < numberOfTests; i++) {
       try {
-
         const res = await axios.post(`http://127.0.0.1:3001/compile/${language}`, { input: input, language: language, test_number: i },
          { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
         console.log(res.data);
@@ -70,9 +67,7 @@ function OnlineCompiler() {
     // const res = await axios.post(`http://127.0.0.1:3001/save-solution`, { input: input, language: language, is_succeed: res.data.is_succeed},
     //      { headers: { 'Authorization': `${localStorage.getItem('token')}` } });
   }
-
   const my_initial_code = (lang) => {
-
     console.log(input);
     console.log(language);
     axios.post('http://127.0.0.1:3001/language', { language: lang },{ headers: { 'Authorization': `${localStorage.getItem('token')}` } }).then(res => {
@@ -81,11 +76,9 @@ function OnlineCompiler() {
       setSolution(res.data.solution)
     });
   };
-
   function handleChange(value) {
     setInput(value);
   }
-
   const [showSolution, setShowSolution] = useState(false);
   //show the solution
   const handleButtonClickSolution = () => {
@@ -116,7 +109,7 @@ function OnlineCompiler() {
         <button  className="btn btn-primary" onClick={handleButtonClickSolution}>
         {showSolution ? 'Close Solution' : 'Open Solution'}
       </button>
-      
+
       </div>
       <div className="compiler-right-content">
 
@@ -150,7 +143,6 @@ function OnlineCompiler() {
             fontSize: '16px',
           }}
         />
-
         <h3>Output</h3>
         <ul className="compiler-output-list">
           {output.map((item, index) => (
@@ -178,31 +170,10 @@ function OnlineCompiler() {
             }}
           />
         }
-=========
-        <button onClick={handleButtonClickSolution}>
-        {showSolution ? 'Close Solution' : 'Open Solution'}
-      </button>
-      {showSolution && 
-        <AceEditor
-          mode="javascript"
-          theme="monokai"
-          value={solution}
-          name="code-editor"
-          readOnly={true} // Set readOnly prop to true
-          editorProps={{ $blockScrolling: true }}
-          style={{
-            border: '1px solid black',
-            borderRadius: '5px',
-            height: '350px', // adjust this to your preferred height
-            fontSize: '16px',
-          }}
-        />
-      }
->>>>>>>>> Temporary merge branch 2
+
 
       </div>
     </div>
   );
 }
-
 export default OnlineCompiler;

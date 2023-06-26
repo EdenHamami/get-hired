@@ -38,14 +38,14 @@ const LastPage = () => {
   };
 
   return (
-    <div className="last-page-container">
+    <div className="last-page">
       <div className="last-page-container-image"></div>
       <div className='right-container'> 
         <div className='header'>
           <img src='./LastPageTitle.png' className='header-image'></img>
         </div>
         <div className='video-download-container'>
-          <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="480" src={video_link} type="video/mp4" />
+          <video ref={videoRef} className="video-js vjs-default-skin" width="640" height="400" src={video_link} type="video/mp4" />
           <button className='btn btn-primary' onClick={handleDownload}>
             Download Video
           </button>
@@ -53,7 +53,6 @@ const LastPage = () => {
         <div className='text'>
           <h3 className='video-text'>The video will be saved here on our platform for you to review anytime.<br/> If you wish to share it with friends or mentors, simply download it with the 'Download' button below.</h3>
         </div>
-        <button className="btn btn-primary home-button" onClick={handleClick} >Home page</button>
       </div>
     </div>
   );

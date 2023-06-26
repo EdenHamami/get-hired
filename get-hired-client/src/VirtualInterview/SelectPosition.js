@@ -35,7 +35,7 @@ function SelectPosition() {
   return (
     <div className="main-container">
           <div className="video-container">
-    <VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=13VdTlMoBty5OofUWdIB1H7cnZX_P5DtV"  />
+    <VideoInterviewer width="235" height="420" src={require('./videos-interviewer/page3.mp4')}  />
     </div>
     <div className="text-container">
     <h3> <b>Your next step is to choose your target position,</b></h3>

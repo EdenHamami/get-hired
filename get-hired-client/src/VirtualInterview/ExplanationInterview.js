@@ -19,7 +19,7 @@ const ExplanationInterview = () => {
   return (
 <div className="main-container">
 <div className="video-container">
-<VideoInterviewer width="235" height="420" src="https://drive.google.com/uc?export=download&id=1mR3xAl8IgHOy-wKNUGuWfDmMxg4xBDgv" />
+<VideoInterviewer width="235" height="420" src={require('./videos-interviewer/page2.mp4')} />
 </div>
 
 <div className="text-container">
