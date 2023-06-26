@@ -25,46 +25,7 @@ const verifyToken = (req, res, next) => {
 
 module.exports = function configureServer(app) {
 
-    // app.post('/saveCvData', verifyToken, async (req, res) => {
-    //     try {
-    //         var user = await User.findOne({ _id: req.user[0]._id });
-    //     } catch {
 
-    //         var user = await User.findOne({ _id: req.user._id });
-    //     }
-
-    //     try {
-
-    //         const { personalInfo, workExperience, education, skills, summary, designOptions1,
-    //             designOptions2,
-    //             designOptions3, } = req.body;
-
-    //         user.personalInfo = personalInfo;
-    //         user.workExperience = workExperience;
-    //         user.education = education;
-    //         user.skills = skills;
-    //         user.summary = summary;
-         
-    //         user.designOptions1 = designOptions1;
-    //         user.designOptions2 = designOptions2;
-    //         user.designOptions3 = designOptions3;
-    //         // console.log("save to db",personalInfo,
-    //         //     workExperience,
-    //         //     education,
-    //         //     skills,
-    //         //     summary,
-    //         //     designOptions1,
-    //         //     designOptions2,
-    //         //     designOptions3,)
-    //         await user.save();
-    //         console.log(user)
-    //         return res.status(200).json({ message: 'User data saved successfully' });
-    //     } catch (error) {
-    //         console.error('Error saving user data:', error);
-    //         return res.status(500).json({ error: 'An error occurred while saving user data' });
-    //     }
-
-    // });
     app.post('/saveCvData', verifyToken, async (req, res) => {
         try {
             var userId;
@@ -84,22 +45,16 @@ module.exports = function configureServer(app) {
                 education,
                 skills,
                 summary
-               
+
             };
-            console.log("save cv data", personalInfo,
-            workExperience,
-            education,
-            skills,
-            summary
-          
-            )
+
             const updatedUser = await User.findOneAndUpdate(
-                { _id: userId }, 
+                { _id: userId },
                 updatedFields,
                 { new: true }
             );
-            
-            console.log(updatedUser);
+
+
             return res.status(200).json({ message: 'User data saved successfully' });
         } catch (error) {
             console.error('Error saving user data:', error);
@@ -123,23 +78,17 @@ module.exports = function configureServer(app) {
                 education,
                 skills,
                 summary,
-               
+
 
             } = user;
-            console.log("load cv data", personalInfo,
-                workExperience,
-                education,
-                skills,
-                summary,
-              
-                )
+
             return res.status(200).json({
                 personalInfo,
                 workExperience,
                 education,
                 skills,
                 summary,
-               
+
             });
         } catch (error) {
             console.error('Error loading user data:', error);
