@@ -123,6 +123,7 @@ function OnlineCompiler() {
         ))}
   
         </select>
+        <button className="btn btn-primary back" onClick={handleBackClick}>back</button>
         <h3>Input</h3>
         <AceEditor
           mode="javascript"
@@ -148,7 +149,7 @@ function OnlineCompiler() {
           ))}
         </ul>
         <button id="submit" className="compiler-submit-button" onClick={my_print}>Submit</button>
-        <button className="btn btn-primary back" onClick={handleBackClick}>back</button>
+        
         {showSolution && 
           <AceEditor
             mode="javascript"

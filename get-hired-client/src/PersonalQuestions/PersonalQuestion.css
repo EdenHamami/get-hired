@@ -1,5 +1,13 @@
 /* PersonalQuestion.css */
 
+
+.back {
+  float: right;
+  margin-right: 10px;
+  position: relative;
+  top: -30px;
+}
+
 .personal-questions2-container {
   display: flex;
   height: 90vh;

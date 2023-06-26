@@ -18,6 +18,10 @@ function PersonalQuestion() {
     setShowSolution(!showSolution);
   };
 
+  const handleBackClick = () => {
+    window.history.back();
+  };
+
   const [question, setQuestion] = useState('');
   const [name, setName] = useState('');
   const [goal, setgoal] = useState('');
@@ -45,6 +49,7 @@ function PersonalQuestion() {
  <div className="personal-questions2-content-container">
     <div className="part-1">
     <div className="name">
+    <button className="btn btn-primary back" onClick={handleBackClick}>back</button>
        <h4> {name}</h4>
        </div>
        <div className="Question">
