@@ -134,8 +134,7 @@ app.post('/question/:problemId',async (req, res) => {
   //   }
   // });
   const problemId = req.params.problemId;
-  question = await PracticeProblem.findOne({ _id: problemId })
-  .populate('types', 'name');       
+  question = await PracticeProblem.findOne({ _id: problemId });       
 
   const typeNames = question.types.map(type => type.name);
   const data = {
@@ -143,8 +142,6 @@ app.post('/question/:problemId',async (req, res) => {
     content: question.content,
     examples: question.examples,
     number_of_tests: question.test.length,
-    difficultyLevel: question.difficultyLevel,
-    types: typeNames /// her i dont want to send the IDs i want to senf the names of the types
   };
   res.send(data);
 });

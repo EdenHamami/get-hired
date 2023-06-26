@@ -20,8 +20,6 @@ function OnlineCompiler() {
   const [output, setOutput] = useState([]);
   const [language, setLanguage] = useState('');
   const [question, setQuestion] = useState('');
-  const [types, setTypes] = useState([]);
-  const [difficultyLevel, setDifficultyLevel] = useState('');
   const [title, setTitle] = useState('');
   const [examples, setExamples] = useState([]);
   const [solution, setSolution] = useState('');
@@ -36,8 +34,6 @@ function OnlineCompiler() {
       setQuestion(res.data.content);
       setTitle(res.data.title);
       setNumberOfTests(res.data.number_of_tests)
-      setTypes(res.data.types)
-      setDifficultyLevel(res.data.difficultyLevel)
       console.log("her " + res.data.examples[0].input);
       res.data.examples.map((item, index) => {
         const newItem = { input: item.input, output: item.output };
@@ -94,8 +90,6 @@ function OnlineCompiler() {
     <div className="compiler-container">
       <div className="compiler-left-content">
         <h2 className="compiler-title">{title}</h2>
-        <h6 >{difficultyLevel}</h6>
-        <h6 >{types}</h6>
         <div className="compiler-question">{question}</div>
         <ul className="compiler-examples-list">
           {examples.map((item, index) => (
