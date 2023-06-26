@@ -28,9 +28,9 @@ module.exports = function configureServer(app) {
   app.post('/jobSearch', verifyToken, async (req, res) => {
     const { jobdescription, joblocation } = req.body;
     const SerpApi = require('google-search-results-nodejs');
-    const query = jobdescription.toString() + ' ' + joblocation.toString(google_api_key)
+    const query = jobdescription.toString() + ' ' + joblocation.toString()
     
-    const search = new SerpApi.GoogleSearch();
+    const search = new SerpApi.GoogleSearch(google_api_key);
     const params = {
       engine: "google_jobs",
       q: query,

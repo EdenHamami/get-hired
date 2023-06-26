@@ -9,9 +9,11 @@ function Job({
   company_name,
   location,
   via,
-  description
+  description,
+  onUnsave,
+  isFavorited = false,
 }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isFavorited);
 
   function send_job() {
     var job_to_send = {
@@ -26,7 +28,9 @@ function Job({
 
   async function save_to_favorites(event) {
     event.preventDefault();
+    event.stopPropagation(); // Prevents event from bubbling up
     setIsFavorite(!isFavorite);
+    if(!isFavorite){
     const r = await fetch('http://127.0.0.1:3001/saveJob', {
       method: 'POST',
       headers: {
@@ -36,6 +40,18 @@ function Job({
       body: JSON.stringify(send_job()),
     });
   }
+  else{
+      const r = await fetch('http://127.0.0.1:3001/unsaveJob', {
+        method: 'POST',
+        headers: {
+          Authorization: `${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(send_job()),
+      });
+      onUnsave(description);
+  }
+}
 
   return (
     <li className='job-contanier'>
@@ -61,7 +77,6 @@ function Job({
                 className={`bi bi-heart favorite-icon ${isFavorite ? 'filled' : ''}`}
                 onClick={save_to_favorites}
               ></i>
-
             </div>
           </Accordion.Header>
           <Accordion.Body>
